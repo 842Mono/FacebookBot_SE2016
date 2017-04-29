@@ -14,17 +14,28 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 // Index route
-app.get('/', function (req, res) {
-	res.send('Hello world, I am a chat bot')
-})
+app.get
+(
+	'/',
+	function (req, res)
+	{
+		res.send('Hello world, I am a chat bot')
+	}
+)
 
 // for Facebook verification
-app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
-		res.send(req.query['hub.challenge'])
+app.get
+(
+	'/webhook/',
+	function (req, res)
+	{
+		if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me')
+		{
+			res.send(req.query['hub.challenge'])
+		}
+		res.send('Error, wrong token')
 	}
-	res.send('Error, wrong token')
-})
+)
 
 
 
@@ -48,9 +59,6 @@ app.post
 	}
 )
 
-const token = "EAAatUDcBTFwBAOCvuXPZCo2WOgKxuZAkQmFwFWhPvWZA0kTNYZBkkvVbolx3hTpJ1SDEBOE0HOdznX1xp1zAlZBZBdl49m8MkS9f8TaA74UzGXLQYXChiDNlQHW2nrwCAOZBx3gYi0gwfhu3YdlofhUbWJM85QZDZD";
-
-
 
 function sendTextMessage(sender, text) {
     let messageData = { text:text }
@@ -70,6 +78,11 @@ function sendTextMessage(sender, text) {
 	    }
     })
 }
+
+
+const token = "EAAatUDcBTFwBAOCvuXPZCo2WOgKxuZAkQmFwFWhPvWZA0kTNYZBkkvVbolx3hTpJ1SDEBOE0HOdznX1xp1zAlZBZBdl49m8MkS9f8TaA74UzGXLQYXChiDNlQHW2nrwCAOZBx3gYi0gwfhu3YdlofhUbWJM85QZDZD";
+
+
 
 
 
