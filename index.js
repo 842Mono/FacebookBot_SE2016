@@ -168,7 +168,7 @@ app.post('/webhook/', function (req, res) {
 			let text = event.message.text
 
 			
-			if (text.lower() in GREETING_KEYWORDS){
+			if (GREETING_KEYWORDS.includes(text.toLowerCase())){
 				//sendTextMessage(sender,"hello");
 				var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
 				sendTextMessage(sender,rand);
