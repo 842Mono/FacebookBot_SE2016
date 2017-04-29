@@ -49,7 +49,7 @@ app.get
 			function(resp)
 			{
 				//return res.text();
-				res.json(resp.json().all);
+				res.send(resp.json().all);
 			}
 		);
 	}
