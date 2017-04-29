@@ -168,7 +168,8 @@ app.post('/webhook/', function (req, res) {
 			let text = event.message.text
 
 			if (text.lower() in GREETING_KEYWORDS)
-				sendTextMessage(sender,random.choice(GREETING_RESPONSES));
+				sendTextMessage(sender,"hello");
+				//sendTextMessage(sender,random.choice(GREETING_RESPONSES));
 
 			if (text === 'Generic') {
 				sendGenericMessage(sender)
