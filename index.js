@@ -47,10 +47,10 @@ app.get
 
 		fetch('http://54.200.48.234:8080/viewAllBusinesses').then
 		(
-			function(res)
+			function(resp)
 			{
 				//return res.text();
-				res.send(res.all);
+				res.send(resp.all);
 			}
 		);/*.then
 		(
