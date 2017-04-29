@@ -201,8 +201,40 @@ app.post('/webhook/', function (req, res) {
 			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200))
 		}
 		if (event.postback) {
-			let text = JSON.stringify(event.postback)
-			sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+			//let text = JSON.stringify(event.postback)
+			if(event.postback.payload == "First")
+			{
+				fetch(prepEndPoint('viewAllBusinesses')).then
+				(
+					function(res)
+					{
+						return res.json();
+					}
+				).then
+				(
+					function(json)
+					{
+						//res.send(json.all);
+						sendTextMessage(sender, "Postback received: " + json.all, token)
+					}
+				);
+			}
+			if(event.postback.payload == "Second")
+			{
+				fetch(prepEndPoint('viewAllBusinesses')).then
+				(
+					function(res)
+					{
+						return res.json();
+					}
+				).then
+				(
+					function(json)
+					{
+						sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
+					}
+				);
+			}
 			continue
 		}
 	}
