@@ -6,9 +6,9 @@ const request = require('request')
 const app = express()
 var fetch = require('node-fetch');
 
-GREETING_KEYWORDS = ["hello", "hi", "greetings", "sup", "what's up"];
+var GREETING_KEYWORDS = ["hello", "hi", "greetings", "sup", "what's up"];
 
-GREETING_RESPONSES = ["'sup bro", "hey", "*nods*", "hey you get my snap?"];
+var GREETING_RESPONSES = ["sup bro", "hey", "*nods*", "hey you get my snap?"];
 
 app.set('port', (process.env.PORT || 5000))
 
