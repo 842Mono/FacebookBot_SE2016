@@ -27,7 +27,16 @@ app.get
         res.send(body);
     });
 	}
-)
+);
+
+app.get
+(
+	'/test',
+	function(req,res)
+	{
+		res.send("test text");
+	}
+);
 
 // for Facebook verification
 app.get
