@@ -6,9 +6,9 @@ const request = require('request')
 const app = express()
 var fetch = require('node-fetch');
 
-var GREETING_KEYWORDS = ["hello", "hi", "greetings", "sup", "what's up"];
+var GREETING_KEYWORDS = ["hello", "hi", "eh el a5bar", "sup", "what's up"];
 
-var GREETING_RESPONSES = ["sup bro", "hey", "*nods*", "hey you get my snap?"];
+var GREETING_RESPONSES = ["sup bro", "hey :D","Hi :D" ,"Hi From Zozo :p" , "3aml eh yastaa"];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -167,17 +167,15 @@ app.post('/webhook/', function (req, res) {
 		if (event.message && event.message.text) {
 			let text = event.message.text
 
-			
 			if (GREETING_KEYWORDS.includes(text.toLowerCase())){
-				//sendTextMessage(sender,"hello");
 				var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
 				sendTextMessage(sender,rand);
 			}
-			if (text === 'Generic') {
+			else if (text === 'Generic') {
 				sendGenericMessage(sender)
 				continue
 			}
-			if (text == 'Hi') {
+			else if (text == 'Hi') {
 				sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
 			}
 			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
