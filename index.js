@@ -194,9 +194,14 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			if (text === 'Generic') {
+			if (text === 'Generic')
+			{
 				sendGenericMessage(sender)
 				continue
+			}
+			if(text == 'Hi')
+			{
+				sendTextMessage(sender, "Hi :) :)");
 			}
 			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200))
 		}
