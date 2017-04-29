@@ -62,6 +62,22 @@ app.get
 	}
 );
 
+
+app.get
+(
+	'/test3',
+	function(req,res)
+	{
+		fetch('http://54.200.48.234:8080/viewAllBusinesses')
+		    .then(function(res) {
+		        return res.json();
+		    }).then(function(json) {
+		        res.send(json.all);
+		    });
+	}
+);
+
+
 // for Facebook verification
 app.get
 (
