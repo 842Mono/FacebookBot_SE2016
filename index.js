@@ -132,7 +132,7 @@ function sendTextMessage(sender, text)
     })
 }
 
-///////////////EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD
+
 const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
 
 
@@ -153,7 +153,7 @@ function sendGenericMessage(sender) {
 				    }, {
 					    "type": "postback",
 					    "title": "Postback",
-					    "payload": "Payload for first element in a generic bubble",
+					    "payload": "First",
 				    }],
 			    }, {
 				    "title": "Second card",
@@ -162,7 +162,7 @@ function sendGenericMessage(sender) {
 				    "buttons": [{
 					    "type": "postback",
 					    "title": "Postback",
-					    "payload": "Payload for second element in a generic bubble",
+					    "payload": "Second",
 				    }],
 			    }]
 		    }
@@ -201,8 +201,24 @@ app.post('/webhook/', function (req, res) {
 			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200))
 		}
 		if (event.postback) {
-			let text = JSON.stringify(event.postback)
-			sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+			//let text = JSON.stringify(event.postback)
+			if(event.postback.payload == "First")
+			{
+				fetch(prepEndPoint('viewAllBusinesses')).then
+				(
+					function(res)
+					{
+						return res.json();
+					}
+				).then
+				(
+					function(json)
+					{
+						//res.send(json.all);
+						sendTextMessage(sender, "Postback received: "+json.all, token)
+					}
+				);
+			}
 			continue
 		}
 	}
