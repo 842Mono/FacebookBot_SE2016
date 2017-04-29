@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Process application/json
 app.use(bodyParser.json())
 
-// Index route
+
+
 app.get
 (
 	'/',
@@ -35,6 +36,28 @@ app.get
 	function(req,res)
 	{
 		res.send("test text");
+	}
+);
+
+app.get
+(
+	'/test2',
+	function(req,res)
+	{
+
+		fetch('http://54.200.48.234:8080/viewAllBusinesses').then
+		(
+			function(res)
+			{
+				return res.text();
+			}
+		).then
+		(
+			function(body)
+			{
+				res.send(body);
+			}
+		);
 	}
 );
 
