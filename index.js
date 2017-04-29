@@ -51,11 +51,11 @@ app.get
 			{
 				return res.text();
 			}
-		).then
+		);.then
 		(
 			function(body)
 			{
-				res.send(body);
+				res.json(body.all);
 			}
 		);
 	}
