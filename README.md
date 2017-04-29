@@ -1,12 +1,16 @@
 # TheBot
 
-To clone the app with heroku try using this:
+First step is to give me your heroku email so that I can add you as a contributer on heroku
+
+Then you should be able to clone the app with heroku try using this:
 
 `heroku git:clone -a pacific-peak-81142`
 
-then you should be able to make commits as usual. Then to push your changes to heroku server try:
+and you should be able to make commits as usual. Then to push your changes to heroku server try:
 
 `git push heroku master`
+
+And that's it! You should then see your changes on the Bo2loz facebook page.
 
 I think we don't need to use github at all, but I added the code as a github repo here anyway
 
