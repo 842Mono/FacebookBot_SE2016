@@ -51,7 +51,7 @@ app.get
 			{
 				return res.text();
 			}
-		);.then
+		).then
 		(
 			function(body)
 			{
