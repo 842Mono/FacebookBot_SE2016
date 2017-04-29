@@ -24,7 +24,7 @@ app.get
     .then(function(res) {
         return res.text();
     }).then(function(body) {
-        console.log(body);
+        res.send(body);
     });
 	}
 )
