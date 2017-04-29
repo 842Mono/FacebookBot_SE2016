@@ -10,11 +10,12 @@ then you should be able to make commits as usual. Then to push your changes to h
 
 I think we don't need to use github at all, but I added the code as a github repo here anyway
 
+Here's what I did:
 
-Anyways I think you can add the github remote like this
+Added the github remote like this
 
 `git remote add github https://github.com/842Mono/TheBot.git`
 
-Then you can also push to github the same way as usual
+Then to push to github:
 
 `git push github master`
