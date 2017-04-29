@@ -159,68 +159,77 @@ function sendGenericMessage(sender) {
 
 
 
-app.post('/webhook/', function (req, res) {
-	let messaging_events = req.body.entry[0].messaging
-	for (let i = 0; i < messaging_events.length; i++) {
-		let event = req.body.entry[0].messaging[i]
-		let sender = event.sender.id
-		if (event.message && event.message.text) {
-			let text = event.message.text
-			try {
-				for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
-					if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
-						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-						sendTextMessage(sender, rand);
-						continue
-					}
+app.post
+(
+	'/webhook/',
+	function (req, res)
+	{
+		try
+		{
+			let messaging_events = req.body.entry[0].messaging
+			for (let i = 0; i < messaging_events.length; i++) {
+				let event = req.body.entry[0].messaging[i]
+				let sender = event.sender.id
+				if (event.message && event.message.text) {
+					let text = event.message.text
+
+						for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
+							if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
+								var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+								sendTextMessage(sender, rand);
+								continue
+							}
+						}
+						if (text === 'Generic') {
+							sendGenericMessage(sender)
+							continue
+						}
+						else if (text == 'Hi') {
+							sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+						}
+						//	sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+
 				}
-				if (text === 'Generic') {
-					sendGenericMessage(sender)
+				if (event.postback) {
+					//let text = JSON.stringify(event.postback)
+					if (event.postback.payload == "First") {
+						fetch(prepEndPoint('viewAllBusinesses')).then
+							(
+							function (res) {
+								return res.json();
+							}
+							).then
+							(
+							function (json) {
+								//res.send(json.all);
+								sendTextMessage(sender, "Postback received: " + json.all, token)
+							}
+							);
+					}
+					if (event.postback.payload == "Second") {
+						fetch(prepEndPoint('viewAllBusinesses')).then
+							(
+							function (res) {
+								return res.json();
+							}
+							).then
+							(
+							function (json) {
+								sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
+							}
+							);
+					}
 					continue
 				}
-				else if (text == 'Hi') {
-					sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-				}
-				//	sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
-			} catch (err){
-				sendTextMessage(sender,err.message);
 			}
+			res.sendStatus(200)
 		}
-
-		if (event.postback) {
-			//let text = JSON.stringify(event.postback)
-			if (event.postback.payload == "First") {
-				fetch(prepEndPoint('viewAllBusinesses')).then
-					(
-					function (res) {
-						return res.json();
-					}
-					).then
-					(
-					function (json) {
-						//res.send(json.all);
-						sendTextMessage(sender, "Postback received: " + json.all, token)
-					}
-					);
-			}
-			if (event.postback.payload == "Second") {
-				fetch(prepEndPoint('viewAllBusinesses')).then
-					(
-					function (res) {
-						return res.json();
-					}
-					).then
-					(
-					function (json) {
-						sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
-					}
-					);
-			}
-			continue
+		catch (err)
+		{
+			sendTextMessage(sender,err.message);
 		}
 	}
-	res.sendStatus(200)
-})
+);
 
 
 
