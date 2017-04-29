@@ -92,6 +92,25 @@ app.get
 )
 
 
+
+/*app.post('/webhook/', function (req, res) {
+    let messaging_events = req.body.entry[0].messaging
+    for (let i = 0; i < messaging_events.length; i++) {
+	    let event = req.body.entry[0].messaging[i]
+	    let sender = event.sender.id
+	    if (event.message && event.message.text) {
+		    let text = event.message.text
+		    if (text === 'Generic') {
+			    sendGenericMessage(sender)
+		    	continue
+		    }
+		    sendTextMessage(sender, "Men Ommo Zozo w'Abo Sandy 2yla'l rasel:" + text.substring(0, 200))
+	    }
+    }
+    res.sendStatus(200)
+})*/
+
+
 function sendTextMessage(sender, text)
 {
     let messageData = { text:text }
@@ -113,6 +132,7 @@ function sendTextMessage(sender, text)
     })
 }
 
+///////////////EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD
 const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
 
 
