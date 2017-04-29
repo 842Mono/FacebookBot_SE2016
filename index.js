@@ -44,23 +44,17 @@ app.get
 	'/test2',
 	function(req,res)
 	{
-
 		fetch('http://54.200.48.234:8080/viewAllBusinesses').then
 		(
 			function(resp)
 			{
 				//return res.text();
-				res.send(resp.all);
+				res.json(resp.json().all);
 			}
-		);/*.then
-		(
-			function(body)
-			{
-				res.json(body.all);
-			}
-		);*/
+		);
 	}
 );
+
 
 
 app.get
