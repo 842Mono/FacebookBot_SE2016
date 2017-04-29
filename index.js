@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+var fetch = require('node-fetch');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -19,7 +20,12 @@ app.get
 	'/',
 	function (req, res)
 	{
-		res.send('Hello world, I am a chat bot')
+		fetch('http://54.200.48.234:8080/')
+    .then(function(res) {
+        return res.text();
+    }).then(function(body) {
+        console.log(body);
+    });
 	}
 )
 
