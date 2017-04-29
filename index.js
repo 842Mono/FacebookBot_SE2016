@@ -8,7 +8,7 @@ var fetch = require('node-fetch');
 
 var GREETING_KEYWORDS = ["hello", "hi", "eh el a5bar", "sup", "what's up"];
 
-var GREETING_RESPONSES = ["sup bro", "hey :D","Hi :D" ,"Hi From Zozo :p" , "3aml eh yastaa"];
+var GREETING_RESPONSES = ["sup bro", "hey :D", "Hi :D", "Hi From Zozo :p", "3aml eh yastaa"];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -167,11 +167,14 @@ app.post('/webhook/', function (req, res) {
 		if (event.message && event.message.text) {
 			let text = event.message.text
 
-			if (GREETING_KEYWORDS.includes(text.toLowerCase())){
-				var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-				sendTextMessage(sender,rand);
+			for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
+				if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
+					var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+					sendTextMessage(sender, rand);
+					break;
+				}
 			}
-			else if (text === 'Generic') {
+			if (text === 'Generic') {
 				sendGenericMessage(sender)
 				continue
 			}
