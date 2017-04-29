@@ -78,8 +78,8 @@ function sendTextMessage(sender, text)
     })
 }
 
-
-const token = "EAAatUDcBTFwBAOCvuXPZCo2WOgKxuZAkQmFwFWhPvWZA0kTNYZBkkvVbolx3hTpJ1SDEBOE0HOdznX1xp1zAlZBZBdl49m8MkS9f8TaA74UzGXLQYXChiDNlQHW2nrwCAOZBx3gYi0gwfhu3YdlofhUbWJM85QZDZD";
+///////////////EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD
+const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
 
 
 function sendGenericMessage(sender) {
