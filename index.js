@@ -6,9 +6,9 @@ const request = require('request')
 const app = express()
 var fetch = require('node-fetch');
 
-GREETING_KEYWORDS = ("hello", "hi", "greetings", "sup", "what's up")
+GREETING_KEYWORDS = ["hello", "hi", "greetings", "sup", "what's up"];
 
-GREETING_RESPONSES = ["'sup bro", "hey", "*nods*", "hey you get my snap?"]
+GREETING_RESPONSES = ["'sup bro", "hey", "*nods*", "hey you get my snap?"];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -166,7 +166,7 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			
+
 			if (text.lower() in GREETING_KEYWORDS)
 				sendTextMessage(sender,random.choice(GREETING_RESPONSES));
 
