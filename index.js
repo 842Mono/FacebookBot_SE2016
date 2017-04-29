@@ -166,23 +166,27 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-
-			for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
-				if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
-					var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-					sendTextMessage(sender, rand);
-					break;
+			try {
+				for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
+					if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
+						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+						sendTextMessage(sender, rand);
+						continue
+					}
 				}
+				if (text === 'Generic') {
+					sendGenericMessage(sender)
+					continue
+				}
+				else if (text == 'Hi') {
+					sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+				}
+				//	sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+			} catch (err){
+				sendTextMessage(sender,err.message);
 			}
-			if (text === 'Generic') {
-				sendGenericMessage(sender)
-				continue
-			}
-			else if (text == 'Hi') {
-				sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-			}
-			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
 		}
+
 		if (event.postback) {
 			//let text = JSON.stringify(event.postback)
 			if (event.postback.payload == "First") {
