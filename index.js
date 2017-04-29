@@ -14,14 +14,16 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Process application/json
 app.use(bodyParser.json())
 
+var prepEndPoint = function(path)
+{
+	var rootURL = 'http://54.200.48.234:8080/';
+	return rootURL + path;
+}
 
-
-app.get
-(
-	'/',
+app.get('/',
 	function (req, res)
 	{
-		fetch('http://54.200.48.234:8080/')
+		fetch(prepEndPoint(''))
     .then(function(res) {
         return res.text();
     }).then(function(body) {
@@ -30,21 +32,19 @@ app.get
 	}
 );
 
-app.get
-(
-	'/test',
+app.get('/test',
 	function(req,res)
 	{
 		res.send("test text");
 	}
 );
 
-app.get
-(
-	'/test2',
+
+//NOT WORKING
+app.get('/test2',
 	function(req,res)
 	{
-		fetch('http://54.200.48.234:8080/viewAllBusinesses').then
+		fetch(prepEndPoint('viewAllBusinesses')).then
 		(
 			function(resp)
 			{
@@ -57,17 +57,22 @@ app.get
 
 
 
-app.get
-(
-	'/test3',
+app.get('/test3',
 	function(req,res)
 	{
-		fetch('http://54.200.48.234:8080/viewAllBusinesses')
-		    .then(function(res) {
-		        return res.json();
-		    }).then(function(json) {
-		        res.send(json.all);
-		    });
+		fetch(prepEndPoint('viewAllBusinesses')).then
+		(
+			function(res)
+			{
+		  	return res.json();
+		  }
+		).then
+		(
+			function(json)
+			{
+		  	res.send(json.all);
+		  }
+		);
 	}
 );
 
