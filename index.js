@@ -49,15 +49,16 @@ app.get
 		(
 			function(res)
 			{
-				return res.text();
+				//return res.text();
+				res.send(res.all);
 			}
-		).then
+		);/*.then
 		(
 			function(body)
 			{
 				res.json(body.all);
 			}
-		);
+		);*/
 	}
 );
 
