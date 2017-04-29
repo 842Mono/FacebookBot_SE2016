@@ -215,7 +215,24 @@ app.post('/webhook/', function (req, res) {
 					function(json)
 					{
 						//res.send(json.all);
-						sendTextMessage(sender, "Postback received: "+json.all, token)
+						sendTextMessage(sender, "Postback received: " + json.all, token)
+					}
+				);
+			}
+			if(event.postback.payload == "Second")
+			{
+				fetch(prepEndPoint('viewAllBusinesses')).then
+				(
+					function(res)
+					{
+						return res.json();
+					}
+				).then
+				(
+					function(json)
+					{
+						json.all.
+						sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
 					}
 				);
 			}
