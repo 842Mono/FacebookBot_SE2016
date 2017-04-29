@@ -194,11 +194,16 @@ app.post('/webhook/', function (req, res) {
 		let sender = event.sender.id
 		if (event.message && event.message.text) {
 			let text = event.message.text
-			if (text === 'Generic') {
+			if (text === 'Generic')
+			{
 				sendGenericMessage(sender)
 				continue
 			}
-			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200))
+			if(text == 'Hi')
+			{
+				sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+			}
+			sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
 		}
 		if (event.postback) {
 			//let text = JSON.stringify(event.postback)
