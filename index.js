@@ -231,7 +231,6 @@ app.post('/webhook/', function (req, res) {
 				(
 					function(json)
 					{
-						json.all.
 						sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
 					}
 				);
