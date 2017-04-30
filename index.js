@@ -201,7 +201,7 @@ function showBusinesses(sender)
 					[
 						{
 							"type": "web_url",
-							"url": prepLink('detailedBusiness/' + business.name),
+							"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
 						},
 						{
