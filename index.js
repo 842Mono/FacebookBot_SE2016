@@ -174,7 +174,6 @@ app.post
 				{
 					let text = event.message.text
 
-						a = b;
 
 						if (text === 'Generic')
 						{
