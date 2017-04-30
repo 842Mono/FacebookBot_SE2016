@@ -363,9 +363,9 @@ function showAllActivities(sender)
 		{
 			var arrayOfActivities = [];
 
-			for(let x = 0; x < arrayOfActivities.allActivities.length; ++x)
+			for(let x = 0; x < json.allActivities.length; ++x)
 			{
-				let activity = arrayOfActivities.allActivities[x];
+				let activity = json.allActivities[x];
 				//console.log(business);
 				let activityElement =
 				{
