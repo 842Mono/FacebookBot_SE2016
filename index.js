@@ -167,28 +167,23 @@ app.post('/webhook/',
 			let sender = event.sender.id
 			if (event.message && event.message.text) {
 				let text = event.message.text
-				var greetWord = false;
-				for (var j = 0; j < GREETING_KEYWORDS.length; j++) {
-					if (text.indexOf(GREETING_KEYWORDS[j]) >= 0) {
-						greetWord = true;
-						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-						sendTextMessage(sender, rand);
-						break;
-					}
+
+				if (GREETING_KEYWORDS.includes(text.toLowerCase())) {
+					var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+					sendTextMessage(sender, rand);
 				}
-				if (greetWord == false) {
-					if (text === 'Generic') {
-						sendGenericMessage(sender)
-						continue
-					}
-					else if (text == 'Hi') {
-						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-					}
-					else {
-						sendTextMessage(sender, "Atoof bysaba7 foll 3alek: " + text.substring(0, 200) + " :D")
-					}
+				else if (text === 'Generic') {
+					sendGenericMessage(sender)
+					continue
+				}
+				else if (text == 'Hi') {
+					sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+				}
+				else {
+					sendTextMessage(sender, "Atoof bysaba7 foll 3alek: " + text.substring(0, 200) + " :D")
 				}
 			}
+
 			if (event.postback) {
 				//let text = JSON.stringify(event.postback)
 				if (event.postback.payload == "First") {
