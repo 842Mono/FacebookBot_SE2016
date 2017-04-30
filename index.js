@@ -18,13 +18,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Process application/json
 app.use(bodyParser.json())
 
-var prepEndPoint = function (path) {
+var prepEndPoint = function (path)
+{
 	var rootURL = 'http://54.200.48.234:8080/';
 	return rootURL + path;
 }
 
-var prepLink = function (path) {
-	var rootURL = 'http://54.200.48.234:4200/';
+var prepLink = function(path)
+{
+	var rootURL = 'http://winningeleven.ml/';
 	return rootURL + path;
 }
 
@@ -62,18 +64,21 @@ app.get('/test2',
 
 
 app.get('/test3',
-	function (req, res) {
+	function (req, res)
+	{
 		fetch(prepEndPoint('viewAllBusinesses')).then
-			(
-			function (res) {
+		(
+			function (res)
+			{
 				return res.json();
 			}
-			).then
-			(
-			function (json) {
+		).then
+		(
+			function (json)
+			{
 				res.send(json.all);
 			}
-			);
+		);
 	}
 );
 
@@ -162,57 +167,61 @@ function sendGenericMessage(sender) {
 	})
 }
 
-function showBusinesses(sender) {
+function showBusinesses(sender)
+{
 	fetch(prepEndPoint('viewAllBusinesses')).then
-		(
-		function (res) {
+	(
+		function (res)
+		{
 			return res.json();
 		}
-		).then
-		(
-		function (json) {
+	).then
+	(
+		function(json)
+		{
 			var arrayOfBusinesses = [];
 
-			for (let x = 0; x < json.all.length; ++x) {
+			for(let x = 0; x < json.all.length; ++x)
+			{
 				let business = json.all[x];
 				//console.log(business);
 				let businessElement =
-					{
-						"title": business.name,
-						"subtitle": business.description,
-						"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
-						"buttons":
-						[
-							{
-								"type": "web_url",
-								"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-								"title": "View Details"
-							},
-							{
-								"type": "postback",
-								"title": "Show Activities",
-								"payload": business.name
-							}
-						],
-					};
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						},
+						{
+							"type": "postback",
+							"title": "Show Activities",
+							"payload":"sa"+business.name
+						}
+					],
+				};
 
 				arrayOfBusinesses.push(businessElement);
 			}
 			//console.log(arrayOfBusinesses);
 			let messageData =
+			{
+				"attachment":
 				{
-					"attachment":
+					"type": "template",
+					"payload":
 					{
-						"type": "template",
-						"payload":
-						{
-							"template_type": "generic",
-							"elements": arrayOfBusinesses
-						}
+						"template_type": "generic",
+						"elements":arrayOfBusinesses
 					}
 				}
+			}
 			request
-				(
+			(
 				{
 					url: 'https://graph.facebook.com/v2.6/me/messages',
 					qs: { access_token: token },
@@ -224,56 +233,77 @@ function showBusinesses(sender) {
 					}
 				},
 				function (error, response, body) {
-					if (error) {
-						console.log('Error sending messages: ', error)
-					} else if (response.body.error) {
-						console.log('Error: ', response.body.error)
-					}
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
 				}
-				)
+			}
+		)
 
 		}
-		);
+	);
 }
 
 
-function showActivities(sender) {
+
+
+function showActivities(sender)
+{
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
-		(
-		function (res) {
+	(
+		function (res)
+		{
 			return res.json();
 		}
-		).then
-		(
-		function (json) {
+	).then
+	(
+		function(json)
+		{
 			console.log(json);
 
 			var arrayOfActivities = [];
 
-			for (let x = 0; x < json.all.length; ++x) {
+			for(let x = 0; x < json.all.length; ++x)
+			{
 				let business = json.all[x];
 
 				console.log(business);
 
 				let businessElement =
-					{
-						"title": business.name,
-						"subtitle": business.description,
-						"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
-						"buttons":
-						[
-							{
-								"type": "web_url",
-								"url": prepLink('detailedBusiness/' + business.name),
-								"title": "View Details"
-							}/*,
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						}/*,
 						{
 							"type": "postback",
 							"title": "Postback",
 							"payload": "Payload for first element in a generic bubble",
 						}*/
-						],
-					};
+					],
+				};
+
+				/*{
+					"title": "First card",
+					"subtitle": "Element #1 of an hscroll",
+					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+					"buttons": [{
+						"type": "web_url",
+						"url": "https://www.messenger.com",
+						"title": "web url"
+					}, {
+						"type": "postback",
+						"title": "Postback",
+						"payload": "Payload for first element in a generic bubble",
+					}],
+				}*/
 
 				arrayOfBusinesses.push(businessElement);
 			}
@@ -281,19 +311,19 @@ function showActivities(sender) {
 			console.log(arrayOfBusinesses);
 
 			let messageData =
+			{
+				"attachment":
 				{
-					"attachment":
+					"type": "template",
+					"payload":
 					{
-						"type": "template",
-						"payload":
-						{
-							"template_type": "generic",
-							"elements": arrayOfBusinesses
-						}
+						"template_type": "generic",
+						"elements":arrayOfBusinesses
 					}
 				}
+			}
 			request
-				(
+			(
 				{
 					url: 'https://graph.facebook.com/v2.6/me/messages',
 					qs: { access_token: token },
@@ -305,185 +335,232 @@ function showActivities(sender) {
 					}
 				},
 				function (error, response, body) {
-					if (error) {
-						console.log('Error sending messages: ', error)
-					} else if (response.body.error) {
-						console.log('Error: ', response.body.error)
-					}
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
 				}
-				)
+			}
+		)
 
 		}
-		);
+	);
 }
 
 
 
-app.post
+function showAllActivities(sender)
+{
+	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
 	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function(json)
+		{
+			var arrayOfActivities = [];
+			console.log(json);
+			for(let x = 0; x < json.activities.length; ++x)
+			{
+				let activity = json.activities[x];
+				//console.log(business);
+				let activityElement =
+				{
+					"title": activity.name,
+					"subtitle": activity.description,
+			//		"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						}/*,
+						{
+							"type": "postback",
+							"title": "Show details",
+							"payload":activity.name
+						}*/
+					],
+				};
+
+				arrayOfActivities.push(activityElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements":arrayOfActivities
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
+				}
+			}
+		)
+
+		}
+	);
+}
+
+
+app.post
+(
 	'/webhook/',
-	function (req, res) {
-		let messaging_events = req.body.entry[0].messaging
-		for (let i = 0; i < messaging_events.length; i++) {
-			let event = req.body.entry[0].messaging[i]
-			let sender = event.sender.id
-			if (event.message && event.message.text) {
-				let text = event.message.text
+	function (req, res)
+	{
+			let messaging_events = req.body.entry[0].messaging
+			for (let i = 0; i < messaging_events.length; i++)
+			{
+				let event = req.body.entry[0].messaging[i]
+				let sender = event.sender.id
+				if (event.message && event.message.text)
+				{
+					let text = event.message.text
 
-				if (text === 'Generic') {
-					sendGenericMessage(sender)
-					continue
-				}
-				else if (text.toLowerCase() == "show businesses") {
-					showBusinesses(sender)
-					continue
-				}
-				//else if(text.toLowerCase() == "show activities")
-				//{
-				//showActivities(sender)
-				//sendTextMessage(sender, "in progress " + )
-				//continue
-				//}
-				else {
-					sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
-					continue
-				}
+					if (text === 'Generic')
+					{
+						sendGenericMessage(sender)
+						continue
+					}
+					else if (text.toLowerCase() == "show businesses")
+					{
+						showBusinesses(sender)
+						continue
+					}
+					else if(text.toLowerCase() == "show activities")
+					{
+						showAllActivities(sender)
+						continue
+					}
+					else
+					{
+						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
+						continue
+					}
 
-				if (text === 'Generic') {
-					sendGenericMessage(sender)
-					continue
 				}
-				if (event.postback) {
-					//sendTextMessage(sender, event.postback.payload);
-					fetch(prepEndPoint('check/' + event.postback.payload)).then
+				if(event.postback && event.postback.payload)
+				{
+					console.log("el event.postback");
+					//console.log(event.postback);
+					if(event.postback.payload.substring(0,2) == "sa")
+					{
+						//sendTextMessage(sender, event.postback.payload);
+						var businessName = event.postback.payload.substring(2);
+						//console.log(event.postback.payload.substring(2));
+						fetch(prepEndPoint('check/' + businessName)).then
 						(
-						function (res) {
-							return res.json();
-						}
+							function (res)
+							{
+								return res.json();
+							}
 						).then
 						(
-						function (json) {
-							console.log(json);
+							function(json)
+							{
+									var arrayOfActivities = [];
 
-							var arrayOfActivities = [];
-
-							for (let x = 0; x < json.allActivities.length; ++x) {
-								let activity = json.allActivities[x];
-
-								console.log(activity);
-
-								let activityElement =
+									for(let x = 0; x < json.allActivities.length; ++x)
 									{
-										"title": activity.name,
-										"subtitle": activity.description,
-										"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
-										"buttons":
-										[
-											{
-												"type": "web_url",
-												"url": "https://www.messenger.com", //prepLink('detailedBusiness/' + business.name),
-												"title": "View Details"
-											}/*,
+										let activity = json.allActivities[x];
+
+										//console.log("activityhaya");
+										//.log(activity);
+
+										let activityElement =
+										{
+											"title": activity.name,
+											"subtitle": activity.description,
+								//			"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+											"buttons":
+											[
+												{
+													"type": "web_url",
+													"url": prepLink('DetailedActivity/' + activity.ID),
+													"title": "View Details"
+												}/*,
 												{
 													"type": "postback",
 													"title": "Postback",
 													"payload": "Payload for first element in a generic bubble",
 												}*/
-										],
-									};
+											],
+										};
 
-								arrayOfBusinesses.push(activityElement);
-							}
+										arrayOfActivities.push(activityElement);
+									}
 
-							console.log(arrayOfActivities);
+									console.log(arrayOfActivities);
 
-							let messageData =
-								{
-									"attachment":
+									let messageData =
 									{
-										"type": "template",
-										"payload":
+										"attachment":
 										{
-											"template_type": "generic",
-											"elements": arrayOfActivities
+											"type": "template",
+											"payload":
+											{
+												"template_type": "generic",
+												"elements":arrayOfActivities
+											}
 										}
 									}
-								}
-							request
-								(
-								{
-									url: 'https://graph.facebook.com/v2.6/me/messages',
-									qs: { access_token: token },
-									method: 'POST',
-									json:
-									{
-										recipient: { id: sender },
-										message: messageData,
+									request
+									(
+										{
+											url: 'https://graph.facebook.com/v2.6/me/messages',
+											qs: { access_token: token },
+											method: 'POST',
+											json:
+											{
+												recipient: { id: sender },
+												message: messageData,
+											}
+										},
+										function (error, response, body) {
+										if (error) {
+											console.log('Error sending messages: ', error)
+										} else if (response.body.error) {
+											console.log('Error: ', response.body.error)
+										}
 									}
-								},
-								function (error, response, body) {
-									if (error) {
-										console.log('Error sending messages: ', error)
-									} else if (response.body.error) {
-										console.log('Error: ', response.body.error)
-									}
-								}
 								)
 
-						}
+								}
 						);
-				}
-				else if (event.postback.payload.action == "Second") {
-					fetch(prepEndPoint('viewAllBusinesses')).then
-						(
-						function (res) {
-							return res.json();
-						}
-						).then
-						(
-						function (json) {
-							sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
-						}
-						);
-				}
-				continue
-			}
+					}
 
+
+
+
+					continue
+				}
+			}
 			res.sendStatus(200)
-
-
-			if (event.postback) {
-				//let text = JSON.stringify(event.postback)
-				if (event.postback.payload == "First") {
-					fetch(prepEndPoint('viewAllBusinesses')).then
-						(
-						function (res) {
-							return res.json();
-						}
-						).then
-						(
-						function (json) {
-							//res.send(json.all);
-							sendTextMessage(sender, "Postback received: " + json.all)
-						}
-						);
-				}
-				if (event.postback.payload == "Second") {
-					fetch(prepEndPoint('viewAllBusinesses')).then
-						(
-						function (res) {
-							return res.json();
-						}
-						).then
-						(
-						function (json) {
-							sendTextMessage(sender, "Postback received: " + json.all[0].email)
-						}
-						);
-				}
-				continue
-			}
-		}
 	}
 );
 
