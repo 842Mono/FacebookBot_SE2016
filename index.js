@@ -171,12 +171,14 @@ app.post
 				if (event.message && event.message.text) {
 					let text = event.message.text
 
-					if (text.indexOf(GREETING_KEYWORDS) >= 0) {
-						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-						sendTextMessage(sender, rand, token);
+					for (var j = 0; j < GREETING_KEYWORDS.length; j++) {
+						if (text.indexOf(GREETING_KEYWORDS[j]) >= 0) {
+							var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+							sendTextMessage(sender, rand, token);
+						}
 					}
 
-					else if (text === 'Generic') {
+					if (text === 'Generic') {
 						sendGenericMessage(sender)
 						continue
 					}
