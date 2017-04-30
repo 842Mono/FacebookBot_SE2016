@@ -23,6 +23,11 @@ var prepEndPoint = function (path) {
 	return rootURL + path;
 }
 
+var prepLink = function (path) {
+	var rootURL = 'http://54.200.48.234:4200/';
+	return rootURL + path;
+}
+
 app.get('/',
 	function (req, res) {
 		fetch(prepEndPoint(''))
@@ -157,10 +162,168 @@ function sendGenericMessage(sender) {
 	})
 }
 
+function showBusinesses(sender) {
+	fetch(prepEndPoint('viewAllBusinesses')).then
+		(
+		function (res) {
+			return res.json();
+		}
+		).then
+		(
+		function (json) {
+			var arrayOfBusinesses = [];
+
+			for (let x = 0; x < json.all.length; ++x) {
+				let business = json.all[x];
+				//console.log(business);
+				let businessElement =
+					{
+						"title": business.name,
+						"subtitle": business.description,
+						"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+						"buttons":
+						[
+							{
+								"type": "web_url",
+								"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+								"title": "View Details"
+							},
+							{
+								"type": "postback",
+								"title": "Show Specific Activities",
+								"payload": business.name
+							}
+						],
+					};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+				{
+					"attachment":
+					{
+						"type": "template",
+						"payload":
+						{
+							"template_type": "generic",
+							"elements": arrayOfBusinesses
+						}
+					}
+				}
+			request
+				(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+					if (error) {
+						console.log('Error sending messages: ', error)
+					} else if (response.body.error) {
+						console.log('Error: ', response.body.error)
+					}
+				}
+				)
+
+		}
+		);
+}
 
 
-app.post('/webhook/',
+function showActivities(sender) {
+	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
+		(
+		function (res) {
+			return res.json();
+		}
+		).then
+		(
+		function (json) {
+			console.log(json);
+
+			var arrayOfActivities = [];
+
+			for (let x = 0; x < json.all.length; ++x) {
+				let business = json.all[x];
+
+				console.log(business);
+
+				let businessElement =
+					{
+						"title": business.name,
+						"subtitle": business.description,
+						"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+						"buttons":
+						[
+							{
+								"type": "web_url",
+								"url": prepLink('detailedBusiness/' + business.name),
+								"title": "View Details"
+							}/*,
+						{
+							"type": "postback",
+							"title": "Postback",
+							"payload": "Payload for first element in a generic bubble",
+						}*/
+						],
+					};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+
+			console.log(arrayOfBusinesses);
+
+			let messageData =
+				{
+					"attachment":
+					{
+						"type": "template",
+						"payload":
+						{
+							"template_type": "generic",
+							"elements": arrayOfBusinesses
+						}
+					}
+				}
+			request
+				(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+					if (error) {
+						console.log('Error sending messages: ', error)
+					} else if (response.body.error) {
+						console.log('Error: ', response.body.error)
+					}
+				}
+				)
+
+		}
+		);
+}
+
+
+
+app.post
+	(
+	'/webhook/',
 	function (req, res) {
+
 		let messaging_events = req.body.entry[0].messaging
 		for (let i = 0; i < messaging_events.length; i++) {
 			let event = req.body.entry[0].messaging[i]
@@ -168,39 +331,26 @@ app.post('/webhook/',
 			if (event.message && event.message.text) {
 				let text = event.message.text
 
-				if (GREETING_KEYWORDS.includes(text.toLowerCase())) {
-					var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-					sendTextMessage(sender, rand);
-				}
-				else if (text === 'Generic') {
+				if (text === 'Generic') {
 					sendGenericMessage(sender)
 					continue
 				}
-				else if (text == 'Hi') {
-					sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+				else if (text.toLowerCase() == "show businesses") {
+					showBusinesses(sender)
+					continue
 				}
 				else {
-					sendTextMessage(sender, "Atoof bysaba7 foll 3alek: " + text.substring(0, 200) + " :D")
+					sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
+					continue
 				}
+				
 			}
-
 			if (event.postback) {
 				//let text = JSON.stringify(event.postback)
-				if (event.postback.payload == "First") {
-					fetch(prepEndPoint('viewAllBusinesses')).then
-						(
-						function (res) {
-							return res.json();
-						}
-						).then
-						(
-						function (json) {
-							//res.send(json.all);
-							sendTextMessage(sender, "Postback received: " + json.all)
-						}
-						);
+				if (event.postback) {
+					sendTextMessage(sender, event.postback.payload);
 				}
-				if (event.postback.payload == "Second") {
+				else if (event.postback.payload.action == "Second") {
 					fetch(prepEndPoint('viewAllBusinesses')).then
 						(
 						function (res) {
@@ -209,16 +359,53 @@ app.post('/webhook/',
 						).then
 						(
 						function (json) {
-							sendTextMessage(sender, "Postback received: " + json.all[0].email)
+							sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
 						}
 						);
 				}
 				continue
 			}
+			else if (text == 'Hi') {
+				sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+			}
+			else {
+				sendTextMessage(sender, "Atoof bysaba7 foll 3alek: " + text.substring(0, 200) + " :D")
+			}
+		}
+
+		if (event.postback) {
+			//let text = JSON.stringify(event.postback)
+			if (event.postback.payload == "First") {
+				fetch(prepEndPoint('viewAllBusinesses')).then
+					(
+					function (res) {
+						return res.json();
+					}
+					).then
+					(
+					function (json) {
+						//res.send(json.all);
+						sendTextMessage(sender, "Postback received: " + json.all)
+					}
+					);
+			}
+			if (event.postback.payload == "Second") {
+				fetch(prepEndPoint('viewAllBusinesses')).then
+					(
+					function (res) {
+						return res.json();
+					}
+					).then
+					(
+					function (json) {
+						sendTextMessage(sender, "Postback received: " + json.all[0].email)
+					}
+					);
+			}
+			continue
 		}
 	}
-
-);
+	);
 
 
 
