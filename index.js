@@ -185,7 +185,7 @@ app.post
 					else if (text == 'Hi') {
 						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
 					}
-					sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+				//	sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
 
 				}
 				if (event.postback) {
