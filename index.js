@@ -176,7 +176,7 @@ app.post('/webhook/',
 						break;
 					}
 				}
-				if (greetWord  == false) {
+				if (greetWord == false) {
 					if (text === 'Generic') {
 						sendGenericMessage(sender)
 						continue
@@ -185,7 +185,7 @@ app.post('/webhook/',
 						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
 					}
 					else {
-						sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+						sendTextMessage(sender, "Atoof bysaba7 foll 3alek: " + text.substring(0, 200) + " :D")
 					}
 				}
 			}
@@ -223,7 +223,7 @@ app.post('/webhook/',
 		}
 	}
 
-	);
+);
 
 
 
