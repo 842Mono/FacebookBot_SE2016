@@ -164,8 +164,7 @@ app.post
 	'/webhook/',
 	function (req, res)
 	{
-		try
-		{
+
 			let messaging_events = req.body.entry[0].messaging
 			for (let i = 0; i < messaging_events.length; i++) {
 				let event = req.body.entry[0].messaging[i]
@@ -173,13 +172,13 @@ app.post
 				if (event.message && event.message.text) {
 					let text = event.message.text
 
-						for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
+						/*for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
 							if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
 								var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
 								sendTextMessage(sender, rand);
 								continue
 							}
-						}
+						}*/
 						if (text === 'Generic') {
 							sendGenericMessage(sender)
 							continue
@@ -223,12 +222,8 @@ app.post
 				}
 			}
 			res.sendStatus(200)
-		}
-		catch (err)
-		{
-			sendTextMessage(sender,err.message);
-			res.sendStatus(200);
-		}
+
+
 	}
 );
 
