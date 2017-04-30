@@ -393,14 +393,15 @@ app.post
 					}
 
 				}
-				if(event.postback)
+				if(event.postback && event.postback.payload)
 				{
 					console.log("el event.postback");
-					console.log(event.postback);
+					//console.log(event.postback);
 					if(event.postback.payload.substring(0,2) == "sa")
 					{
 						//sendTextMessage(sender, event.postback.payload);
-						fetch(prepEndPoint('check/' + event.postback.payload)).then
+						console.log(event.postback.payload.substring(2));
+						fetch(prepEndPoint('check/' + event.postback.payload.substring(2))).then
 						(
 							function (res)
 							{
@@ -408,11 +409,8 @@ app.post
 							}
 						).then
 						(
-							function (json)
+							function(json)
 							{
-									console.log("el json men el backend");
-									console.log(json);
-
 									var arrayOfActivities = [];
 
 									for(let x = 0; x < json.allActivities.length; ++x)
@@ -483,27 +481,14 @@ app.post
 								}
 						);
 					}
-					else if(false)// (event.postback.payload.action == "Second")
-					{
-						fetch(prepEndPoint('viewAllBusinesses')).then
-							(
-							function (res) {
-								return res.json();
-							}
-							).then
-							(
-							function (json) {
-								sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
-							}
-							);
-					}
+
+
+
+
 					continue
 				}
 			}
-
 			res.sendStatus(200)
-
-
 	}
 );
 
