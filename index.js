@@ -167,25 +167,27 @@ app.post('/webhook/',
 			let sender = event.sender.id
 			if (event.message && event.message.text) {
 				let text = event.message.text
-
+				var greetWord = false;
 				for (var j = 0; j < GREETING_KEYWORDS.length; j++) {
 					if (text.indexOf(GREETING_KEYWORDS[j]) >= 0) {
+						greetWord = true;
 						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-						sendTextMessage(sender, rand, token);
+						sendTextMessage(sender, rand);
 						break;
 					}
 				}
-				if (text === 'Generic') {
-					sendGenericMessage(sender)
-					continue
+				if (greetWord  == false) {
+					if (text === 'Generic') {
+						sendGenericMessage(sender)
+						continue
+					}
+					else if (text == 'Hi') {
+						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+					}
+					else {
+						sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+					}
 				}
-				else if (text == 'Hi') {
-					sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-				}
-				else {
-					sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
-				}
-
 			}
 			if (event.postback) {
 				//let text = JSON.stringify(event.postback)
@@ -199,7 +201,7 @@ app.post('/webhook/',
 						(
 						function (json) {
 							//res.send(json.all);
-							sendTextMessage(sender, "Postback received: " + json.all, token)
+							sendTextMessage(sender, "Postback received: " + json.all)
 						}
 						);
 				}
@@ -212,7 +214,7 @@ app.post('/webhook/',
 						).then
 						(
 						function (json) {
-							sendTextMessage(sender, "Postback received: " + json.all[0].email, token)
+							sendTextMessage(sender, "Postback received: " + json.all[0].email)
 						}
 						);
 				}
@@ -221,7 +223,7 @@ app.post('/webhook/',
 		}
 	}
 
-);
+	);
 
 
 
