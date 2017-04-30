@@ -198,12 +198,12 @@ function showBusinesses(sender)
 				{
 					"title": business.name,
 					"subtitle": business.description,
-					"image_url": "http://i2.kym-cdn.com/entries/icons/facebook/000/007/217/Potatoe.jpg",  //prepEndPoint('LOGOS/' + business.logo),
+					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
 					"buttons":
 					[
 						{
 							"type": "web_url",
-							"url": prepLink('detailedBusiness/' + business.name),
+							"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
 						}/*,
 						{
@@ -213,6 +213,21 @@ function showBusinesses(sender)
 						}*/
 					],
 				};
+
+				/*{
+					"title": "First card",
+					"subtitle": "Element #1 of an hscroll",
+					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+					"buttons": [{
+						"type": "web_url",
+						"url": "https://www.messenger.com",
+						"title": "web url"
+					}, {
+						"type": "postback",
+						"title": "Postback",
+						"payload": "Payload for first element in a generic bubble",
+					}],
+				}*/
 
 				arrayOfBusinesses.push(businessElement);
 			}
@@ -237,7 +252,8 @@ function showBusinesses(sender)
 					url: 'https://graph.facebook.com/v2.6/me/messages',
 					qs: { access_token: token },
 					method: 'POST',
-					json: {
+					json:
+					{
 						recipient: { id: sender },
 						message: messageData,
 					}
