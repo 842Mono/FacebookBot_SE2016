@@ -362,10 +362,10 @@ function showAllActivities(sender)
 		function(json)
 		{
 			var arrayOfActivities = [];
-
-			for(let x = 0; x < json.allActivities.length; ++x)
+			console.log(json);
+			for(let x = 0; x < json.activities.length; ++x)
 			{
-				let activity = json.allActivities[x];
+				let activity = json.activities[x];
 				//console.log(business);
 				let activityElement =
 				{
