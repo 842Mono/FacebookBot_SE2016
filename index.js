@@ -361,9 +361,9 @@ app.post
 	'/webhook/',
 	function (req, res)
 	{
-
 			let messaging_events = req.body.entry[0].messaging
-			for (let i = 0; i < messaging_events.length; i++) {
+			for (let i = 0; i < messaging_events.length; i++)
+			{
 				let event = req.body.entry[0].messaging[i]
 				let sender = event.sender.id
 				if (event.message && event.message.text)
@@ -480,10 +480,11 @@ app.post
 
 
 
-							
+
 						);
 					}
-					else if (event.postback.payload.action == "Second") {
+					else if (event.postback.payload.action == "Second")
+					{
 						fetch(prepEndPoint('viewAllBusinesses')).then
 							(
 							function (res) {
@@ -498,7 +499,7 @@ app.post
 					}
 					continue
 				}
-			}
+
 			res.sendStatus(200)
 
 
