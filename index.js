@@ -209,7 +209,7 @@ function showBusinesses(sender)
 							"title": "Show Activities",
 							"payload":
 							{
-								action:showAct,
+								action:"showAct",
 								bName:business.name,
 							}
 						}
