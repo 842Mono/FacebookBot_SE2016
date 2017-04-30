@@ -179,8 +179,7 @@ app.post
 							if (text.indexOf(GREETING_KEYWORDS[i]) >= 0)
 							{
 								var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-								sendTextMessage(sender, rand);
-								continue
+								sendTextMessage(sender, rand, token);
 							}
 						}
 						if (text === 'Generic')
