@@ -467,7 +467,7 @@ app.post
 						showAllActivities(sender)
 						continue
 					}
-					else if(text.includes(GREETING_KEYWORDS))
+					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
 					}
