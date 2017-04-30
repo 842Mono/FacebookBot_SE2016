@@ -18,8 +18,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Process application/json
 app.use(bodyParser.json())
 
-var prepEndPoint = function (path) {
+var prepEndPoint = function (path)
+{
 	var rootURL = 'http://54.200.48.234:8080/';
+	return rootURL + path;
+}
+
+var prepLink = function(path)
+{
+	var rootURL = 'http://54.200.48.234:4200/';
 	return rootURL + path;
 }
 
@@ -57,18 +64,21 @@ app.get('/test2',
 
 
 app.get('/test3',
-	function (req, res) {
+	function (req, res)
+	{
 		fetch(prepEndPoint('viewAllBusinesses')).then
-			(
-			function (res) {
+		(
+			function (res)
+			{
 				return res.json();
 			}
-			).then
-			(
-			function (json) {
+		).then
+		(
+			function (json)
+			{
 				res.send(json.all);
 			}
-			);
+		);
 	}
 );
 
@@ -159,6 +169,94 @@ function sendGenericMessage(sender) {
 
 
 
+
+
+
+
+
+function showBusinesses(sender)
+{
+	fetch(prepEndPoint('viewAllBusinesses')).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			var arrayOfBusinesses = [];
+
+
+			for(let x = 0; x < json.all.length; ++x)
+			{
+				let business = json.all[x];
+
+				let businessElement =
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": "http://i2.kym-cdn.com/entries/icons/facebook/000/007/217/Potatoe.jpg",  //prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						}/*,
+						{
+							"type": "postback",
+							"title": "Postback",
+							"payload": "Payload for first element in a generic bubble",
+						}*/
+					],
+				};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+
+
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements":arrayOfBusinesses
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json: {
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
+				}
+			}
+		)
+
+		}
+	);
+
+
+}
+
+
+
 app.post
 (
 	'/webhook/',
@@ -173,22 +271,32 @@ app.post
 				{
 					let text = event.message.text
 
-						/*for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
-							if (text.indexOf(GREETING_KEYWORDS[i]) >= 0) {
-								var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
-								sendTextMessage(sender, rand);
-								continue
-							}
-						}*/
 						if (text === 'Generic')
 						{
 							sendGenericMessage(sender)
 							continue
 						}
-						else if (text == 'Hi') {
-							sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+						else if (text == "show businesses")
+						{
+							showBusinesses(sender)
+							continue
 						}
-						sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+						else if(text == "show activities")
+						{
+							sendTextMessage(sender, "todo")
+							continue
+						}
+						else
+						{
+							sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
+							continue
+						}
+						//show businesses
+						//show activities
+						//show detailed activities
+						//show detailed businesses
+						//
+						//
 
 				}
 				if (event.postback) {
