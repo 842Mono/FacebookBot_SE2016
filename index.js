@@ -391,23 +391,10 @@ app.post
 						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
 						continue
 					}
-					//show businesses
-					//show activities
-					//show detailed activities
-					//show detailed businesses
-					//
-					//
-
-					/*							{
-													action:showAct,
-													bName:business.name,
-												}*/
 
 				}
-				if (event.postback) {
-					//let text = JSON.stringify(event.postback)
-					if(event.postback)
-					{
+				if (event.postback)
+				{
 						//sendTextMessage(sender, event.postback.payload);
 						fetch(prepEndPoint('check/' + event.postback.payload)).then
 						(
@@ -493,7 +480,7 @@ app.post
 
 
 
-							}
+							
 						);
 					}
 					else if (event.postback.payload.action == "Second") {
