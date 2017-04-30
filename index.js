@@ -227,6 +227,7 @@ app.post
 		catch (err)
 		{
 			sendTextMessage(sender,err.message);
+			res.sendStatus(200);
 		}
 	}
 );
