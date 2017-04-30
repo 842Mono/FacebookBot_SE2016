@@ -174,7 +174,15 @@ app.post
 				{
 					let text = event.message.text
 
-
+					for (var i = 0; i < GREETING_KEYWORDS.length; i++)
+					{
+						if (text.indexOf(GREETING_KEYWORDS[i]) >= 0)
+						{
+							var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+							sendTextMessage(sender, rand, token);
+						}
+					}
+					
 						if (text === 'Generic')
 						{
 							sendGenericMessage(sender)
@@ -223,7 +231,6 @@ app.post
 		catch(err)
 		{
 			sendTextMessage(sender,err.message, token);
-			res.sendStatus(200);
 		}
 	}
 );
