@@ -167,13 +167,6 @@ function sendGenericMessage(sender) {
 	})
 }
 
-
-
-
-
-
-
-
 function showBusinesses(sender)
 {
 	fetch(prepEndPoint('viewAllBusinesses')).then
@@ -356,6 +349,85 @@ function showActivities(sender)
 
 
 
+function showAllActivities(sender)
+{
+	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function(json)
+		{
+			var arrayOfActivities = [];
+
+			for(let x = 0; x < json.all.length; ++x)
+			{
+				let activity = json.all[x];
+				//console.log(business);
+				let activityElement =
+				{
+					"title": activity.name,
+					"subtitle": activity.description,
+					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						},
+						{
+							"type": "postback",
+							"title": "Show details",
+							"payload":activity.name
+						}
+					],
+				};
+
+				arrayOfActivities.push(activityElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements":arrayOfActivities
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
+				}
+			}
+		)
+
+		}
+	);
+}
+
+
 app.post
 (
 	'/webhook/',
@@ -400,8 +472,9 @@ app.post
 					if(event.postback.payload.substring(0,2) == "sa")
 					{
 						//sendTextMessage(sender, event.postback.payload);
-						console.log(event.postback.payload.substring(2));
-						fetch(prepEndPoint('check/' + event.postback.payload.substring(2))).then
+						var businessName = event.postback.payload.substring(2);
+						//console.log(event.postback.payload.substring(2));
+						fetch(prepEndPoint('check/' + businessName)).then
 						(
 							function (res)
 							{
@@ -429,7 +502,7 @@ app.post
 											[
 												{
 													"type": "web_url",
-													"url": prepLink('detailedBusiness/' + business.name),
+													"url": prepLink('detailedBusiness/' + businessName),
 													"title": "View Details"
 												}/*,
 												{
