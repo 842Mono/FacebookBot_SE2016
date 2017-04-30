@@ -363,9 +363,9 @@ function showAllActivities(sender)
 		{
 			var arrayOfActivities = [];
 
-			for(let x = 0; x < json.all.length; ++x)
+			for(let x = 0; x < arrayOfActivities.allActivities.length; ++x)
 			{
-				let activity = json.all[x];
+				let activity = arrayOfActivities.allActivities[x];
 				//console.log(business);
 				let activityElement =
 				{
@@ -376,14 +376,14 @@ function showAllActivities(sender)
 					[
 						{
 							"type": "web_url",
-							"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
-						},
+						}/*,
 						{
 							"type": "postback",
 							"title": "Show details",
 							"payload":activity.name
-						}
+						}*/
 					],
 				};
 
