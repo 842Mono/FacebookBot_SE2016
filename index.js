@@ -395,19 +395,22 @@ app.post
 				}
 				if(event.postback)
 				{
+					console.log("el event.postback");
 					console.log(event.postback);
 					if(event.postback.payload.substring(0,2) == "sa")
 					{
 						//sendTextMessage(sender, event.postback.payload);
 						fetch(prepEndPoint('check/' + event.postback.payload)).then
 						(
-							function (res) {
+							function (res)
+							{
 								return res.json();
 							}
 						).then
 						(
 							function (json)
 							{
+									console.log("el json men el backend");
 									console.log(json);
 
 									var arrayOfActivities = [];
@@ -416,6 +419,7 @@ app.post
 									{
 										let activity = json.allActivities[x];
 
+										console.log("activityhaya");
 										console.log(activity);
 
 										let activityElement =
