@@ -169,7 +169,8 @@ app.post
 			for (let i = 0; i < messaging_events.length; i++) {
 				let event = req.body.entry[0].messaging[i]
 				let sender = event.sender.id
-				if (event.message && event.message.text) {
+				if (event.message && event.message.text)
+				{
 					let text = event.message.text
 
 						/*for (var i = 0; i < GREETING_KEYWORDS.length; i++) {
@@ -179,14 +180,15 @@ app.post
 								continue
 							}
 						}*/
-						if (text === 'Generic') {
+						if (text === 'Generic')
+						{
 							sendGenericMessage(sender)
 							continue
 						}
 						else if (text == 'Hi') {
 							sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
 						}
-						//	sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+						sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
 
 				}
 				if (event.postback) {
