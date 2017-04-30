@@ -206,7 +206,7 @@ function showBusinesses(sender)
 						},
 						{
 							"type": "postback",
-							"title": "Show Activities",
+							"title": "Show Specific Activities",
 							"payload":business.name
 						}
 					],
@@ -406,7 +406,7 @@ app.post
 				}
 				if (event.postback) {
 					//let text = JSON.stringify(event.postback)
-					if(event.postback.title == "Show Activities")
+					if(event.postback)
 					{
 						sendTextMessage(sender, event.postback.payload);
 						/*
