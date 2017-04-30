@@ -8,7 +8,7 @@ var fetch = require('node-fetch');
 
 var GREETING_KEYWORDS = ["hello", "hi", "eh el a5bar", "sup", "what's up"];
 
-var GREETING_RESPONSES = ["sup bro", "hey :D", "Hi :D", "Hi From Zozo :p", "3aml eh yastaa"];
+var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", "Hello and Welcome! :)"];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -42,8 +42,21 @@ app.get('/',
 );
 
 app.get('/test',
-	function (req, res) {
-		res.send("test text");
+	function (req, res)
+	{
+		fetch(prepEndPoint('')).then
+		(
+			function (res)
+			{
+				return res.json();
+			}
+		).then
+		(
+			function (json)
+			{
+				res.send("This is the winningeleven bot server!! :) " + json);
+			}
+		);
 	}
 );
 
@@ -117,7 +130,7 @@ function sendTextMessage(sender, text) {
 
 const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
 
-
+/*
 function sendGenericMessage(sender) {
 	let messageData = {
 		"attachment": {
@@ -166,6 +179,7 @@ function sendGenericMessage(sender) {
 		}
 	})
 }
+*/
 
 function showBusinesses(sender)
 {
@@ -247,7 +261,7 @@ function showBusinesses(sender)
 
 
 
-
+/*
 function showActivities(sender)
 {
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
@@ -281,16 +295,11 @@ function showActivities(sender)
 							"type": "web_url",
 							"url": prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
-						}/*,
-						{
-							"type": "postback",
-							"title": "Postback",
-							"payload": "Payload for first element in a generic bubble",
-						}*/
+						}
 					],
 				};
 
-				/*{
+				{
 					"title": "First card",
 					"subtitle": "Element #1 of an hscroll",
 					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
@@ -303,7 +312,7 @@ function showActivities(sender)
 						"title": "Postback",
 						"payload": "Payload for first element in a generic bubble",
 					}],
-				}*/
+				}
 
 				arrayOfBusinesses.push(businessElement);
 			}
@@ -346,7 +355,7 @@ function showActivities(sender)
 		}
 	);
 }
-
+*/
 
 
 function showAllActivities(sender)
@@ -442,12 +451,13 @@ app.post
 				{
 					let text = event.message.text
 
-					if (text === 'Generic')
+					/*if (text === 'Generic')
 					{
 						sendGenericMessage(sender)
 						continue
 					}
-					else if (text.toLowerCase() == "show businesses")
+					else */
+					if (text.toLowerCase() == "show businesses")
 					{
 						showBusinesses(sender)
 						continue
@@ -457,9 +467,13 @@ app.post
 						showAllActivities(sender)
 						continue
 					}
+					else if(text.includes(GREETING_KEYWORDS))
+					{
+						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)];
+					}
 					else
 					{
-						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
+						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities")
 						continue
 					}
 
