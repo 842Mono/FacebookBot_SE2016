@@ -207,7 +207,11 @@ function showBusinesses(sender)
 						{
 							"type": "postback",
 							"title": "Show Activities",
-							"payload": business.name,
+							"payload":
+							{
+								action:showAct,
+								bName:business.name,
+							}
 						}
 					],
 				};
@@ -380,12 +384,12 @@ app.post
 						showBusinesses(sender)
 						continue
 					}
-					else if(text.toLowerCase() == "show activities")
-					{
+					//else if(text.toLowerCase() == "show activities")
+					//{
 						//showActivities(sender)
-						sendTextMessage(sender, "in progress " + )
-						continue
-					}
+						//sendTextMessage(sender, "in progress " + )
+						//continue
+					//}
 					else
 					{
 						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
@@ -398,10 +402,18 @@ app.post
 					//
 					//
 
+					/*							{
+													action:showAct,
+													bName:business.name,
+												}*/
+
 				}
 				if (event.postback) {
 					//let text = JSON.stringify(event.postback)
-					if (event.postback.payload == "First") {
+					if(event.postback.payload.action == "showAct")
+					{
+						sendTextMessage(sender, event.postback.payload.bName);
+						/*
 						fetch(prepEndPoint('viewAllBusinesses')).then
 							(
 							function (res) {
@@ -413,9 +425,9 @@ app.post
 								//res.send(json.all);
 								sendTextMessage(sender, "Postback received: " + json.all, token)
 							}
-							);
+						);*/
 					}
-					if (event.postback.payload == "Second") {
+					else if (event.postback.payload.action == "Second") {
 						fetch(prepEndPoint('viewAllBusinesses')).then
 							(
 							function (res) {
