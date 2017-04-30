@@ -26,7 +26,7 @@ var prepEndPoint = function (path)
 
 var prepLink = function(path)
 {
-	var rootURL = 'http://54.200.48.234:4200/';
+	var rootURL = 'http://winningeleven.ml/';
 	return rootURL + path;
 }
 
@@ -417,8 +417,8 @@ app.post
 									{
 										let activity = json.allActivities[x];
 
-										console.log("activityhaya");
-										console.log(activity);
+										//console.log("activityhaya");
+										//.log(activity);
 
 										let activityElement =
 										{
@@ -440,7 +440,7 @@ app.post
 											],
 										};
 
-										arrayOfBusinesses.push(activityElement);
+										arrayOfActivities.push(activityElement);
 									}
 
 									console.log(arrayOfActivities);
