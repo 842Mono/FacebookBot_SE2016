@@ -184,14 +184,15 @@ function showBusinesses(sender)
 		}
 	).then
 	(
-		function (json)
+		function(json)
 		{
 			var arrayOfBusinesses = [];
-
 
 			for(let x = 0; x < json.all.length; ++x)
 			{
 				let business = json.all[x];
+
+				console.log(business);
 
 				let businessElement =
 				{
@@ -216,6 +217,7 @@ function showBusinesses(sender)
 				arrayOfBusinesses.push(businessElement);
 			}
 
+			console.log(arrayOfBusinesses);
 
 			let messageData =
 			{
@@ -271,32 +273,32 @@ app.post
 				{
 					let text = event.message.text
 
-						if (text === 'Generic')
-						{
-							sendGenericMessage(sender)
-							continue
-						}
-						else if (text == "show businesses")
-						{
-							showBusinesses(sender)
-							continue
-						}
-						else if(text == "show activities")
-						{
-							sendTextMessage(sender, "todo")
-							continue
-						}
-						else
-						{
-							sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
-							continue
-						}
-						//show businesses
-						//show activities
-						//show detailed activities
-						//show detailed businesses
-						//
-						//
+					if (text === 'Generic')
+					{
+						sendGenericMessage(sender)
+						continue
+					}
+					else if (text == "show businesses")
+					{
+						showBusinesses(sender)
+						continue
+					}
+					else if(text == "show activities")
+					{
+						sendTextMessage(sender, "todo")
+						continue
+					}
+					else
+					{
+						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
+						continue
+					}
+					//show businesses
+					//show activities
+					//show detailed activities
+					//show detailed businesses
+					//
+					//
 
 				}
 				if (event.postback) {
