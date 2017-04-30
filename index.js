@@ -393,7 +393,7 @@ app.post
 					}
 
 				}
-				if (event.postback)
+				if(event.postback)
 				{
 						//sendTextMessage(sender, event.postback.payload);
 						fetch(prepEndPoint('check/' + event.postback.payload)).then
@@ -474,16 +474,9 @@ app.post
 								)
 
 								}
-
-
-
-
-
-
-
 						);
 					}
-					else if (event.postback.payload.action == "Second")
+					else if(false)// (event.postback.payload.action == "Second")
 					{
 						fetch(prepEndPoint('viewAllBusinesses')).then
 							(
