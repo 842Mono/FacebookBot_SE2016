@@ -469,7 +469,7 @@ app.post
 					}
 					else if(text.includes(GREETING_KEYWORDS))
 					{
-						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)];
+						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
 					}
 					else
 					{
