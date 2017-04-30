@@ -452,12 +452,11 @@ app.post
 						showBusinesses(sender)
 						continue
 					}
-					//else if(text.toLowerCase() == "show activities")
-					//{
-						//showActivities(sender)
-						//sendTextMessage(sender, "in progress " + )
-						//continue
-					//}
+					/else if(text.toLowerCase() == "show activities")
+					{
+						showAllActivities(sender)
+						continue
+					}
 					else
 					{
 						sendTextMessage(sender, "Welcome to our chatbot.\n Available commands:\n show businesses,\n show activities")
