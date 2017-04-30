@@ -207,11 +207,7 @@ function showBusinesses(sender)
 						{
 							"type": "postback",
 							"title": "Show Activities",
-							"payload":
-							{
-								action:"showAct",
-								bName:business.name,
-							}
+							"payload":business.name
 						}
 					],
 				};
@@ -410,9 +406,9 @@ app.post
 				}
 				if (event.postback) {
 					//let text = JSON.stringify(event.postback)
-					if(event.postback.payload.action == "showAct")
+					if(event.postback.title == "Show Activities")
 					{
-						sendTextMessage(sender, event.postback.payload.bName);
+						sendTextMessage(sender, event.postback.payload);
 						/*
 						fetch(prepEndPoint('viewAllBusinesses')).then
 							(
