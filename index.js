@@ -174,8 +174,11 @@ app.post
 				{
 					let text = event.message.text
 
+						if(GREETING_KEYWORDS.includes(text.toLowerCase())){
 
-						if (text === 'Generic')
+						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
+						}
+						else if (text === 'Generic')
 						{
 							sendGenericMessage(sender)
 							continue
@@ -223,7 +226,6 @@ app.post
 		catch(err)
 		{
 			sendTextMessage(sender,err.message, token);
-			res.sendStatus(200);
 		}
 	}
 );
