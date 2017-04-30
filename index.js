@@ -160,33 +160,30 @@ function sendGenericMessage(sender) {
 
 
 app.post
-(
+	(
 	'/webhook/',
-	function (req, res)
-	{
-		try
-		{
+	function (req, res) {
+		try {
 			let messaging_events = req.body.entry[0].messaging
 			for (let i = 0; i < messaging_events.length; i++) {
 				let event = req.body.entry[0].messaging[i]
 				let sender = event.sender.id
-				if (event.message && event.message.text)
-				{
+				if (event.message && event.message.text) {
 					let text = event.message.text
 
-						if(GREETING_KEYWORDS.includes(text.toLowerCase())){
+					if (text.indexOf(GREETING_KEYWORDS) >= 0) {
+						var rand = GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)];
+						sendTextMessage(sender, rand, token);
+					}
 
+					else if (text === 'Generic') {
+						sendGenericMessage(sender)
+						continue
+					}
+					else if (text == 'Hi') {
 						sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-						}
-						else if (text === 'Generic')
-						{
-							sendGenericMessage(sender)
-							continue
-						}
-						else if (text == 'Hi') {
-							sendTextMessage(sender, "Bet2ool lel bot hi?? :P");
-						}
-						sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
+					}
+					sendTextMessage(sender, "Abo Sandy by7awl ygarab we by2ol:  " + text.substring(0, 200) + " :D")
 
 				}
 				if (event.postback) {
@@ -223,12 +220,11 @@ app.post
 			}
 			res.sendStatus(200)
 		}
-		catch(err)
-		{
-			sendTextMessage(sender,err.message, token);
+		catch (err) {
+			sendTextMessage(sender, err.message, token);
 		}
 	}
-);
+	);
 
 
 
