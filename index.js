@@ -452,7 +452,7 @@ app.post
 						showBusinesses(sender)
 						continue
 					}
-					/else if(text.toLowerCase() == "show activities")
+					else if(text.toLowerCase() == "show activities")
 					{
 						showAllActivities(sender)
 						continue
@@ -501,7 +501,7 @@ app.post
 											[
 												{
 													"type": "web_url",
-													"url": prepLink('detailedBusiness/' + businessName),
+													"url": prepLink('DetailedActivity/' + activity.ID),
 													"title": "View Details"
 												}/*,
 												{
