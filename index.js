@@ -178,7 +178,7 @@ app.post
 						break;
 					}
 				}
-				if (!greetWord) {
+				if (greetWord  == false) {
 					if (text === 'Generic') {
 						sendGenericMessage(sender)
 						continue
