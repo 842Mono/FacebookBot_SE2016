@@ -191,6 +191,89 @@ function showBusinesses(sender)
 			for(let x = 0; x < json.all.length; ++x)
 			{
 				let business = json.all[x];
+				//console.log(business);
+				let businessElement =
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						},
+						{
+							"type": "postback",
+							"title": "Show Activities",
+							"payload": business.name,
+						}
+					],
+				};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements":arrayOfBusinesses
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body) {
+				if (error) {
+					console.log('Error sending messages: ', error)
+				} else if (response.body.error) {
+					console.log('Error: ', response.body.error)
+				}
+			}
+		)
+
+		}
+	);
+}
+
+
+
+
+function showActivities(sender)
+{
+	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function(json)
+		{
+			console.log(json);
+
+			var arrayOfActivities = [];
+
+			for(let x = 0; x < json.all.length; ++x)
+			{
+				let business = json.all[x];
 
 				console.log(business);
 
@@ -203,7 +286,7 @@ function showBusinesses(sender)
 					[
 						{
 							"type": "web_url",
-							"url": "https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"url": prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
 						}/*,
 						{
@@ -269,8 +352,6 @@ function showBusinesses(sender)
 
 		}
 	);
-
-
 }
 
 
@@ -294,14 +375,15 @@ app.post
 						sendGenericMessage(sender)
 						continue
 					}
-					else if (text == "show businesses")
+					else if (text.toLowerCase() == "show businesses")
 					{
 						showBusinesses(sender)
 						continue
 					}
-					else if(text == "show activities")
+					else if(text.toLowerCase() == "show activities")
 					{
-						sendTextMessage(sender, "todo")
+						//showActivities(sender)
+						sendTextMessage(sender, "in progress " + )
 						continue
 					}
 					else
