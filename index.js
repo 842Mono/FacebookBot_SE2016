@@ -207,7 +207,7 @@ function showBusinesses(sender)
 						{
 							"type": "postback",
 							"title": "Show Activities",
-							"payload":("sa"+business.name)
+							"payload":"sa"+business.name
 						}
 					],
 				};
@@ -395,7 +395,7 @@ app.post
 				}
 				if(event.postback)
 				{
-
+					console.log(event.postback);
 					if(event.postback.payload.substring(0,2) == "sa")
 					{
 						//sendTextMessage(sender, event.postback.payload);
