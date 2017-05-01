@@ -1,5 +1,21 @@
 # TheBot
 
+Facebook Bot for our entertainment platform winningeleven.ga
+
+## Features
+
+* Show all businesses currently registered on the website
+* Redirect to a business' page on the website
+* Show the activities of a business
+* Show all activities on the website
+* Redirect to an activitie's page on the website
+
+
+
+## Development Guide
+
+---
+
 First step is to give me your heroku email so that I can add you as a contributer on heroku
 
 Then you should be able to clone the app with heroku try using this:
