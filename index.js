@@ -20,13 +20,13 @@ app.use(bodyParser.json())
 
 var prepEndPoint = function (path)
 {
-	var rootURL = 'http://54.200.48.234:8080/';
+	var rootURL = 'http://winningeleven.ga:8080/';
 	return rootURL + path;
 }
 
 var prepLink = function(path)
 {
-	var rootURL = 'http://winningeleven.ml/';
+	var rootURL = 'http://winningeleven.ga/';
 	return rootURL + path;
 }
 
