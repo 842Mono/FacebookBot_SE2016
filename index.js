@@ -204,7 +204,7 @@ function showBusinesses(sender)
 				{
 					"title": business.name,
 					"subtitle": business.description,
-					"image_url": prepEndPoint('LOGOS/' + business.logo + ".png"),
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
 					"buttons":
 					[
 						{
