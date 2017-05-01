@@ -199,6 +199,7 @@ function showBusinesses(sender)
 			{
 				let business = json.all[x];
 				//console.log(business);
+				console.log(prepEndPoint('LOGOS/' + business.logo));
 				let businessElement =
 				{
 					"title": business.name,
