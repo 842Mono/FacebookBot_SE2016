@@ -361,7 +361,8 @@ function showActivities(sender)
 
 function showAllActivities(sender)
 {
-	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
+	console.log(prepEndPoint('botallactivities'));
+	fetch(prepEndPoint('botallactivities')).then
 	(
 		function (res)
 		{
@@ -381,7 +382,7 @@ function showAllActivities(sender)
 				{
 					"title": activity.name,
 					"subtitle": activity.description,
-			//		"image_url": prepEndPoint('LOGOS/' + business.logo),
+					//"image_url": prepEndPoint('LOGOS/' + business.logo),
 					"buttons":
 					[
 						{
