@@ -9,6 +9,7 @@ Facebook Bot for our entertainment platform winningeleven.ga
 * Show the activities of a business
 * Show all activities on the website
 * Redirect to an activitie's page on the website
+* Redirect to website's homepage
 
 
 
