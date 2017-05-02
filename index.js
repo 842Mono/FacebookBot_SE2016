@@ -181,6 +181,47 @@ function sendGenericMessage(sender) {
 }
 */
 
+
+function directToWebsite(sender)
+{
+	let messageData =
+	{
+		"attachment":
+		{
+			"type": "template",
+			"payload":
+			{
+        "template_type":"button",
+        "text":"Here you go...",
+        "buttons":
+				[
+          {
+            "type":"web_url",
+            "url":prepLink(''),
+            "title":"Go To Website"
+          }
+        ]
+      }
+		}
+	}
+	request({
+		url: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: { access_token: token },
+		method: 'POST',
+		json: {
+			recipient: { id: sender },
+			message: messageData,
+		}
+	}, function (error, response, body) {
+		if (error) {
+			console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+			console.log('Error: ', response.body.error)
+		}
+	})
+}
+
+
 function showBusinesses(sender)
 {
 	fetch(prepEndPoint('viewAllBusinesses')).then
@@ -361,8 +402,8 @@ function showActivities(sender)
 
 function showAllActivities(sender)
 {
-	console.log(prepEndPoint('botallactivities'));
-	fetch(prepEndPoint('botallactivities')).then
+	console.log(prepEndPoint('AllActivitiesallbusinesses'));
+	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
 	(
 		function (res)
 		{
@@ -382,7 +423,7 @@ function showAllActivities(sender)
 				{
 					"title": activity.name,
 					"subtitle": activity.description,
-					//"image_url": prepEndPoint('LOGOS/' + business.logo),
+			//"image_url": prepEndPoint('LOGOS/' + business.logo),
 					"buttons":
 					[
 						{
@@ -469,13 +510,17 @@ app.post
 						showAllActivities(sender)
 						continue
 					}
+					else if(text.toLowerCase() == "show website")
+					{
+							directToWebsite(sender);
+					}
 					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
 					}
 					else
 					{
-						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities")
+						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website")
 						continue
 					}
 
