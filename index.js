@@ -18,14 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Process application/json
 app.use(bodyParser.json())
 
-var prepEndPoint = function (path)
-{
+var prepEndPoint = function (path) {
 	var rootURL = 'http://winningeleven.ga:8080/';
 	return rootURL + path;
 }
 
-var prepLink = function(path)
-{
+var prepLink = function (path) {
 	var rootURL = 'http://winningeleven.ga/';
 	return rootURL + path;
 }
@@ -42,21 +40,18 @@ app.get('/',
 );
 
 app.get('/test',
-	function (req, res)
-	{
+	function (req, res) {
 		fetch(prepEndPoint('')).then
-		(
-			function (res)
-			{
+			(
+			function (res) {
 				return res.json();
 			}
-		).then
-		(
-			function (json)
-			{
+			).then
+			(
+			function (json) {
 				res.send("This is the winningeleven bot server!! :) " + json);
 			}
-		);
+			);
 	}
 );
 
@@ -77,21 +72,18 @@ app.get('/test2',
 
 
 app.get('/test3',
-	function (req, res)
-	{
+	function (req, res) {
 		fetch(prepEndPoint('viewAllBusinesses')).then
-		(
-			function (res)
-			{
+			(
+			function (res) {
 				return res.json();
 			}
-		).then
-		(
-			function (json)
-			{
+			).then
+			(
+			function (json) {
 				res.send(json.all);
 			}
-		);
+			);
 	}
 );
 
@@ -182,28 +174,27 @@ function sendGenericMessage(sender) {
 */
 
 
-function directToWebsite(sender)
-{
+function directToWebsite(sender) {
 	let messageData =
-	{
-		"attachment":
 		{
-			"type": "template",
-			"payload":
+			"attachment":
 			{
-        "template_type":"button",
-        "text":"Here you go...",
-        "buttons":
-				[
-          {
-            "type":"web_url",
-            "url":prepLink(''),
-            "title":"Go To Website"
-          }
-        ]
-      }
+				"type": "template",
+				"payload":
+				{
+					"template_type": "button",
+					"text": "Here you go...",
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink(''),
+							"title": "Go To Website"
+						}
+					]
+				}
+			}
 		}
-	}
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: { access_token: token },
@@ -222,62 +213,58 @@ function directToWebsite(sender)
 }
 
 
-function showBusinesses(sender)
-{
+function showBusinesses(sender) {
 	fetch(prepEndPoint('viewAllBusinesses')).then
-	(
-		function (res)
-		{
+		(
+		function (res) {
 			return res.json();
 		}
-	).then
-	(
-		function(json)
-		{
+		).then
+		(
+		function (json) {
 			var arrayOfBusinesses = [];
 
-			for(let x = 0; x < json.all.length; ++x)
-			{
+			for (let x = 0; x < json.all.length; ++x) {
 				let business = json.all[x];
 				//console.log(business);
 				console.log(prepEndPoint('LOGOS/' + business.logo));
 				let businessElement =
-				{
-					"title": business.name,
-					"subtitle": business.description,
-					"image_url": prepEndPoint('LOGOS/' + business.logo),
-					"buttons":
-					[
-						{
-							"type": "web_url",
-							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
-						},
-						{
-							"type": "postback",
-							"title": "Show Activities",
-							"payload":"sa"+business.name
-						}
-					],
-				};
+					{
+						"title": business.name,
+						"subtitle": business.description,
+						"image_url": prepEndPoint('LOGOS/' + business.logo),
+						"buttons":
+						[
+							{
+								"type": "web_url",
+								"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+								"title": "View Details"
+							},
+							{
+								"type": "postback",
+								"title": "Show Activities",
+								"payload": "sa" + business.name
+							}
+						],
+					};
 
 				arrayOfBusinesses.push(businessElement);
 			}
 			//console.log(arrayOfBusinesses);
 			let messageData =
-			{
-				"attachment":
 				{
-					"type": "template",
-					"payload":
+					"attachment":
 					{
-						"template_type": "generic",
-						"elements":arrayOfBusinesses
+						"type": "template",
+						"payload":
+						{
+							"template_type": "generic",
+							"elements": arrayOfBusinesses
+						}
 					}
 				}
-			}
 			request
-			(
+				(
 				{
 					url: 'https://graph.facebook.com/v2.6/me/messages',
 					qs: { access_token: token },
@@ -289,16 +276,16 @@ function showBusinesses(sender)
 					}
 				},
 				function (error, response, body) {
-				if (error) {
-					console.log('Error sending messages: ', error)
-				} else if (response.body.error) {
-					console.log('Error: ', response.body.error)
+					if (error) {
+						console.log('Error sending messages: ', error)
+					} else if (response.body.error) {
+						console.log('Error: ', response.body.error)
+					}
 				}
-			}
-		)
+				)
 
 		}
-	);
+		);
 }
 
 
@@ -400,62 +387,58 @@ function showActivities(sender)
 */
 
 
-function showAllActivities(sender)
-{
+function showAllActivities(sender) {
 	console.log(prepEndPoint('AllActivitiesallbusinesses'));
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
-	(
-		function (res)
-		{
+		(
+		function (res) {
 			return res.json();
 		}
-	).then
-	(
-		function(json)
-		{
+		).then
+		(
+		function (json) {
 			var arrayOfActivities = [];
 			console.log(json);
-			for(let x = 0; x < json.activities.length; ++x)
-			{
+			for (let x = 0; x < json.activities.length; ++x) {
 				let activity = json.activities[x];
 				//console.log(business);
 				let activityElement =
-				{
-					"title": activity.name,
-					"subtitle": activity.description,
-					"image_url": prepEndPoint('Activities/' + activity.logo),
-					"buttons":
-					[
-						{
-							"type": "web_url",
-							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
-						}/*,
+					{
+						"title": activity.name,
+						"subtitle": activity.description,
+						"image_url": prepEndPoint('Activities/' + activity.logo),
+						"buttons":
+						[
+							{
+								"type": "web_url",
+								"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+								"title": "View Details"
+							}/*,
 						{
 							"type": "postback",
 							"title": "Show details",
 							"payload":activity.name
 						}*/
-					],
-				};
+						],
+					};
 
 				arrayOfActivities.push(activityElement);
 			}
 			//console.log(arrayOfBusinesses);
 			let messageData =
-			{
-				"attachment":
 				{
-					"type": "template",
-					"payload":
+					"attachment":
 					{
-						"template_type": "generic",
-						"elements":arrayOfActivities
+						"type": "template",
+						"payload":
+						{
+							"template_type": "generic",
+							"elements": arrayOfActivities
+						}
 					}
 				}
-			}
 			request
-			(
+				(
 				{
 					url: 'https://graph.facebook.com/v2.6/me/messages',
 					qs: { access_token: token },
@@ -467,163 +450,151 @@ function showAllActivities(sender)
 					}
 				},
 				function (error, response, body) {
-				if (error) {
-					console.log('Error sending messages: ', error)
-				} else if (response.body.error) {
-					console.log('Error: ', response.body.error)
+					if (error) {
+						console.log('Error sending messages: ', error)
+					} else if (response.body.error) {
+						console.log('Error: ', response.body.error)
+					}
 				}
-			}
-		)
+				)
 
 		}
-	);
+		);
 }
 
 
 app.post
-(
+	(
 	'/webhook/',
-	function (req, res)
-	{
-			let messaging_events = req.body.entry[0].messaging
-			for (let i = 0; i < messaging_events.length; i++)
-			{
-				let event = req.body.entry[0].messaging[i]
-				let sender = event.sender.id
-				if (event.message && event.message.text)
+	function (req, res) {
+		let messaging_events = req.body.entry[0].messaging
+		for (let i = 0; i < messaging_events.length; i++) {
+			let event = req.body.entry[0].messaging[i]
+			let sender = event.sender.id
+			if (event.message && event.message.text) {
+				let text = event.message.text
+
+				/*if (text === 'Generic')
 				{
-					let text = event.message.text
-
-					/*if (text === 'Generic')
-					{
-						sendGenericMessage(sender)
-						continue
-					}
-					else */
-					if (text.toLowerCase() == "show businesses")
-					{
-						showBusinesses(sender)
-						continue
-					}
-					else if(text.toLowerCase() == "show activities")
-					{
-						showAllActivities(sender)
-						continue
-					}
-					else if(text.toLowerCase() == "show website")
-					{
-							directToWebsite(sender);
-					}
-					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text.toLowerCase()))
-					{
-						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
-					}
-					else
-					{
-						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website")
-						continue
-					}
-
+					sendGenericMessage(sender)
+					continue
 				}
-				if(event.postback && event.postback.payload)
-				{
-					console.log("el event.postback");
-					//console.log(event.postback);
-					if(event.postback.payload.substring(0,2) == "sa")
-					{
-						//sendTextMessage(sender, event.postback.payload);
-						var businessName = event.postback.payload.substring(2);
-						//console.log(event.postback.payload.substring(2));
-						fetch(prepEndPoint('check/' + businessName)).then
+				else */
+				if (text.toLowerCase() == "show businesses") {
+					showBusinesses(sender)
+					continue
+				}
+				else if (text.toLowerCase() == "show activities") {
+					showAllActivities(sender)
+					continue
+				}
+				else if (text.toLowerCase() == "show website") {
+					directToWebsite(sender);
+				}
+				else if (new RegExp(GREETING_KEYWORDS.join("|")).test(text.toLowerCase())) {
+					sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)]);
+				}
+				else {
+					sendTextMessage(sender, "I see U are having Fun , well i will respond later :D");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
+					continue
+				}
+
+			}
+			if (event.postback && event.postback.payload) {
+				console.log("el event.postback");
+				//console.log(event.postback);
+				if (event.postback.payload.substring(0, 2) == "sa") {
+					//sendTextMessage(sender, event.postback.payload);
+					var businessName = event.postback.payload.substring(2);
+					//console.log(event.postback.payload.substring(2));
+					fetch(prepEndPoint('check/' + businessName)).then
 						(
-							function (res)
-							{
-								return res.json();
-							}
+						function (res) {
+							return res.json();
+						}
 						).then
 						(
-							function(json)
-							{
-									var arrayOfActivities = [];
+						function (json) {
+							var arrayOfActivities = [];
 
-									for(let x = 0; x < json.allActivities.length; ++x)
+							for (let x = 0; x < json.allActivities.length; ++x) {
+								let activity = json.allActivities[x];
+
+								//console.log("activityhaya");
+								//.log(activity);
+
+								let activityElement =
 									{
-										let activity = json.allActivities[x];
-
-										//console.log("activityhaya");
-										//.log(activity);
-
-										let activityElement =
-										{
-											"title": activity.name,
-											"subtitle": activity.description,
-								//			"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
-											"buttons":
-											[
-												{
-													"type": "web_url",
-													"url": prepLink('DetailedActivity/' + activity.ID),
-													"title": "View Details"
-												}/*,
+										"title": activity.name,
+										"subtitle": activity.description,
+										//			"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
+										"buttons":
+										[
+											{
+												"type": "web_url",
+												"url": prepLink('DetailedActivity/' + activity.ID),
+												"title": "View Details"
+											}/*,
 												{
 													"type": "postback",
 													"title": "Postback",
 													"payload": "Payload for first element in a generic bubble",
 												}*/
-											],
-										};
+										],
+									};
 
-										arrayOfActivities.push(activityElement);
-									}
+								arrayOfActivities.push(activityElement);
+							}
 
-									console.log(arrayOfActivities);
+							console.log(arrayOfActivities);
 
-									let messageData =
+							let messageData =
+								{
+									"attachment":
 									{
-										"attachment":
+										"type": "template",
+										"payload":
 										{
-											"type": "template",
-											"payload":
-											{
-												"template_type": "generic",
-												"elements":arrayOfActivities
-											}
+											"template_type": "generic",
+											"elements": arrayOfActivities
 										}
 									}
-									request
-									(
-										{
-											url: 'https://graph.facebook.com/v2.6/me/messages',
-											qs: { access_token: token },
-											method: 'POST',
-											json:
-											{
-												recipient: { id: sender },
-												message: messageData,
-											}
-										},
-										function (error, response, body) {
-										if (error) {
-											console.log('Error sending messages: ', error)
-										} else if (response.body.error) {
-											console.log('Error: ', response.body.error)
-										}
+								}
+							request
+								(
+								{
+									url: 'https://graph.facebook.com/v2.6/me/messages',
+									qs: { access_token: token },
+									method: 'POST',
+									json:
+									{
+										recipient: { id: sender },
+										message: messageData,
 									}
+								},
+								function (error, response, body) {
+									if (error) {
+										console.log('Error sending messages: ', error)
+									} else if (response.body.error) {
+										console.log('Error: ', response.body.error)
+									}
+								}
 								)
 
-								}
+						}
 						);
-					}
-
-
-
-
-					continue
 				}
+
+
+
+
+				continue
 			}
-			res.sendStatus(200)
+		}
+		res.sendStatus(200)
 	}
-);
+	);
 
 
 
