@@ -495,7 +495,7 @@ app.post
 					sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random() * GREETING_RESPONSES.length)]);
 				}
 				else {
-					sendTextMessage(sender, "I see U are having Fun , well i will respond later :D");
+					sendTextMessage(sender, "I see U are having Fun , well i will respond later :p");
 					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
 					continue
 				}
