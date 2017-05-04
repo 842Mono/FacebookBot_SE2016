@@ -423,7 +423,7 @@ function showAllActivities(sender)
 				{
 					"title": activity.name,
 					"subtitle": activity.description,
-			//"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"image_url": prepEndPoint('Activities/' + activity.logo),
 					"buttons":
 					[
 						{
