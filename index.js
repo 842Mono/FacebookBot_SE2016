@@ -504,7 +504,7 @@ app.post
 					{
 						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
 					}
-					else if (text.indexOf("ya ") >= 0)
+					else if (text.indexOf("ya ") >= 0 || text.indexOf("yad ") >= 0 || text.indexOf(" yad") >= 0)
 					{
 						sendTextMessage(sender, "What do you want? 😂");
 					}
