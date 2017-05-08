@@ -538,7 +538,7 @@ app.post
 					}
 					else if(text.indexOf("?") >= 0)
 					{
-						sendTextMessage(sender, "You know.. If you really want to know you can google it! >:} 😂");
+						sendTextMessage(sender, "You know.. If you really want to find out you can google it! >:} 😂");
 					}
 					else
 					{
