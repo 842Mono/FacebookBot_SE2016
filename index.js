@@ -10,7 +10,7 @@ var GREETING_KEYWORDS = ["hello ", "hi ", "eh el a5bar", "sup ", "what's up", "h
 var EXACT_GREETINGS = ["hello", "hi", "sup", "hey"];
 var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", "Hello and Welcome! :)"];
 
-var GREETING_KEYWORDS2 = ["how r u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a"];
+var GREETING_KEYWORDS2 = ["how r u", "how are u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a"];
 var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :)", "Fine thanks! :D"];
 
 app.set('port', (process.env.PORT || 5000))
@@ -475,35 +475,43 @@ app.post
 			let event = req.body.entry[0].messaging[i]
 			let sender = event.sender.id
 			if (event.message && event.message.text) {
-				let text = event.message.text
+				let text = event.message.text.toLowerCase();
 					/*if (text === 'Generic')
 					{
 						sendGenericMessage(sender)
 						continue
 					}
 					else */
-					if (text.toLowerCase() == "show businesses")
+					if (text == "show businesses")
 					{
 						showBusinesses(sender)
 						continue
 					}
-					else if(text.toLowerCase() == "show activities")
+					else if(text == "show activities")
 					{
 						showAllActivities(sender)
 						continue
 					}
-					else if(text.toLowerCase() == "show website")
+					else if(text == "show website")
 					{
 							directToWebsite(sender);
 					}
-					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text.toLowerCase()) || EXACT_GREETINGS.indexOf(text) >= 0)
+					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 					{
 						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
 					}
-					else if(new RegExp(GREETING_KEYWORDS2.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(GREETING_KEYWORDS2.join("|")).test(text))
 					{
 						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
 					}
+					else if(text.indexOf(" late") >= 0)
+					{
+						sendTextMessage(sender, "It's never too late to have some fun ;) </3 😂");
+					}
+					/*else if(text.indexOf("who") == 0)
+					{
+
+					}*/
 					else
 					{
 						sendTextMessage(sender, "I see U are having fun, well i will reply later ;P \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
@@ -514,52 +522,57 @@ app.post
 			if (event.postback && event.postback.payload) {
 				console.log("el event.postback");
 				//console.log(event.postback);
-				if (event.postback.payload.substring(0, 2) == "sa") {
+				if (event.postback.payload.substring(0, 2) == "sa")
+				{
 					//sendTextMessage(sender, event.postback.payload);
 					var businessName = event.postback.payload.substring(2);
 					//console.log(event.postback.payload.substring(2));
 					fetch(prepEndPoint('check/' + businessName)).then
-						(
+					(
 						function (res) {
 							return res.json();
 						}
-						).then
-						(
-						function (json) {
-							var arrayOfActivities = [];
+					).then
+					(
+						function (json)
+						{
+							if(json.allActivities && json.allActivities.length > 0)
+							{
+								var arrayOfActivities = [];
 
-							for (let x = 0; x < json.allActivities.length; ++x) {
-								let activity = json.allActivities[x];
+								for (let x = 0; x < json.allActivities.length; ++x)
+								{
+									let activity = json.allActivities[x];
 
-								//console.log("activityhaya");
-								//.log(activity);
+									//console.log("activityhaya");
+									//.log(activity);
 
-								let activityElement =
-									{
-										"title": activity.name,
-										"subtitle": activity.description,
-										//			"image_url": "http://messengerdemo.parseapp.com/img/rift.png",  //prepEndPoint('LOGOS/' + business.logo),
-										"buttons":
-										[
-											{
-												"type": "web_url",
-												"url": prepLink('DetailedActivity/' + activity.ID),
-												"title": "View Details"
-											}/*,
+									let activityElement =
+										{
+											"title": activity.name,
+											"subtitle": activity.description,
+											"image_url": prepEndPoint('Activities/' + activity.logo)
+											"buttons":
+											[
 												{
-													"type": "postback",
-													"title": "Postback",
-													"payload": "Payload for first element in a generic bubble",
-												}*/
-										],
-									};
+													"type": "web_url",
+													"url": prepLink('DetailedActivity/' + activity.ID),
+													"title": "View Details"
+												}/*,
+													{
+														"type": "postback",
+														"title": "Postback",
+														"payload": "Payload for first element in a generic bubble",
+													}*/
+											],
+										};
 
-								arrayOfActivities.push(activityElement);
-							}
+									arrayOfActivities.push(activityElement);
+								}
 
-							console.log(arrayOfActivities);
+								console.log(arrayOfActivities);
 
-							let messageData =
+								let messageData =
 								{
 									"attachment":
 									{
@@ -571,26 +584,31 @@ app.post
 										}
 									}
 								}
-							request
-								(
-								{
-									url: 'https://graph.facebook.com/v2.6/me/messages',
-									qs: { access_token: token },
-									method: 'POST',
-									json:
+								request
+									(
 									{
-										recipient: { id: sender },
-										message: messageData,
+										url: 'https://graph.facebook.com/v2.6/me/messages',
+										qs: { access_token: token },
+										method: 'POST',
+										json:
+										{
+											recipient: { id: sender },
+											message: messageData,
+										}
+									},
+									function (error, response, body) {
+										if (error) {
+											console.log('Error sending messages: ', error)
+										} else if (response.body.error) {
+											console.log('Error: ', response.body.error)
+										}
 									}
-								},
-								function (error, response, body) {
-									if (error) {
-										console.log('Error sending messages: ', error)
-									} else if (response.body.error) {
-										console.log('Error: ', response.body.error)
-									}
-								}
-								)
+								);
+							}
+							else
+							{
+								sendTextMessage(sender, "This Business has no activities to show at the moment </3");
+							}
 
 						}
 						);
