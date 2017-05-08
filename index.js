@@ -13,7 +13,7 @@ var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", 
 var GREETING_KEYWORDS2 = ["how r u", "how are u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a"];
 var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :)", "Fine thanks! :D"];
 
-var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf"];
+var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf"];
 
 var CALLING_KEYWORDS = ["ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
 
@@ -514,11 +514,11 @@ app.post
 					}
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
-						sendTextMessage(sender, "What do you want? 😂");
+						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 					}
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
-						sendTextMessage(sender, "It's never too late to have some fun ;) </3");
+						sendTextMessage(sender, "It's never too late </3 ;)");
 					}
 					else if(text.indexOf("why") == 0)
 					{
@@ -550,7 +550,7 @@ app.post
 					}
 					else
 					{
-						sendTextMessage(sender, "I see U are having fun, well i will reply later ;P \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
+						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
 						continue
 					}
 
