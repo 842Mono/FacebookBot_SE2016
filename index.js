@@ -504,6 +504,10 @@ app.post
 					{
 						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
 					}
+					else if (text.indexOf("ya ") >= 0)
+					{
+						sendTextMessage(sender, "What do you want? 😂");
+					}
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
 						sendTextMessage(sender, "It's never too late to have some fun ;) </3");
