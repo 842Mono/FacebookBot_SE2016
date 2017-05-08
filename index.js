@@ -492,7 +492,7 @@ app.post
 						showAllActivities(sender)
 						continue
 					}
-					else if(text == "show website")
+					else if(text == "show website" || text.indexOf("website") >= 0)
 					{
 							directToWebsite(sender);
 					}
