@@ -13,7 +13,7 @@ var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", 
 var GREETING_KEYWORDS2 = ["how r u", "how are u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a"];
 var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :)", "Fine thanks! :D"];
 
-var BORED_KEYWORDS = ["zah2an", "zah2aan", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfan", "araf", "malal", "mallal", "offf"];
+var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf"];
 
 var CALLING_KEYWORDS = ["ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
 
