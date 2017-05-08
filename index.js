@@ -6,9 +6,11 @@ const request = require('request')
 const app = express()
 var fetch = require('node-fetch');
 
-var GREETING_KEYWORDS = ["hello", "hi", "eh el a5bar", "sup", "what's up"];
-
+var GREETING_KEYWORDS = ["hello", "hi", "eh el a5bar", "sup", "what's up", "hey"];
 var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", "Hello and Welcome! :)"];
+
+var GREETING_KEYWORDS2 = ["how r u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a"];
+var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :)", "Fine thanks! :D"];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -304,7 +306,7 @@ function showBusinesses(sender)
 
 
 /*
-function showActivities(sender)
+function searchActivityType(sender, )
 {
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
 	(
@@ -518,9 +520,14 @@ app.post
 					{
 						sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
 					}
+					else if(new RegExp(GREETING_KEYWORDS2.join("|")).test(text.toLowerCase()))
+					{
+						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
+					}
 					else
 					{
-						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website")
+						sendTextMessage(sender, "Response will be processed and we'll reply later ^_^");
+						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
 						continue
 					}
 
