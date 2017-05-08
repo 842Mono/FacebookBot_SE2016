@@ -504,14 +504,38 @@ app.post
 					{
 						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
 					}
-					else if(text.indexOf(" late") >= 0)
+					else if(text.indexOf(" late") >= 0 || test.indexOf("time") >= 0)
 					{
-						sendTextMessage(sender, "It's never too late to have some fun ;) </3 😂");
+						sendTextMessage(sender, "It's never too late to have some fun ;) </3");
 					}
-					/*else if(text.indexOf("who") == 0)
+					else if(text.indexOf("why") == 0)
 					{
-
-					}*/
+						sendTextMessage(sender, "I don't even know the reason of my existence! 😂");
+					}
+					else if(text.indexOf("who") == 0)
+					{
+						sendTextMessage(sender, "You tell me who ;P");
+					}
+					else if(text.indexOf("when") == 0)
+					{
+						sendTextMessage(sender, "Any time you like <3");
+					}
+					else if(text.indexOf("where") == 0)
+					{
+						sendTextMessage(sender, "Far far away beyond the stars!!");
+					}
+					else if(text.indexOf("which") == 0)
+					{
+						sendTextMessage(sender, "Let's flip a coin... :D 😂");
+					}
+					else if(text.indexOf("what") == 0)
+					{
+						sendTextMessage(sender, "I have absolutely no idea X)");
+					}
+					else if(text.indexOf("?") >= 0)
+					{
+						sendTextMessage(sender, "You know.. If you really want to know you can google it! >:} 😂");
+					}
 					else
 					{
 						sendTextMessage(sender, "I see U are having fun, well i will reply later ;P \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
