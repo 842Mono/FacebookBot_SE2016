@@ -551,7 +551,7 @@ app.post
 										{
 											"title": activity.name,
 											"subtitle": activity.description,
-											"image_url": prepEndPoint('Activities/' + activity.logo)
+											"image_url": prepEndPoint('Activities/' + activity.logo),
 											"buttons":
 											[
 												{
