@@ -18,6 +18,8 @@ var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "m
 var CALLING_KEYWORDS = [" ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
 var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" ];
 
+var BYE_WORDS = ["Bye" , "bye"];
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -520,6 +522,10 @@ app.post
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
+					}
+					else if (new RegExp(BYE_WORDS.join("|")).test(text))
+					{
+						sendTextMessage(sender, "Bye :D Nice to meet u");
 					}
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
