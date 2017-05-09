@@ -15,7 +15,8 @@ var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :)", "Fine thanks! :D"];
 
 var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf"];
 
-var CALLING_KEYWORDS = ["ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
+var CALLING_KEYWORDS = [" ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
+var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" ];
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -249,7 +250,7 @@ function showBusinesses(sender) {
 							},
 							{
 								"type": "postback",
-								"title": "Show Activities",
+								"title": "Show My Activities",
 								"payload": "sa" + business.name
 							}
 						],
@@ -507,6 +508,10 @@ app.post
 					else if(new RegExp(GREETING_KEYWORDS2.join("|")).test(text))
 					{
 						sendTextMessage(sender, GREETING_RESPONSES2[Math.floor(Math.random()*GREETING_RESPONSES2.length)]);
+					}
+					else if(new RegExp(INTRO_KEYWORDS.join("|")).test(text))
+					{
+						sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team.If u want to know more just continue chatting with me ;)");
 					}
 					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text))
 					{
