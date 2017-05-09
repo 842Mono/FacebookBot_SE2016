@@ -511,7 +511,7 @@ app.post
 					}
 					else if(new RegExp(INTRO_KEYWORDS.join("|")).test(text))
 					{
-						sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team.If u want to know more just continue chatting with me ;)");
+						sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team B) If u want to know more just continue chatting with me ;)");
 					}
 					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text))
 					{
