@@ -8,7 +8,7 @@ var fetch = require('node-fetch');
 
 var GREETING_KEYWORDS = ["hello ", "hi ", "eh el a5bar", "sup ", "what's up", "hey "];
 var EXACT_GREETINGS = ["hello", "hi", "sup", "hey"];
-var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", "Hello and Welcome! :)"];
+var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", "Hello and Welcome! :D"];
 
 var GREETING_KEYWORDS2 = ["how r u", "how are u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a" , "ezayak" , "ezayk" , "ezyk"];
 var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :D", "Fine thanks! :D"];
@@ -18,6 +18,7 @@ var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "m
 var CALLING_KEYWORDS = [" ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
 var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" ];
 
+var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
 app.set('port', (process.env.PORT || 5000))
@@ -479,8 +480,9 @@ app.post
 	function (req, res) {
 		let messaging_events = req.body.entry[0].messaging
 		for (let i = 0; i < messaging_events.length; i++) {
-			let event = req.body.entry[0].messaging[i]
-			let sender = event.sender.id
+			let event = req.body.entry[0].messaging[i];
+			let sender = event.sender.id;
+			let gender = event.sender.gender;
 			if (event.message && event.message.text) {
 				let text = event.message.text.toLowerCase();
 					/*if (text === 'Generic')
@@ -523,9 +525,13 @@ app.post
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 					}
+					else if (new RegExp(ESHTA_WORDS.join("|")).test(text) && gender == 'MALE')
+					{
+						sendTextMessage(sender, "Eshta B)");
+					}
 					else if (new RegExp(BYE_WORDS.join("|")).test(text))
 					{
-						sendTextMessage(sender, "Bye :D Nice to meet u");
+						sendTextMessage(sender, "Bye , Nice to meet u :D");
 					}
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
