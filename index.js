@@ -525,7 +525,7 @@ app.post
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 					}
-					else if (new RegExp(ESHTA_WORDS.join("|")).test(text) && gender == 'MALE')
+					else if (new RegExp(ESHTA_WORDS.join("|")).test(text) && gender == 'male')
 					{
 						sendTextMessage(sender, "Eshta B)");
 					}
