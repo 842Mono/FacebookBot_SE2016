@@ -608,6 +608,10 @@ app.post
 					{
 						sendTextMessage(sender, "You tell me who ;P");
 					}
+					else if(text.indexOf("do you") == 0 || text.indexOf("do u") == 0 || text.indexOf("Do you") == 0 || text.indexOf("Do u") == 0)
+					{
+						sendTextMessage(sender, "maybe yes maybe no :p");
+					}
 					else if(text.indexOf("when") == 0)
 					{
 						sendTextMessage(sender, "Any time you like <3");
