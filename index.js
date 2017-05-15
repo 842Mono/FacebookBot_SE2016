@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var Languages = ["Arabic" , "French" , "Franko"];
+var Languages = ["arabic" , "french" , "franko"];
 
 var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt" , "bank" , "banks"];
 
@@ -562,7 +562,7 @@ app.post
 					{
 						sendTextMessage(sender, "Eshta B)");
 					}
-					else if (new RegExp(Languages.join("|")).test(text))
+					else if (new RegExp(Languages.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "NO Arabic just English and basic franko till now :D");
 					}
