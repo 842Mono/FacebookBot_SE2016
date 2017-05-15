@@ -31,7 +31,7 @@ var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" ,
 var SAD_WORDS = ["sad" , "z3lan" , "angry" , "w7sh" , "w7esh"];
 
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan"];
-var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good"];
+var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'"];
 
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
@@ -559,7 +559,7 @@ app.post
 					}
 					else if(new RegExp(Complements.join("|")).test(text.toLowerCase()))
 					{
-						sendTextMessage(sender, "Thnx ^_^");
+						sendTextMessage(sender, "7byby teslam ^_^");
 					}
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
