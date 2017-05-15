@@ -602,7 +602,7 @@ app.post
 					}
 					else
 					{
-						sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
+						sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
 						continue
 					}
 
