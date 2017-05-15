@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt"];
+var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt" , "bank" , "banks"];
 
 var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo"];
 var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
