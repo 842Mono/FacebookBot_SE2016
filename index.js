@@ -15,7 +15,7 @@ var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :D", "Fine thanks! :D"];
 
 var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf"];
 
-var CALLING_KEYWORDS = [" ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
+var CALLING_KEYWORDS = ["yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy" , "ya zmely" , "b2olak eh" , "b2olk eh"];
 var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" ];
 
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
