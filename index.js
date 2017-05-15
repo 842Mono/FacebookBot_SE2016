@@ -42,7 +42,7 @@ var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-weddin
 				  "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9vdFHnl89Yk%26t%3D3668s&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE" ,
    				  "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCnfj6QCGLyA&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE"]
 
-var EMOJIS = [ ":D" , ":)" , ";P" , ":O" , "(y)" , ":P" , "B)", "B-)" , "8)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "<3"];
+var EMOJIS = [ ":D" , "😜" ,":)" , ";P" , ":O" , "(y)" , ":P" , "B)", "B-)" , "8)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "<3"];
 
 app.set('port', (process.env.PORT || 5000))
 
