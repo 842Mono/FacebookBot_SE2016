@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var EMOJIS = [":D" , ":)" , ";P" , ":p" , "B)" , "O:)" , "😂"];
+var EMOJIS = [":D" , ":)" , ";P" , ":O" , "(y)" , ":P" , "B)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "o.O" , "<3"];
 
 app.set('port', (process.env.PORT || 5000))
 
