@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var TestBank = ["test banks" , "testBanks" , "test bnks"];
+var TestBank = ["test banks" , "testBanks" , "test bnks" , "mangement" , "management" , "question banks"];
 
 var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo"];
 var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
@@ -554,7 +554,7 @@ app.post
 					}
 					else if (new RegExp(TestBank.join("|")).test(text.toLowerCase()))
 					{
-						sendTextMessage(sender, "here you go \n	https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
+						sendTextMessage(sender, "5od test banks we zaker 3edel ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
 					}
 					else if (new RegExp(ESHTA_WORDS.join("|")).test(text))
 					{
