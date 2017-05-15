@@ -554,6 +554,10 @@ app.post
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
 					}
+					else if(new RegExp(CALLINGS2.join("|")).test(text.toLowerCase()))
+					{
+						sendTextMessage(sender, "ah sd2ny xD");
+					}
 					else if(new RegExp(SHATAYEM.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "watch ur language plz :D");
