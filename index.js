@@ -25,6 +25,8 @@ var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sanky
 var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
 
 var SAD_WORDS = ["sad" , "z3lan" , "angry"];
+var Current_Language = ["OS"];
+
 
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
@@ -545,6 +547,10 @@ app.post
 					else if(new RegExp(SAD_WORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
+					}
+					else if(new RegExp(Current_Language.join("|")).test(text))
+					{
+						sendTextMessage(sender, "OS is gone , either u solved bad or good , GOD will take care dw ;) let's now concentrate on managemenet and mrs rasha");
 					}
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
