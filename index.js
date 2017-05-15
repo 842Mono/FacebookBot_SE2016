@@ -21,6 +21,8 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
+var Languages = ["Arabic" , "French" , "Franko"];
+
 var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt" , "bank" , "banks"];
 
 var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo" , "merci" , "rbna y5lek" , "thank you"];
@@ -559,6 +561,10 @@ app.post
 					else if (new RegExp(ESHTA_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "Eshta B)");
+					}
+					else if (new RegExp(Languages.join("|")).test(text))
+					{
+						sendTextMessage(sender, "NO Arabic just English and basic franko till now :D");
 					}
 					else if (new RegExp(BYE_WORDS.join("|")).test(text))
 					{
