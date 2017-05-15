@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var SAD_WORDS = ["sad" , "z3lan" , ":(" , "angry"];
+// var SAD_WORDS = ["sad" , "z3lan" , ":(" , "angry"];
 
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
@@ -535,10 +535,12 @@ app.post
 					{
 						sendTextMessage(sender, "Ah cmon life's full of surprizes :D Just take a break and try something different B)");
 					}
+					/*
 					else if(new RegExp(SAD_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
 					}
+					*/
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
