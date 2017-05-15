@@ -554,7 +554,7 @@ app.post
 					}
 					else if (new RegExp(TestBank.join("|")).test(text.toLowerCase()))
 					{
-						sendTextMessage(sender, "5od test banks we zaker 3edel ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
+						sendTextMessage(sender, "here you go, study well ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
 					}
 					else if (new RegExp(ESHTA_WORDS.join("|")).test(text))
 					{
