@@ -21,9 +21,9 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-// var SAD_WORDS = ["sad" , "z3lan" , ":(" , "angry"];
+var SAD_WORDS = ["sad" , "z3lan" , "angry"];
 
-var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what"];
+var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
 				  "https://soundcloud.com/cheko/kenny-g-endless-love" ,
 				  "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9vdFHnl89Yk%26t%3D3668s&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE" ,
@@ -529,18 +529,16 @@ app.post
 					}
 					else if(new RegExp(SUGGEST_WORDS.join("|")).test(text.toLowerCase()))
 					{
-						sendTextMessage(sender, "try this ;) \n" + MUSIC_LIST[Math.floor(Math.random()*MUSIC_LIST.length)]);
+						sendTextMessage(sender, "try listening to this ;) \n" + MUSIC_LIST[Math.floor(Math.random()*MUSIC_LIST.length)]);
 					}
-					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text))
+					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "Ah cmon life's full of surprizes :D Just take a break and try something different B)");
 					}
-					/*
-					else if(new RegExp(SAD_WORDS.join("|")).test(text))
+					else if(new RegExp(SAD_WORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
 					}
-					*/
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
