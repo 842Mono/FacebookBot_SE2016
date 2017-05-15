@@ -30,6 +30,8 @@ var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" ,
 
 var SAD_WORDS = ["sad" , "z3lan" , "angry" , "w7sh" , "w7esh"];
 
+var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan"];
+
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
 				  "https://soundcloud.com/cheko/kenny-g-endless-love" ,
@@ -549,6 +551,10 @@ app.post
 					else if(new RegExp(SAD_WORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
+					}
+					else if(new RegExp(SHATAYEM.join("|")).test(text.toLowerCase()))
+					{
+						sendTextMessage(sender, "watch ur language plz :D");
 					}
 					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 					{
