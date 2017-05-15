@@ -21,6 +21,8 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
+var EMOJIS = [":D" , ":)" , ";P" , ":p" , "B)" , "O:)" , "😂"];
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -503,7 +505,7 @@ app.post
 					}
 					else if(text == "show website" || text.indexOf("website") >= 0)
 					{
-							directToWebsite(sender);
+						directToWebsite(sender);
 					}
 					else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 					{
@@ -532,6 +534,10 @@ app.post
 					else if (new RegExp(BYE_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "Bye , Nice to meet u :D");
+					}
+					else if(EMOJIS.include(text))
+					{
+						sendTextMessage(sender , text);
 					}
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
