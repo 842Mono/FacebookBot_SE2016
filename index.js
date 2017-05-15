@@ -15,7 +15,7 @@ var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :D", "Fine thanks! :D"];
 
 var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf"];
 
-var CALLING_KEYWORDS = ["yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy" , "ya zmely" , "b2olak eh" , "b2olk eh"];
+var CALLING_KEYWORDS = ["yad ", "ya 3am", "yasta " , " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy" , "ya zmely" , "b2olak eh" , "b2olk eh"];
 var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" , "what is your name" , "what is ur name"];
 
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
@@ -29,6 +29,7 @@ var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sanky
 var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
 
 var SAD_WORDS = ["sad" , "z3lan" , "angry" , "w7sh" , "w7esh"];
+var CALLINGS2 = ["ya ragel" , "bttklm bgad" , "bgad" , "la mt2olsh" , "sure"];
 
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan"];
 var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'"];
