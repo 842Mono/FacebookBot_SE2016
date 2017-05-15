@@ -13,7 +13,7 @@ var GREETING_RESPONSES = ["wsup", "hey :D", "Hi :D", "Hi! Pleased to meet you", 
 var GREETING_KEYWORDS2 = ["how r u", "how are u", "how are you", "3amel eh", "eh'l a5bar", "ezzay el se7a", "ezay el se7a" , "ezayak" , "ezayk" , "ezyk"];
 var GREETING_RESPONSES2 = ["Fine. Have a wonderful day! :D", "Fine thanks! :D"];
 
-var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf" , ":("];
+var BORED_KEYWORDS = ["zh2a", "zah2a", "msh ader", "mesh ader", "mesh aader", "msh aader", "energy", "arfa", "araf", "malal", "mallal", "offf" , "bored" , "Offf"];
 
 var CALLING_KEYWORDS = [" ya ", "yad ", " yad", "bo2loz", "bo2lozty", "bo2loztchy", "bo2lozy"];
 var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "who is this" ];
@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var EMOJIS = [":D" , ":)" , ";P" , ":O" , "(y)" , ":P" , "B)" , "8)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "o.O" , "<3"];
+var EMOJIS = [ ":D" , ":)" , ";P" , ":O" , "(y)" , ":P" , "B)" , "8)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "<3"];
 
 app.set('port', (process.env.PORT || 5000))
 
