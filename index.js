@@ -535,10 +535,12 @@ app.post
 					{
 						sendTextMessage(sender, "Bye , Nice to meet u :D");
 					}
+					/*
 					else if(EMOJIS.include(text))
 					{
 						sendTextMessage(sender , text);
 					}
+					*/
 					else if(text.indexOf(" late") >= 0 || text.indexOf("time") >= 0)
 					{
 						sendTextMessage(sender, "It's never too late </3 ;)");
