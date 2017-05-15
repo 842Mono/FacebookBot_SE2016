@@ -31,6 +31,8 @@ var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" ,
 var SAD_WORDS = ["sad" , "z3lan" , "angry" , "w7sh" , "w7esh"];
 var CALLINGS2 = ["ya ragel" , "bttklm bgad" , "bgad" , "la mt2olsh" , "sure"];
 
+var Lovee = ["love" , "<3"];
+
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan"];
 var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'"];
 
@@ -557,6 +559,10 @@ app.post
 					else if(new RegExp(CALLINGS2.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "ah sd2ny xD");
+					}
+					else if(new RegExp(Lovee.join("|")).test(text.toLowerCase()))
+					{
+						sendTextMessage(sender, "<3");
 					}
 					else if(new RegExp(SHATAYEM.join("|")).test(text.toLowerCase()))
 					{
