@@ -552,7 +552,7 @@ app.post
 					{
 						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 					}
-					else if (new RegExp(TestBank.join("|")).test(text))
+					else if (new RegExp(TestBank.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "here you go \n	https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
 					}
