@@ -21,6 +21,9 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
+var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo"];
+var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
+
 var SAD_WORDS = ["sad" , "z3lan" , "angry"];
 
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
@@ -530,6 +533,10 @@ app.post
 					else if(new RegExp(SUGGEST_WORDS.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "try listening to this ;) \n" + MUSIC_LIST[Math.floor(Math.random()*MUSIC_LIST.length)]);
+					}
+					else if (new RegExp(THANKING_WORDS.join("|")).test(text.toLowerCase()))
+					{
+						sendTextMessage(sender, THANKING_RESPONSES[Math.floor(Math.random()*THANKING_RESPONSES.length)]);
 					}
 					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text.toLowerCase()))
 					{
