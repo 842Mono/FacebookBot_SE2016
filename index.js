@@ -34,7 +34,7 @@ var CALLINGS2 = ["ya ragel" , "bttklm bgad" , "bgad" , "la mt2olsh" , "sure"];
 var Lovee = ["love" , "<3"];
 
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan" , "stupid" , "fck" , "idiot"];
-var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'"];
+var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'" , "awsome" , "lol" , "it is good" , "u r good"];
 
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
