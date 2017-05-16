@@ -25,7 +25,7 @@ var Languages = ["arabic" , "araby" , "franko"];
 
 var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt" , "bank" , "banks"];
 
-var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo" , "merci" , "rbna y5lek" , "thank you"];
+var THANKING_WORDS = ["thanks" , "shokran" , "thnx" , "sanko" , "zanko" , "sankyo" , "zankyo" , "merci" , "rbna y5lek" , "thank you" , "thank u"];
 var THANKING_RESPONSES = ["Urw ^_^" , "you are welcome ^_^" , "My pleasure ;)" , "Don't mention it ^_^"]; 
 
 var SAD_WORDS = ["sad" , "z3lan" , "angry" , "w7sh" , "w7esh"];
