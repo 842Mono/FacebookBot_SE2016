@@ -21,7 +21,7 @@ var INTRO_KEYWORDS = ["who are u" , "who r u" , "who are you" , "who r you" , "w
 var ESHTA_WORDS = ["eshta" , "esta" , "Eshta" , "e4ta"];
 var BYE_WORDS = ["Bye" , "bye"];
 
-var Languages = ["arabic" , "french" , "franko"];
+var Languages = ["arabic" , "araby" , "franko"];
 
 var TestBank = ["test banks" , "testbanks" , "test bnks" , "mangement" , "management" , "question banks" , "mngmnt" , "bank" , "banks"];
 
@@ -514,12 +514,12 @@ app.post
 						continue
 					}
 					else */
-					if (text == "show businesses")
+					if (text == "show businesses" || text.indexOf("businesses") >= 0)
 					{
 						showBusinesses(sender)
 						continue
 					}
-					else if(text == "show activities")
+					else if(text == "show activities" || text.indexOf("activities") >= 0)
 					{
 						showAllActivities(sender)
 						continue
@@ -540,39 +540,39 @@ app.post
 					{
 						sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team B) If u want to know more just continue chatting with me ;)");
 					}
-					else if(new RegExp(SUGGEST_WORDS.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(SUGGEST_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "try listening to this ;) \n" + MUSIC_LIST[Math.floor(Math.random()*MUSIC_LIST.length)]);
 					}
-					else if (new RegExp(THANKING_WORDS.join("|")).test(text.toLowerCase()))
+					else if (new RegExp(THANKING_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, THANKING_RESPONSES[Math.floor(Math.random()*THANKING_RESPONSES.length)]);
 					}
-					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(BORED_KEYWORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "Ah cmon life's full of surprizes :D Just take a break and try something different B)");
 					}
-					else if(new RegExp(SAD_WORDS.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(SAD_WORDS.join("|")).test(text))
 					{
 						sendTextMessage(sender, "Ah cmon don't be sad plz :D Just take a break and try listening to some music B)");
 					}
-					else if(new RegExp(CALLINGS2.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(CALLINGS2.join("|")).test(text))
 					{
 						sendTextMessage(sender, "ah sd2ny xD");
 					}
-					else if(new RegExp(Lovee.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(Lovee.join("|")).test(text))
 					{
 						sendTextMessage(sender, "<3");
 					}
-					else if(new RegExp(SHATAYEM.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(SHATAYEM.join("|")).test(text))
 					{
 						sendTextMessage(sender, "watch ur language plz :D");
 					}
-					else if(new RegExp(Complements.join("|")).test(text.toLowerCase()))
+					else if(new RegExp(Complements.join("|")).test(text))
 					{
 						sendTextMessage(sender, "7byby teslam ^_^");
 					}
-					else if (new RegExp(TestBank.join("|")).test(text.toLowerCase()))
+					else if (new RegExp(TestBank.join("|")).test(text))
 					{
 						sendTextMessage(sender, "here you go, study well ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
 					}
@@ -580,9 +580,9 @@ app.post
 					{
 						sendTextMessage(sender, "Eshta B)");
 					}
-					else if (new RegExp(Languages.join("|")).test(text.toLowerCase()))
+					else if (new RegExp(Languages.join("|")).test(text))
 					{
-						sendTextMessage(sender, "NO Arabic just English and basic franko till now :D");
+						sendTextMessage(sender, "I don't speak Arabic just English and basic franko till now :D");
 					}
 					else if (new RegExp(BYE_WORDS.join("|")).test(text))
 					{
