@@ -36,7 +36,7 @@ var Lovee = ["love" , "<3"];
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan" , "stupid" , "fck" , "idiot"];
 var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dema8" , "danta dma3'" , "awsome" , "lol" , "it is good" , "u r good"];
 
-var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else"];
+var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else" , "else"];
 var MUSIC_LIST = ["https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding" ,
 				  "https://soundcloud.com/cheko/kenny-g-endless-love" ,
 				  "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9vdFHnl89Yk%26t%3D3668s&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE" ,
