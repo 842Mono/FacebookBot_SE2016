@@ -572,10 +572,6 @@ app.post
 					{
 						sendTextMessage(sender, "7byby teslam ^_^");
 					}
-					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
-					{
-						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
-					}
 					else if (new RegExp(TestBank.join("|")).test(text.toLowerCase()))
 					{
 						sendTextMessage(sender, "here you go, study well ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
@@ -631,6 +627,10 @@ app.post
 					else if(text.indexOf("?") >= 0)
 					{
 						sendTextMessage(sender, "You know.. If you really want to find out you can google it! >:} 😂");
+					}
+					else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
+					{
+						sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 					}
 					else
 					{
