@@ -740,7 +740,7 @@ app.post
 					sequentialSendMessage
 					(
 						sender,
-						"This is a beta command.\nSearching for \"" + queryString + "\"",
+						"Searching for \"" + queryString + "\"",
 						function()
 						{
 							sequentialPostVisitorSearch
@@ -766,7 +766,11 @@ app.post
 													(
 														sender,
 														data.activities,
-														function(){sendTextMessage(sender, "why not try a different query 😅");console.log("fen dih??")}
+														function()
+														{
+															sendTextMessage(sender, "why not try a different query 😅");
+															console.log("fen dih??")
+														}
 													)
 												}
 											);
@@ -922,7 +926,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website");
+					sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here) *new feature*");
 					continue
 				}
 			}
