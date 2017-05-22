@@ -602,7 +602,10 @@ function sequentialShowBusinesses(sender, businessesIn, next)
 function sequentialShowActivities(sender, activitiesIn, next)
 {
 	if(activitiesIn.length == 0)
+	{
 		sendTextMessage(sender, "No Activities Found");
+		next();
+	}
 	else
 		sequentialSendMessage
 		(
