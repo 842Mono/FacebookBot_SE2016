@@ -663,7 +663,7 @@ app.post
 					);*/
 
 					//sendTextMessage(sender, "This is a beta command").then(function sendTextMessage(sender, "I'll list businesesses based on your query")).then(sendTextMessage(sender, "Then I'll also list activities"));
-					sendTextMessage2(sender, "This is a beta command", sendTextMessage2(sender, "I'll list businesesses based on your query", sendTextMessage2(sender, "Then I'll also list activities", function(){})));
+					sendTextMessage2(sender, "This is a beta command", function(){sendTextMessage2(sender, "I'll list businesesses based on your query", function(){sendTextMessage2(sender, "Then I'll also list activities", function(){})})});
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
