@@ -48,6 +48,8 @@ var MUSIC_LIST =
 
 var EMOJIS = [ ":D" , "😜" ,":)" , ";P" , ":O" , "(y)" , ":P" , "B)", "B-)" , "8)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "<3"];
 
+var backendErrorMessage = "Something Went Wrong! Maybe the main website is down, please notify the developers if you can :c";
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -337,11 +339,11 @@ function directToAboutUs(sender)
 		{
 			if(error)
 			{
-				console.log('Error from directToWebsite error', error)
+				console.log('Error from directToAboutUs error', error)
 			}
 			if(response.body.error)
 			{
-				console.log('Error from directToWebsite response.body.error', response.body.error)
+				console.log('Error from directToAboutUs response.body.error', response.body.error)
 			}
 		}
 	);
@@ -735,6 +737,90 @@ function sequentialShowActivities(sender, activitiesIn, next)
 }
 
 
+function showTopBusinesses(sender)
+{
+	fetch(prepEndPoint('HighestBusi')).then
+	(
+		function(res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			if(!json.success)
+				return sendTextMessage(sender, json.message);//backendErrorMessage);
+
+			var arrayOfBusinesses = [];
+
+			for (let x = 0; x < json.businesses.length; ++x)
+			{
+				let business = json.businesses[x];
+				let businessElement =
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						},
+						{
+							"type": "postback",
+							"title": "Show My Activities",
+							"payload": "sa" + business.name
+						}
+					],
+				};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements": arrayOfBusinesses
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error from showHighestBusinesses error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from showHighestBusinesses response.body.error', response.body.error)
+					}
+				}
+			)
+		}
+	);
+}
+
+
 app.post
 (
 	'/webhook/',
@@ -789,7 +875,7 @@ app.post
 											sendTextMessage(sender, "Can't search using this query. Please try not to use special characters");
 										else
 										{
-											sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers if you can :c");
+											sendTextMessage(sender, backendErrorMessage);
 											console.log("Error message from backend: " + data.msg);
 										}
 									}
@@ -845,22 +931,6 @@ app.post
 													)
 												}
 											);
-
-
-										/*sequentialSendMessage
-										(
-											sender,
-											"I'll list businesesses based on your query",
-											function()
-											{
-												sequentialSendMessage
-												(
-													sender,
-													"Then I'll also list activities",
-													function(){}
-												)
-											}
-										)*/
 									}
 								}
 							);
@@ -870,6 +940,10 @@ app.post
 				else if(text == "about")
 				{
 					directToAboutUs(sender);
+				}
+				else if(text == "show top businesses")
+				{
+					showTopBusinesses(sender);
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
@@ -881,7 +955,7 @@ app.post
 				}
 				else if(new RegExp(INTRO_KEYWORDS.join("|")).test(text))
 				{
-					sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team B) If u want to know more just continue chatting with me ;)");
+					sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team B) Keep chatting to find out more ;)");
 				}
 				else if(new RegExp(SUGGEST_WORDS.join("|")).test(text))
 				{
@@ -909,7 +983,7 @@ app.post
 				}
 				else if(new RegExp(SHATAYEM.join("|")).test(text))
 				{
-					sendTextMessage(sender, "watch ur language plz :D");
+					sendTextMessage(sender, "watch ur language plz :P :D");
 				}
 				else if(new RegExp(Complements.join("|")).test(text))
 				{
@@ -977,7 +1051,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here), *new*\nAbout");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
 					continue
 				}
 			}
