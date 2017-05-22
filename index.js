@@ -198,43 +198,6 @@ function sendTextMessage(sender, text)
 	)
 }
 
-function sendTextMessage2(sender,text,next)
-{
-	let messageData = { text: text }
-	request
-	(
-		{
-			url: 'https://graph.facebook.com/v2.6/me/messages',
-			qs: { access_token: token },
-			method: 'POST',
-			json:
-			{
-				recipient: { id: sender },
-				message: messageData,
-			}
-		},
-		function(error, response, body)
-		{
-			if(error)
-			{
-				console.log("error from request!");
-				console.log('Error sending messages: ', error)
-			}
-			else if(response.body.error)
-			{
-				console.log("error from response.body.error!");
-				console.log('Error: ', response.body.error)
-			}
-			else
-			{
-				console.log("body coming in!");
-				console.log(body);
-				next();
-			}
-		}
-	)
-}
-
 const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
 
 /*
@@ -419,103 +382,6 @@ function showBusinesses(sender)
 }
 
 
-/*
-function searchActivityType(sender, )
-{
-	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
-	(
-		function (res)
-		{
-			return res.json();
-		}
-	).then
-	(
-		function(json)
-		{
-			console.log(json);
-
-			var arrayOfActivities = [];
-
-			for(let x = 0; x < json.all.length; ++x)
-			{
-				let business = json.all[x];
-
-				console.log(business);
-
-				let businessElement =
-				{
-					"title": business.name,
-					"subtitle": business.description,
-					"image_url": prepEndPoint('LOGOS/' + business.logo),
-					"buttons":
-					[
-						{
-							"type": "web_url",
-							"url": prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
-						}
-					],
-				};
-
-				{
-					"title": "First card",
-					"subtitle": "Element #1 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-					"buttons": [{
-						"type": "web_url",
-						"url": "https://www.messenger.com",
-						"title": "web url"
-					}, {
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for first element in a generic bubble",
-					}],
-				}
-
-				arrayOfBusinesses.push(businessElement);
-			}
-
-			console.log(arrayOfBusinesses);
-
-			let messageData =
-			{
-				"attachment":
-				{
-					"type": "template",
-					"payload":
-					{
-						"template_type": "generic",
-						"elements":arrayOfBusinesses
-					}
-				}
-			}
-			request
-			(
-				{
-					url: 'https://graph.facebook.com/v2.6/me/messages',
-					qs: { access_token: token },
-					method: 'POST',
-					json:
-					{
-						recipient: { id: sender },
-						message: messageData,
-					}
-				},
-				function (error, response, body) {
-				if (error) {
-					console.log('Error sending messages: ', error)
-				} else if (response.body.error) {
-					console.log('Error: ', response.body.error)
-				}
-			}
-		)
-
-		}
-	);
-}
-*/
-
-
 function showAllActivities(sender)
 {
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
@@ -597,6 +463,123 @@ function showAllActivities(sender)
 }
 
 
+function sequentialSendMessage(sender,text,next)
+{
+	let messageData = { text: text }
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: messageData,
+			}
+		},
+		function(error, response, body)
+		{
+			if(error)
+			{
+				console.log("error from request!");
+				console.log('Error sending messages: ', error)
+			}
+			else if(response.body.error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error: ', response.body.error)
+			}
+			else
+			{
+				console.log("body coming in!");
+				console.log(body);
+				next();
+			}
+		}
+	)
+}
+
+function sequentialShowBusinesses(sender,next)
+{
+	fetch(prepEndPoint('viewAllBusinesses')).then
+	(
+		function(res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			var arrayOfBusinesses = [];
+
+			for (let x = 0; x < json.all.length; ++x)
+			{
+				let business = json.all[x];
+				let businessElement =
+				{
+					"title": business.name,
+					"subtitle": business.description,
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						},
+						{
+							"type": "postback",
+							"title": "Show My Activities",
+							"payload": "sa" + business.name
+						}
+					],
+				};
+
+				arrayOfBusinesses.push(businessElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements": arrayOfBusinesses
+					}
+				}
+			}
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error sending messages: ', error)
+					}
+					else if(response.body.error)
+					{
+						console.log('Error: ', response.body.error)
+					}
+				}
+			)
+		}
+	);
+}
+
 app.post
 (
 	'/webhook/',
@@ -616,12 +599,6 @@ app.post
 			{
 				let text = event.message.text.toLowerCase();
 
-				/*if (text === 'Generic')
-				{
-					sendGenericMessage(sender)
-					continue
-				}
-				else */
 				if (text == "show businesses" || text.indexOf("businesses") >= 0)
 				{
 					showBusinesses(sender)
@@ -636,34 +613,31 @@ app.post
 				{
 					directToWebsite(sender);
 				}
-				else if(text.indexOf("search") == 0)
+				else if(text.indexOf("search ") == 0)
 				{
-					/*
-					fetch(prepEndPoint('viewAllBusinesses')).then
+					let queryString = text.slice(7);
+					sequentialSendMessage
 					(
-						function (res)
+						sender,
+						"This is a beta command. Searching for " + queryString,
+						function()
 						{
-							return res.json();
+							sequentialSendMessage
+							(
+								sender,
+								"I'll list businesesses based on your query",
+								function()
+								{
+									sequentialSendMessage
+									(
+										sender,
+										"Then I'll also list activities",
+										function(){}
+									)
+								}
+							)
 						}
-					).then
-					(
-						function (json)
-						{
-							res.send(json.all);
-						}
-					);*/
-
-					/*let agrumentsConfirmation = new Promise
-					(
-						function(resolve,reject)
-						{
-							sendTextMessage(sender, "This is a beta command");
-							resolve();
-						}
-					);*/
-
-					//sendTextMessage(sender, "This is a beta command").then(function sendTextMessage(sender, "I'll list businesesses based on your query")).then(sendTextMessage(sender, "Then I'll also list activities"));
-					sendTextMessage2(sender, "This is a beta command", function(){sendTextMessage2(sender, "I'll list businesesses based on your query", function(){sendTextMessage2(sender, "Then I'll also list activities", function(){})})});
+					);
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
