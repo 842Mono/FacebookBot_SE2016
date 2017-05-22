@@ -619,8 +619,83 @@ function sequentialShowActivities(sender, activitiesIn, next)
 		sequentialSendMessage
 		(
 			sender,
-			"gonna show activities found",
-			function(){}
+			"Showing Activities Found...",
+			function()
+			{
+				var arrayOfActivities = [];
+
+				for (let x = 0; x < activitiesIn.length; ++x)
+				{
+					let activity = activitiesIn[x].activity;
+					let activityElement =
+					{
+						"title": activity.name,
+						"subtitle": activity.description,
+						"image_url": prepEndPoint('Activities/' + activity.logo),
+						"buttons":
+						[
+							{
+								"type": "web_url",
+								"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+								"title": "View Details"
+							}/*,
+							{
+								"type": "postback",
+								"title": "Show details",
+								"payload":activity.name
+							}*/
+						],
+					};
+
+					arrayOfActivities.push(activityElement);
+				}
+				//console.log(arrayOfBusinesses);
+				let messageData =
+				{
+					"attachment":
+					{
+						"type": "template",
+						"payload":
+						{
+							"template_type": "generic",
+							"elements": arrayOfActivities
+						}
+					}
+				};
+
+				request
+				(
+					{
+						url: 'https://graph.facebook.com/v2.6/me/messages',
+						qs: { access_token: token },
+						method: 'POST',
+						json:
+						{
+							recipient: { id: sender },
+							message: messageData,
+						}
+					},
+					function (error, response, body)
+					{
+						if(error)
+						{
+							console.log("error from response.body.error!");
+							console.log('Error sending messages: ', error)
+						}
+						else if(response.body.error)
+						{
+							console.log("error from response.body.error!");
+							console.log('Error: ', response.body.error)
+						}
+						else
+						{
+							console.log("search results coming in!");
+							console.log(body);
+							next();
+						}
+					}
+				)
+			}
 		);
 }
 
@@ -691,7 +766,7 @@ app.post
 													(
 														sender,
 														data.activities,
-														function(){}
+														function(){sendTextMessage(sender, "why not try a different query 😅");}
 													)
 												}
 											);
