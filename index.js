@@ -685,12 +685,15 @@ app.post
 											(
 												sender,
 												"No Businesses Found",
-												sequentialShowActivities
-												(
-													sender,
-													data.activities,
-													function(){}
-												)
+												function()
+												{
+													sequentialShowActivities
+													(
+														sender,
+														data.activities,
+														function(){}
+													)
+												}
 											);
 										else
 											sequentialSendMessage
