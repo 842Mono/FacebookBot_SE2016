@@ -611,6 +611,20 @@ function sequentialShowBusinesses(sender, businessesIn, next)
 }
 
 
+function sequentialShowActivities(sender, activitiesIn, next)
+{
+	if(activitiesIn.length == 0)
+		sendTextMessage(sender, "No Activities Found");
+	else
+		sequentialSendMessage
+		(
+			sender,
+			"gonna show activities found",
+			function(){}
+		);
+}
+
+
 app.post
 (
 	'/webhook/',
@@ -671,7 +685,12 @@ app.post
 											(
 												sender,
 												"No Businesses Found",
-												showActivities
+												sequentialShowActivities
+												(
+													sender,
+													data.activities,
+													function(){}
+												)
 											);
 										else
 											sequentialSendMessage
@@ -686,10 +705,11 @@ app.post
 														data.businesses,
 														function()
 														{
-															sequentialSendMessage
+															//if length
+															sequentialShowActivities
 															(
 																sender,
-																"Then I'll also list activities",
+																data.activities,
 																function(){}
 															)
 														}
