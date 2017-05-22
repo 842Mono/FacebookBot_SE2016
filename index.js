@@ -671,7 +671,7 @@ app.post
 											(
 												sender,
 												"No Businesses Found",
-												showActivities
+												showActivities(data.activities)
 											);
 										else
 											sequentialSendMessage
@@ -683,6 +683,7 @@ app.post
 
 										let showActivities = function(activities)
 										{
+
 											sequentialSendMessage
 											(
 												sender,
