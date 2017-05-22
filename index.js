@@ -527,90 +527,87 @@ function sequentialPostVisitorSearch(queriesIn,next)
 			}
 			console.log("search results coming in!");
 			console.log(body);
-			next();
+			next(body);
 		}
 	)
 }
 
 
-function sequentialShowBusinesses(sender,next)
+function sequentialShowBusinesses(sender, businessesIn, activitiesIn, next)
 {
-	fetch(prepEndPoint('viewAllBusinesses')).then
-	(
-		function(res)
-		{
-			return res.json();
-		}
-	).then
-	(
-		function (json)
-		{
-			var arrayOfBusinesses = [];
+	var arrayOfBusinesses = [];
 
-			for (let x = 0; x < json.all.length; ++x)
-			{
-				let business = json.all[x];
-				let businessElement =
+	for (let x = 0; x < businessesIn.length; ++x)
+	{
+		let business = businessesIn[x].business;
+		let businessElement =
+		{
+			"title": business.name,
+			"subtitle": business.description,
+			"image_url": prepEndPoint('LOGOS/' + business.logo),
+			"buttons":
+			[
 				{
-					"title": business.name,
-					"subtitle": business.description,
-					"image_url": prepEndPoint('LOGOS/' + business.logo),
-					"buttons":
-					[
-						{
-							"type": "web_url",
-							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
-						},
-						{
-							"type": "postback",
-							"title": "Show My Activities",
-							"payload": "sa" + business.name
-						}
-					],
-				};
-
-				arrayOfBusinesses.push(businessElement);
-			}
-			//console.log(arrayOfBusinesses);
-			let messageData =
-			{
-				"attachment":
-				{
-					"type": "template",
-					"payload":
-					{
-						"template_type": "generic",
-						"elements": arrayOfBusinesses
-					}
-				}
-			}
-			request
-			(
-				{
-					url: 'https://graph.facebook.com/v2.6/me/messages',
-					qs: { access_token: token },
-					method: 'POST',
-					json:
-					{
-						recipient: { id: sender },
-						message: messageData,
-					}
+					"type": "web_url",
+					"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+					"title": "View Details"
 				},
-				function (error, response, body)
 				{
-					if(error)
-					{
-						console.log('Error sending messages: ', error)
-					}
-					else if(response.body.error)
-					{
-						console.log('Error: ', response.body.error)
-					}
+					"type": "postback",
+					"title": "Show My Activities",
+					"payload": "sa" + business.name
 				}
-			)
+			],
+		};
+
+		arrayOfBusinesses.push(businessElement);
+	}
+	//console.log(arrayOfBusinesses);
+	let messageData =
+	{
+		"attachment":
+		{
+			"type": "template",
+			"payload":
+			{
+				"template_type": "generic",
+				"elements": arrayOfBusinesses
+			}
 		}
-	);
+	}
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: messageData,
+			}
+		},
+		function (error, response, body)
+		{
+			if(error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error sending messages: ', error)
+			}
+			else if(response.body.error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error: ', response.body.error)
+			}
+			else
+			{
+				console.log("search results coming in!");
+				console.log(body);
+				next(activitiesIn);
+			}
+		}
+	)
+
 }
 
 
@@ -651,28 +648,66 @@ app.post
 				{
 					let queryString = text.slice(7);
 
-					sequentialPostVisitorSearch(queryString, function(){});
-
 					sequentialSendMessage
 					(
 						sender,
 						"This is a beta command.\nSearching for \"" + queryString + "\"",
 						function()
 						{
-							sequentialSendMessage
+							sequentialPostVisitorSearch
 							(
-								sender,
-								"I'll list businesesses based on your query",
-								function()
+								queryString,
+								function(data)
 								{
-									sequentialSendMessage
-									(
-										sender,
-										"Then I'll also list activities",
-										function(){}
-									)
+									if(!data.success)
+									{
+										sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers :c");
+										console.log("Error message from backend: " + data.msg);
+									}
+									else
+									{
+										if(data.businesses.length == 0)
+											sequentialSendMessage
+											(
+												sender,
+												"No Businesses Found",
+												showActivities
+											);
+										else
+											sequentialSendMessage
+											(
+												sender,
+												"Showing Businesses Found...",
+												function(){sequentialShowBusinesses(sender, data.businesses, data.activities, showActivities)}
+											);
+
+										let showActivities = function(activities)
+										{
+											sequentialSendMessage
+											(
+												sender,
+												"Then I'll also list activities",
+												function(){}
+											)
+										}
+
+										/*sequentialSendMessage
+										(
+											sender,
+											"I'll list businesesses based on your query",
+											function()
+											{
+												sequentialSendMessage
+												(
+													sender,
+													"Then I'll also list activities",
+													function(){}
+												)
+											}
+										)*/
+									}
 								}
-							)
+							);
 						}
 					);
 				}
