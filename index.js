@@ -488,12 +488,9 @@ function sequentialSendMessage(sender,text,next)
 				console.log("error from sequentialSendMessage response.body.error!");
 				console.log('Error: ', response.body.error)
 			}
-			else
-			{
-				console.log("body coming in!");
-				console.log(body);
-				next();
-			}
+			console.log("body coming in!");
+			console.log(body);
+			next();
 		}
 	)
 }
@@ -523,7 +520,7 @@ function sequentialPostVisitorSearch(queriesIn,next)
 				console.log("error from sequentialPostVisitorSearch response.body.error!");
 				console.log('Error: ', response.body.error)
 			}
-				next(body);
+			next(body);
 		}
 	)
 }
@@ -595,8 +592,7 @@ function sequentialShowBusinesses(sender, businessesIn, next)
 				console.log("error from sequentialShowBusinesses response.body.error!");
 				console.log('Error: ', response.body.error)
 			}
-			else
-				next();
+			next();
 		}
 	)
 
@@ -679,8 +675,7 @@ function sequentialShowActivities(sender, activitiesIn, next)
 							console.log("error from sequentialShowActivities response.body.error!");
 							console.log('Error: ', response.body.error)
 						}
-						else
-							next();
+						next();
 					}
 				)
 			}
@@ -742,7 +737,7 @@ app.post
 											sendTextMessage(sender, "Can't search using this query. Please try not to use special characters");
 										else
 										{
-											sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers :c");
+											sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers if you can :c");
 											console.log("Error message from backend: " + data.msg);
 										}
 									}
@@ -761,7 +756,7 @@ app.post
 														data.activities,
 														function()
 														{
-															sendTextMessage(sender, "why not try a different query X')");
+															sendTextMessage(sender, "why not try a different query 😅");
 															console.log("fen dih??")
 														}
 													)
