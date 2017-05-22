@@ -735,7 +735,7 @@ app.post
 				}
 				else if(text.indexOf("search ") == 0)
 				{
-					let queryString = text.slice(7);
+					let queryString = event.message.text.slice(7);
 
 					sequentialSendMessage
 					(
@@ -766,7 +766,7 @@ app.post
 													(
 														sender,
 														data.activities,
-														function(){sendTextMessage(sender, "why not try a different query 😅");}
+														function(){sendTextMessage(sender, "why not try a different query 😅");console.log("fen dih??")}
 													)
 												}
 											);
