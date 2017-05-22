@@ -299,6 +299,55 @@ function directToWebsite(sender)
 }
 
 
+function directToAboutUs(sender)
+{
+	let messageData =
+	{
+		"attachment":
+		{
+			"type": "template",
+			"payload":
+			{
+				"template_type": "button",
+				"text": "We're a determined team of students and this is our project for the SE Course. The website offers a whole entertainment platform for many service-providers offering their own activities. Click below for more...",
+				"buttons":
+				[
+					{
+						"type": "web_url",
+						"url": prepLink('/aboutUs'),
+						"title": "Go To About Page"
+					}
+				]
+			}
+		}
+	};
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: messageData,
+			}
+		},
+		function (error, response, body)
+		{
+			if(error)
+			{
+				console.log('Error from directToWebsite error', error)
+			}
+			if(response.body.error)
+			{
+				console.log('Error from directToWebsite response.body.error', response.body.error)
+			}
+		}
+	);
+}
+
+
 function showBusinesses(sender)
 {
 	fetch(prepEndPoint('viewAllBusinesses')).then
@@ -818,6 +867,10 @@ app.post
 						}
 					);
 				}
+				else if(text == "about")
+				{
+					directToAboutUs(sender);
+				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
 					sendTextMessage(sender, GREETING_RESPONSES[Math.floor(Math.random()*GREETING_RESPONSES.length)]);
@@ -924,7 +977,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here) *new feature*");
+					sendTextMessage(sender, "Not yet... \n Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here), *new*\nAbout");
 					continue
 				}
 			}
