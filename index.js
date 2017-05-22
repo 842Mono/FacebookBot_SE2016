@@ -821,6 +821,90 @@ function showTopBusinesses(sender)
 }
 
 
+function showTopActivities(sender)
+{
+	fetch(prepEndPoint('HighestAct')).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function(json)
+		{
+			if(!json.success)
+				return sendTextMessage(sender, json.message);
+
+			var arrayOfActivities = [];
+			for (let x = 0; x < json.activities.length; ++x)
+			{
+				let activity = json.activities[x];
+				let activityElement =
+				{
+					"title": activity.name,
+					"subtitle": activity.description,
+					"image_url": prepEndPoint('Activities/' + activity.logo),
+					"buttons":
+					[
+						{
+							"type": "web_url",
+							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
+							"title": "View Details"
+						}/*,
+						{
+							"type": "postback",
+							"title": "Show details",
+							"payload":activity.name
+						}*/
+					],
+				};
+
+				arrayOfActivities.push(activityElement);
+			}
+			//console.log(arrayOfBusinesses);
+			let messageData =
+			{
+				"attachment":
+				{
+					"type": "template",
+					"payload":
+					{
+						"template_type": "generic",
+						"elements": arrayOfActivities
+					}
+				}
+			};
+
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: messageData,
+					}
+				},
+				function (error, response, body)
+				{
+					if (error)
+					{
+						console.log('Error from showAllActivities error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from showAllActivities response.body.error', response.body.error)
+					}
+				}
+			)
+		}
+	);
+}
+
+
 app.post
 (
 	'/webhook/',
@@ -843,6 +927,10 @@ app.post
 				if(text == "show top businesses")
 				{
 					showTopBusinesses(sender);
+				}
+				else if(text == "show top activities")
+				{
+					showTopActivities(sender);
 				}
 				else if(text == "show businesses" || text.indexOf("businesses") >= 0)
 				{
@@ -1051,7 +1139,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
 					continue
 				}
 			}
