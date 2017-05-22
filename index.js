@@ -787,12 +787,19 @@ app.post
 														data.businesses,
 														function()
 														{
-															//if length
 															sequentialShowActivities
 															(
 																sender,
 																data.activities,
-																function(){}
+																function()
+																{
+																	sequentialSendMessage
+																	(
+																		sender,
+																		"search on... ^_^"
+																		function(){}
+																	);
+																}
 															)
 														}
 													)
