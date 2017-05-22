@@ -840,7 +840,11 @@ app.post
 			{
 				let text = event.message.text.toLowerCase();
 
-				if (text == "show businesses" || text.indexOf("businesses") >= 0)
+				if(text == "show top businesses")
+				{
+					showTopBusinesses(sender);
+				}
+				else if(text == "show businesses" || text.indexOf("businesses") >= 0)
 				{
 					showBusinesses(sender)
 					continue
@@ -940,10 +944,6 @@ app.post
 				else if(text == "about")
 				{
 					directToAboutUs(sender);
-				}
-				else if(text == "show top businesses")
-				{
-					showTopBusinesses(sender);
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
