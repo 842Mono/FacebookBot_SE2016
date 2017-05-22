@@ -750,8 +750,13 @@ app.post
 								{
 									if(!data.success)
 									{
-										sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers :c");
-										console.log("Error message from backend: " + data.msg);
+										if(data.msg.indexOf("Invalid regex") >= 0)
+											sendTextMessage(sender, "Can't search using this query. Please try not to use special characters");
+										else
+										{
+											sendTextMessage(sender, "Something Went Wrong! Maybe the main website is down, please notify the developers :c");
+											console.log("Error message from backend: " + data.msg);
+										}
 									}
 									else
 									{
@@ -768,7 +773,7 @@ app.post
 														data.activities,
 														function()
 														{
-															sendTextMessage(sender, "why not try a different query 😅");
+															sendTextMessage(sender, "why not try a different query X')");
 															console.log("fen dih??")
 														}
 													)
