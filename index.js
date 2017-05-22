@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 var fetch = require('node-fetch');
+//var Promise = require('promise');
 
 var GREETING_KEYWORDS = ["hello ", "hi ", "eh el a5bar", "sup ", "what's up", "hey "];
 var EXACT_GREETINGS = ["hello", "hi", "sup", "hey"];
@@ -181,12 +182,54 @@ function sendTextMessage(sender, text)
 		},
 		function(error, response, body)
 		{
-			if (error)
+			if(error)
 			{
+				console.log("error from response.body.error!");
 				console.log('Error sending messages: ', error)
-			}else if(response.body.error)
+			}
+			else if(response.body.error)
 			{
+				console.log("error from response.body.error!");
 				console.log('Error: ', response.body.error)
+			}
+			console.log("body coming in!");
+			console.log(body);
+		}
+	)
+}
+
+function sendTextMessage2(sender,text,next)
+{
+	let messageData = { text: text }
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: messageData,
+			}
+		},
+		function(error, response, body)
+		{
+			if(error)
+			{
+				console.log("error from request!");
+				console.log('Error sending messages: ', error)
+			}
+			else if(response.body.error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error: ', response.body.error)
+			}
+			else
+			{
+				console.log("body coming in!");
+				console.log(body);
+				next();
 			}
 		}
 	)
@@ -595,10 +638,32 @@ app.post
 				}
 				else if(text.indexOf("search") == 0)
 				{
-					sendTextMessage(sender, "This is a beta command");
-					sendTextMessage(sender, "I'll list businesesses based on your query");
-					sendTextMessage(sender, "Then I'll also list activities");
+					/*
+					fetch(prepEndPoint('viewAllBusinesses')).then
+					(
+						function (res)
+						{
+							return res.json();
+						}
+					).then
+					(
+						function (json)
+						{
+							res.send(json.all);
+						}
+					);*/
 
+					/*let agrumentsConfirmation = new Promise
+					(
+						function(resolve,reject)
+						{
+							sendTextMessage(sender, "This is a beta command");
+							resolve();
+						}
+					);*/
+
+					//sendTextMessage(sender, "This is a beta command").then(function sendTextMessage(sender, "I'll list businesesses based on your query")).then(sendTextMessage(sender, "Then I'll also list activities"));
+					sendTextMessage2(sender, "This is a beta command", sendTextMessage2(sender, "I'll list businesesses based on your query", sendTextMessage2(sender, "Then I'll also list activities", function(){})));
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
