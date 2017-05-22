@@ -500,6 +500,39 @@ function sequentialSendMessage(sender,text,next)
 	)
 }
 
+
+function sequentialPostVisitorSearch(queriesIn,next)
+{
+	request
+	(
+		{
+			url: prepEndPoint('visitorsearch/'),
+			method: 'POST',
+			json:
+			{
+				queries:queriesIn
+			}
+		},
+		function(error, response, body)
+		{
+			if(error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error sending messages: ', error)
+			}
+			else if(response.body.error)
+			{
+				console.log("error from response.body.error!");
+				console.log('Error: ', response.body.error)
+			}
+			console.log("search results coming in!");
+			console.log(body);
+			next();
+		}
+	)
+}
+
+
 function sequentialShowBusinesses(sender,next)
 {
 	fetch(prepEndPoint('viewAllBusinesses')).then
@@ -580,6 +613,7 @@ function sequentialShowBusinesses(sender,next)
 	);
 }
 
+
 app.post
 (
 	'/webhook/',
@@ -616,10 +650,13 @@ app.post
 				else if(text.indexOf("search ") == 0)
 				{
 					let queryString = text.slice(7);
+
+					sequentialPostVisitorSearch(queryString, function(){});
+
 					sequentialSendMessage
 					(
 						sender,
-						"This is a beta command. Searching for " + queryString,
+						"This is a beta command.\nSearching for \"" + queryString + "\"",
 						function()
 						{
 							sequentialSendMessage
