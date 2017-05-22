@@ -533,7 +533,7 @@ function sequentialPostVisitorSearch(queriesIn,next)
 }
 
 
-function sequentialShowBusinesses(sender, businessesIn, activitiesIn, next)
+function sequentialShowBusinesses(sender, businessesIn, next)
 {
 	var arrayOfBusinesses = [];
 
@@ -603,7 +603,7 @@ function sequentialShowBusinesses(sender, businessesIn, activitiesIn, next)
 			{
 				console.log("search results coming in!");
 				console.log(body);
-				next(activitiesIn);
+				next();
 			}
 		}
 	)
@@ -671,26 +671,32 @@ app.post
 											(
 												sender,
 												"No Businesses Found",
-												showActivities(data.activities)
+												showActivities
 											);
 										else
 											sequentialSendMessage
 											(
 												sender,
 												"Showing Businesses Found...",
-												function(){sequentialShowBusinesses(sender, data.businesses, data.activities, showActivities)}
+												function()
+												{
+													sequentialShowBusinesses
+													(
+														sender,
+														data.businesses,
+														function()
+														{
+															sequentialSendMessage
+															(
+																sender,
+																"Then I'll also list activities",
+																function(){}
+															)
+														}
+													)
+												}
 											);
 
-										let showActivities = function(activities)
-										{
-
-											sequentialSendMessage
-											(
-												sender,
-												"Then I'll also list activities",
-												function(){}
-											)
-										}
 
 										/*sequentialSendMessage
 										(
