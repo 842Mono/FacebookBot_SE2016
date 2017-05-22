@@ -796,7 +796,7 @@ app.post
 																	sequentialSendMessage
 																	(
 																		sender,
-																		"search on... ^_^"
+																		"search on... ^_^",
 																		function(){}
 																	);
 																}
