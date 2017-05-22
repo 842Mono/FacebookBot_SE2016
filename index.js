@@ -185,12 +185,12 @@ function sendTextMessage(sender, text)
 			if(error)
 			{
 				console.log("error from sendTextMessage response.body.error!");
-				console.log('Error sending messages: ', error)
+				console.log(error)
 			}
-			else if(response.body.error)
+			if(response.body.error)
 			{
 				console.log("error from sendTextMessage response.body.error!");
-				console.log('Error: ', response.body.error)
+				console.log(response.body.error)
 			}
 		}
 	)
@@ -290,7 +290,7 @@ function directToWebsite(sender)
 			{
 				console.log('Error from directToWebsite error', error)
 			}
-			else if(response.body.error)
+			if(response.body.error)
 			{
 				console.log('Error from directToWebsite response.body.error', response.body.error)
 			}
@@ -369,7 +369,7 @@ function showBusinesses(sender)
 					{
 						console.log('Error from showBusinesses error', error)
 					}
-					else if(response.body.error)
+					if(response.body.error)
 					{
 						console.log('Error from showBusinesses response.body.error', response.body.error)
 					}
@@ -450,7 +450,7 @@ function showAllActivities(sender)
 					{
 						console.log('Error from showAllActivities error', error)
 					}
-					else if(response.body.error)
+					if(response.body.error)
 					{
 						console.log('Error from showAllActivities response.body.error', response.body.error)
 					}
@@ -481,12 +481,12 @@ function sequentialSendMessage(sender,text,next)
 			if(error)
 			{
 				console.log("error from sequentialSendMessage request!");
-				console.log('Error sending messages: ', error)
+				console.log(error)
 			}
-			else if(response.body.error)
+			if(response.body.error)
 			{
 				console.log("error from sequentialSendMessage response.body.error!");
-				console.log('Error: ', response.body.error)
+				console.log(response.body.error)
 			}
 			console.log("body coming in!");
 			console.log(body);
@@ -513,12 +513,12 @@ function sequentialPostVisitorSearch(queriesIn,next)
 			if(error)
 			{
 				console.log("error from sequentialPostVisitorSearch response.body.error!");
-				console.log('Error sending messages: ', error)
+				console.log(error)
 			}
-			else if(response.body.error)
+			if(response.body.error)
 			{
 				console.log("error from sequentialPostVisitorSearch response.body.error!");
-				console.log('Error: ', response.body.error)
+				console.log(response.body.error)
 			}
 			next(body);
 		}
@@ -585,12 +585,12 @@ function sequentialShowBusinesses(sender, businessesIn, next)
 			if(error)
 			{
 				console.log("error from sequentialShowBusinesses response.body.error!");
-				console.log('Error sending messages: ', error)
+				console.log(error)
 			}
-			else if(response.body.error)
+			if(response.body.error)
 			{
 				console.log("error from sequentialShowBusinesses response.body.error!");
-				console.log('Error: ', response.body.error)
+				console.log(response.body.error)
 			}
 			next();
 		}
@@ -671,12 +671,12 @@ function sequentialShowActivities(sender, activitiesIn, next)
 						if(error)
 						{
 							console.log("error from sequentialShowActivities response.body.error!");
-							console.log('Error sending messages: ', error)
+							console.log(error)
 						}
-						else if(response.body.error)
+						if(response.body.error)
 						{
 							console.log("error from sequentialShowActivities response.body.error!");
-							console.log('Error: ', response.body.error)
+							console.log(response.body.error)
 						}
 						next();
 					}
