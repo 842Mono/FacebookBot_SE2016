@@ -128,7 +128,6 @@ app.get
 );
 
 
-
 app.get
 (
 	'/test3',
@@ -313,8 +312,6 @@ function showBusinesses(sender)
 			for (let x = 0; x < json.all.length; ++x)
 			{
 				let business = json.all[x];
-				//console.log(business);
-				console.log(prepEndPoint('LOGOS/' + business.logo));
 				let businessElement =
 				{
 					"title": business.name,
@@ -478,8 +475,6 @@ function searchActivityType(sender, )
 
 function showAllActivities(sender)
 {
-	console.log(prepEndPoint('AllActivitiesallbusinesses'));
-
 	fetch(prepEndPoint('AllActivitiesallbusinesses')).then
 	(
 		function (res)
@@ -488,14 +483,12 @@ function showAllActivities(sender)
 		}
 	).then
 	(
-		function (json)
+		function(json)
 		{
 			var arrayOfActivities = [];
-			console.log(json);
 			for (let x = 0; x < json.activities.length; ++x)
 			{
 				let activity = json.activities[x];
-				//console.log(business);
 				let activityElement =
 				{
 					"title": activity.name,
@@ -566,12 +559,16 @@ app.post
 	'/webhook/',
 	function (req, res)
 	{
+		console.log("Request.Body coming in!");
+		console.log(req.body);
 		let messaging_events = req.body.entry[0].messaging
 		for (let i = 0; i < messaging_events.length; i++)
 		{
 			let event = req.body.entry[0].messaging[i];
 			let sender = event.sender.id;
 			let gender = event.sender.gender;
+
+
 			if (event.message && event.message.text)
 			{
 				let text = event.message.text.toLowerCase();
@@ -595,6 +592,13 @@ app.post
 				else if(text == "show website" || text.indexOf("website") >= 0)
 				{
 					directToWebsite(sender);
+				}
+				else if(text.indexOf("search") == 0)
+				{
+					sendTextMessage(sender, "This is a beta command");
+					sendTextMessage(sender, "I'll list businesesses based on your query");
+					sendTextMessage(sender, "Then I'll also list activities");
+
 				}
 				else if(new RegExp(GREETING_KEYWORDS.join("|")).test(text) || EXACT_GREETINGS.indexOf(text) >= 0)
 				{
@@ -706,10 +710,12 @@ app.post
 					continue
 				}
 			}
+
+
 			if(event.postback && event.postback.payload)
 			{
 				console.log("el event.postback");
-				//console.log(event.postback);
+				console.log(event.postback);
 				if (event.postback.payload.substring(0, 2) == "sa")
 				{
 					//sendTextMessage(sender, event.postback.payload);
@@ -758,8 +764,6 @@ app.post
 
 									arrayOfActivities.push(activityElement);
 								}
-
-								console.log(arrayOfActivities);
 
 								let messageData =
 								{
