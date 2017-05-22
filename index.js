@@ -924,11 +924,11 @@ app.post
 			{
 				let text = event.message.text.toLowerCase();
 
-				if(text == "show top businesses")
+				if(text == "show top businesses" || text.indexOf("top businesses") >= 0)
 				{
 					showTopBusinesses(sender);
 				}
-				else if(text == "show top activities")
+				else if(text == "show top activities" || text.indexOf("top activities") >= 0)
 				{
 					showTopActivities(sender);
 				}
@@ -1139,7 +1139,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
 					continue
 				}
 			}
