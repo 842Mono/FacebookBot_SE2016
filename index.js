@@ -1111,7 +1111,7 @@ app.post
 							);
 						}
 					);
-				},
+				}
 				else if(text == "search")
 				{
 					sendTextMessage(sender, "Using search is easier than you think. Just type \"search\" followed by your search keywords. Example: \"search rehab tagammoa sherook\"");
