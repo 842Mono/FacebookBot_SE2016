@@ -1344,14 +1344,14 @@ app.post
 				{
 					sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 				}
-				else if(text == "command window" || text.indexOf("command") >= 0 || text.indexOf("window") >= 0)
-				{
-					commandButtons1(sender, function(){commandsButtons2(sender);});
-				}
 				else if(text == "commands")
 				{
 					sendTextMessage(sender, "Available Commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search abc sth wtvr,\n About");
 					//sendTextMessage(sender, "Available commands:\n Bus,\n Act,\n Search abc sth wtvr");
+				}
+				else if(text == "command window" || text.indexOf("command") >= 0 || text.indexOf("window") >= 0)
+				{
+					commandButtons1(sender, function(){commandsButtons2(sender);});
 				}
 				else if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
