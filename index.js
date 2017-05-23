@@ -1226,7 +1226,7 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search (things),\n About");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search words words,\n About");
 				}
 				if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
