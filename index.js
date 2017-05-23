@@ -1405,7 +1405,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 								{
 				        	"type": "web_url",
 				          "url": prepLink('detailedBusiness/' + business.name),
-				          "messenger_extensions": true,
+				          //"messenger_extensions": true,
 				          "webview_height_ratio": "tall",
 				          "fallback_url": prepLink('')
 				        },
@@ -1415,7 +1415,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 			            	"title": "View",
 			              "type": "web_url",
 			              "url": prepLink('detailedBusiness/' + business.name),
-			              "messenger_extensions": true,
+			              //"messenger_extensions": true,
 			              "webview_height_ratio": "tall",
 			              "fallback_url": prepLink('')
 			            }
@@ -1429,7 +1429,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 								{
 			          	"type": "web_url",
 			            "url": prepLink('detailedBusiness/' + business.name),
-			            "messenger_extensions": true,
+			            //"messenger_extensions": true,
 			            "webview_height_ratio": "tall",
 			            "fallback_url": prepLink('')
 			          },
@@ -1452,7 +1452,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 								{
 									"type": "web_url",
 									"url": prepLink('detailedBusiness/' + business.name),
-									"messenger_extensions": true,
+									//"messenger_extensions": true,
 									"webview_height_ratio": "tall",
 									"fallback_url": prepLink('')
 								},
