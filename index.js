@@ -1139,9 +1139,11 @@ app.post
 				}
 				else
 				{
-					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search (your keywords here), *new*\n About\n Show Commands (this)");
+					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search (things),\n About");
 					continue
 				}
+				if(/[\u0600-\u06FF]/.test(event.message.text))
+					sendTextMessage(sender, "...btw I can't yet reply to arabic, maybe in the near future :)");
 			}
 
 
