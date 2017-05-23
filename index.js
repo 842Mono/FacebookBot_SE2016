@@ -1245,7 +1245,7 @@ app.post
 				}
 				if(event.postback.payload.substring(0, 2) == "sd")
 				{
-					sendTextMessage(sender, "Experimental feature!");
+					//sendTextMessage(sender, "Experimental feature!");
 					postbackShowDetailedBusiness(sender, event.postback.payload.substring(2));
 				}
 				continue
