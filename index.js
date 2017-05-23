@@ -1386,7 +1386,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 				contactInfo += ", " + business.mobile[j];
 			}
 
-			let workingHours = "From " business.wHoursStart + " To " + business.wHoursEnd;
+			let workingHours = "From " + business.wHoursStart + " To " + business.wHoursEnd;
 
 			let list =
 			{
