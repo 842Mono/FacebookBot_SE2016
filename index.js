@@ -1354,7 +1354,7 @@ function postbackShowActivities(sender, businessName)
 
 function postbackShowDetailedBusiness(sender, businessName)
 {
-	fetch(prepEndPoint('check/' + businessName)).then
+	fetch(prepEndPoint('Guest/' + businessName)).then
 	(
 		function (res)
 		{
