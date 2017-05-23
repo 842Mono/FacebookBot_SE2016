@@ -43,7 +43,7 @@ var MUSIC_LIST =
 	"https://soundcloud.com/noha-moheb/kenny-g-instrumental-wedding",
 	"https://soundcloud.com/cheko/kenny-g-endless-love",
 	"https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9vdFHnl89Yk%26t%3D3668s&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE",
-  "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCnfj6QCGLyA&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE"
+  	"https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DCnfj6QCGLyA&h=ATNwT265VwUzSYyphpTdzdmpBqjbF9B3MjfELciDvZA2h0FpcraZuA630RCYIlqwF-iHjbS033iTrD5dIVbPi3URYPbENzwPJ7vEbzQtC20LmkxTKhE_rEoWzZgaupuZXknE"
 ];
 
 var EMOJIS = [ ":D" , "😜" ,":)" , ";P" , ":O" , "(y)" , ":P" , "B)", "B-)" , "8)" , "8-)" , "^_^" , ":*" , "O:)" , "😂" , ";)" , "3:)" , "<3"];
@@ -199,58 +199,6 @@ function sendTextMessage(sender, text)
 }
 
 const token = "EAAatUDcBTFwBAOaJiKKHxOHjaczTYYu32BWwiZBOabW7oxcwjgQiKKQt5ngg2bJ9Nt7HPEzGosZBk7ji4kzZBglKuX53gUZA8Sn9kGYpXtDOEfuiSjE37V3QbjoTNVCQ3FPUmbDTzOwHG5gPrgLsWq8XejJF5hXDFOeSBmG2LQZDZD";
-
-/*
-function sendGenericMessage(sender) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [{
-					"title": "First card",
-					"subtitle": "Element #1 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-					"buttons": [{
-						"type": "web_url",
-						"url": "https://www.messenger.com",
-						"title": "web url"
-					}, {
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for first element in a generic bubble",
-					}],
-				}, {
-					"title": "Second card",
-					"subtitle": "Element #2 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-					"buttons": [{
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for second element in a generic bubble",
-					}],
-				}]
-			}
-		}
-	}
-	request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: { access_token: token },
-		method: 'POST',
-		json: {
-			recipient: { id: sender },
-			message: messageData,
-		}
-	}, function (error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
-}
-*/
-
 
 function directToWebsite(sender)
 {
