@@ -1059,6 +1059,7 @@ function commandsButtons2(sender)
 	    "payload":
 			{
 	    	"template_type":"button",
+	      "text":"",
 	      "buttons":
 				[
 					{
