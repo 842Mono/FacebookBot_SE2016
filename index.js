@@ -1318,12 +1318,12 @@ app.post
 				}
 				else if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
-					sendTextMessage(sender, "...I can't yet reply to arabic, maybe in the near future ^_^\nAvailable commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search abc sth wtvr,\n About");
+					sendTextMessage(sender, "...I can't yet reply to arabic, maybe in the near future ^_^\nAvailable Commands:\n Search abc sth wtvr\n Command Window\n Commands");
 				}
 				else
 				{
 					//sendTextMessage(sender, "Available Commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search abc sth wtvr,\n About");
-					sendTextMessage(sender, "Available Commands:\n Search abc sth wtvr\n Command Window\n Commands")
+					sendTextMessage(sender, "...I can't reply to that, maybe in the near future xD \n Available Commands:\n Search abc sth wtvr\n Command Window\n Commands")
 				}
 			}
 
