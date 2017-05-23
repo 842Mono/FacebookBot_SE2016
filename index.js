@@ -1026,7 +1026,7 @@ function sendList(sender)
 request
 (
 	{
-		url: 'https://graph.facebook.com/v2.6/me/messages',
+		url: 'https://graph.facebook.com/me/messages',
 		qs: { access_token: token },
 		method: 'POST',
 		json:
@@ -1039,11 +1039,11 @@ request
 	{
 		if(error)
 		{
-			console.log('Error from directToAboutUs error', error)
+			console.log('Error from sendList error', error)
 		}
 		if(response.body.error)
 		{
-			console.log('Error from directToAboutUs response.body.error', response.body.error)
+			console.log('Error from sendList response.body.error', response.body.error)
 		}
 	}
 );
