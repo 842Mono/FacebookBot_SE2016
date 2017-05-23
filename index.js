@@ -1026,11 +1026,14 @@ function sendList(sender)
 request
 (
 	{
-		url: 'https://graph.facebook.com/me/messages',
+		url: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: { access_token: token },
 		method: 'POST',
 		json:
 		{
+			setting_type : "domain_whitelisting",
+			whitelisted_domains : ["https://petersfancyapparel.com"],
+			domain_action_type: "add",
 			recipient: { id: sender },
 			message: list,
 		}
