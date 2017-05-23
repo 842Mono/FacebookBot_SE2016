@@ -462,11 +462,11 @@ function showAllActivities(sender)
 						{
 							"type": "web_url",
 							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
+							"title": "View Page"
 						},
 						{
 							"type": "postback",
-							"title": "Show details",
+							"title": "More Details",
 							"payload": "da" + activity.ID
 						}
 					],
@@ -1230,7 +1230,7 @@ app.post
 				}
 				if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
-					sendTextMessage(sender, "...btw I can't yet reply to arabic, maybe in the near future ^_^");
+					sendTextMessage(sender, "...I can't yet reply to arabic, maybe in the near future ^_^");
 				}
 			}
 
@@ -1579,10 +1579,75 @@ function postbackShowDetailedActivity(sender, activityID)
 	(
 		function (json)
 		{
-			console.log(json);
 			var activity = json.activity;
 
+			let allowedAge = "Minimum Age: " + activity.min_age ", Maximum Age: " + activity.max_age;
 
+			let list =
+			{
+				"attachment":
+				{
+			  	"type": "template",
+			    "payload":
+					{
+			    	"template_type": "list",
+			      "elements":
+						[
+			      	{
+				        "title": activity.name,
+				        "image_url": prepEndPoint('Activities/' + activity.logo),
+				        "subtitle": activity.description
+			        },
+			        {
+			        	"title": "Price",
+			          "subtitle": activity.price
+			        },
+							{
+								"title": "Allowed Age",
+								"subtitle": allowedAge
+							},
+							{
+								"title": "Latest Announcement",
+								"subtitle": activity.announcements
+							}
+			      ]
+						/*,
+			      "buttons":
+						[
+			      	{
+			        	"title": "Check Events",
+			          "type": "postback",
+			          "payload": "ce" + business.name
+			        }
+			      ]*/
+			    }
+			  }
+			}
+
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: list,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error from sendList error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from sendList response.body.error', response.body.error)
+					}
+				}
+			);
 		}
 	);
 }
