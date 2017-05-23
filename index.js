@@ -1522,15 +1522,20 @@ function postbackShowBusinessEvents(sender, businessName)
 			    "payload":
 					{
 			    	"template_type": "list",
-			      "elements":elementsArray
-			      /*,"buttons":
+			      "elements":elementsArray,
+			      "buttons":
 						[
-			      	{
-			        	"title": "Check Events",
-			          "type": "postback",
-			          "payload": "cd" + business.name
-			        }
-			      ]*/
+							{
+								"type": "web_url",
+								"url": prepLink('detailedBusiness/' + business.name),
+								"title": "Go To Page"
+							},
+							{
+								"type": "web_url",
+								"url": prepLink('detailedBusiness/' + business.name),
+								"title": "Go To Page"
+							}
+			      ]
 			    }
 			  }
 			}
