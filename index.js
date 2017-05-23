@@ -1400,39 +1400,12 @@ function postbackShowDetailedBusiness(sender, businessName)
 			      	{
 				        "title": business.name,
 				        "image_url": prepEndPoint('LOGOS/' + business.logo),
-				        "subtitle": business.description,
-				        "default_action":
-								{
-				        	"type": "web_url",
-				          "url": prepLink('detailedBusiness/' + business.name),
-				          //"messenger_extensions": true,
-				          "webview_height_ratio": "tall",
-				          "fallback_url": prepLink('')
-				        },
-			          "buttons":
-								[
-			          	{
-			            	"title": "View",
-			              "type": "web_url",
-			              "url": prepLink('detailedBusiness/' + business.name),
-			              //"messenger_extensions": true,
-			              "webview_height_ratio": "tall",
-			              "fallback_url": prepLink('')
-			            }
-			          ]
+				        "subtitle": business.description
 			        },
 			        {
 			        	"title": "Location(s)",
 			          //"image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-			          "subtitle": locations,
-			          "default_action":
-								{
-			          	"type": "web_url",
-			            "url": prepLink('detailedBusiness/' + business.name),
-			            //"messenger_extensions": true,
-			            "webview_height_ratio": "tall",
-			            "fallback_url": prepLink('')
-			          },
+			          "subtitle": locations
 			          /*"buttons":
 								[
 			          	{
@@ -1447,15 +1420,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 			        },
 							{
 								"title": "Contact Info",
-								"subtitle": contactInfo,
-								"default_action":
-								{
-									"type": "web_url",
-									"url": prepLink('detailedBusiness/' + business.name),
-									//"messenger_extensions": true,
-									"webview_height_ratio": "tall",
-									"fallback_url": prepLink('')
-								},
+								"subtitle": contactInfo
 							}
 							/*,{
 								"title": "Rating",
