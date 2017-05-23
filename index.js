@@ -999,6 +999,7 @@ function commandButtons1(sender, next)
 	    "payload":
 			{
 	    	"template_type":"button",
+	      "text":"",
 	      "buttons":
 				[
 	      	{
