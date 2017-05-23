@@ -1581,7 +1581,7 @@ function postbackShowDetailedActivity(sender, activityID)
 		{
 			var activity = json.activity;
 
-			let allowedAge = "Minimum Age: " + activity.min_age ", Maximum Age: " + activity.max_age;
+			let allowedAge = "Minimum Age: " + activity.min_age + ", Maximum Age: " + activity.max_age;
 
 			let list =
 			{
