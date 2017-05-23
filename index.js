@@ -999,7 +999,7 @@ function commandButtons1(sender, next)
 	    "payload":
 			{
 	    	"template_type":"button",
-	      "text":"",
+	      "text":"Business Commands:",
 	      "buttons":
 				[
 	      	{
@@ -1060,7 +1060,7 @@ function commandsButtons2(sender)
 	    "payload":
 			{
 	    	"template_type":"button",
-	      "text":"",
+	      "text":"Activity Commands:",
 	      "buttons":
 				[
 					{
