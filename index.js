@@ -1529,12 +1529,121 @@ function postbackShowBusinessEvents(sender, businessName)
 								"type": "web_url",
 								"url": prepLink('detailedBusiness/' + business.name),
 								"title": "Go To Page"
+							}
+			      ]
+			    }
+			  }
+			}
+
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: list,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error from sendList error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from sendList response.body.error', response.body.error)
+					}
+				}
+			);
+		}
+	);
+}
+
+
+function postbackShowDetailedActivity(sender, businessName)
+{
+	fetch(prepEndPoint('Guest/' + businessName)).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			console.log(json);
+			var business = json.BusinessesDetails;
+			console.log(business);
+			console.log(business.locations);
+
+			let locations = "";
+			for(let i = 0; i < business.locations.length; ++i)
+			{
+				if(i != 0)
+					locations += ", ";
+				locations += business.locations[i];
+			}
+
+			let contactInfo = business.email;
+			for(let j = 0; j < business.mobile.length; ++j)
+			{
+				contactInfo += ", " + business.mobile[j];
+			}
+
+			let workingHours = "From " + business.wHoursStart + " To " + business.wHoursEnd;
+
+			let list =
+			{
+				"attachment":
+				{
+			  	"type": "template",
+			    "payload":
+					{
+			    	"template_type": "list",
+			      "elements":
+						[
+			      	{
+				        "title": business.name,
+				        "image_url": prepEndPoint('LOGOS/' + business.logo),
+				        "subtitle": business.description
+			        },
+			        {
+			        	"title": "Location(s)",
+			          //"image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+			          "subtitle": locations
+			          /*"buttons":
+								[
+			          	{
+			            	"title": "Shop Now",
+			              "type": "web_url",
+			              "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+			              "messenger_extensions": true,
+			              "webview_height_ratio": "tall",
+			              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+			            }
+			          ]*/
+			        },
+							{
+								"title": "Contact Info",
+								"subtitle": contactInfo
 							},
 							{
-								"type": "web_url",
-								"url": prepLink('detailedBusiness/' + business.name),
-								"title": "Go To Page"
+								"title": "Working Hours",
+								"subtitle": workingHours
 							}
+			      ],
+			      "buttons":
+						[
+			      	{
+			        	"title": "Check Events",
+			          "type": "postback",
+			          "payload": "ce" + business.name
+			        }
 			      ]
 			    }
 			  }
