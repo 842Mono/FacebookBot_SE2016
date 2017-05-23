@@ -381,7 +381,7 @@ function showBusinesses(sender)
 						},
 						{
 							"type": "postback",
-							"title": "Show Available Activities",
+							"title": "Available Activities",
 							"payload": "sa" + business.name
 						},
 						{
@@ -913,55 +913,56 @@ function showTopActivities(sender)
 function sendList(sender)
 {
 	let list =
+	{
+  	"attachment":
 		{
-    	"attachment":
+      "type": "template",
+      "payload":
 			{
-        "type": "template",
-        "payload":
-				{
-          "template_type": "list",
-          "top_element_style": "compact",
-          "elements":
-					[
-          	{
-              "title": "Classic White T-Shirt",
-              "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-              "subtitle": "100% Cotton, 200% Comfortable",
-              "default_action":
-							{
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements":
+				[
+        	{
+            "title": "Classic White T-Shirt",
+            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+            "subtitle": "100% Cotton, 200% Comfortable",
+            "default_action":
+						{
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+            },
+            "buttons":
+						[
+              {
+                "title": "Buy",
                 "type": "web_url",
-                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
                 "messenger_extensions": true,
                 "webview_height_ratio": "tall",
                 "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-              },
-              "buttons":
-							[
-                {
-                  "title": "Buy",
-                  "type": "web_url",
-                  "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                  "messenger_extensions": true,
-                  "webview_height_ratio": "tall",
-                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                }
-              ]
-            },
-            ],
-             "buttons": [
-                {
-                    "title": "View More",
-                    "type": "postback",
-                    "payload": "payload"
-                }
+              }
             ]
-        }
-    }
-
-
+          },
+        ],
+        "buttons":
+				[
+        	{
+            "title": "View More",
+            "type": "postback",
+            "payload": "payload"
+          }
+        ]
+      }
+  	}
 	}
 
-
+	//setting_type : "domain_whitelisting",
+	//whitelisted_domains : ["https://petersfancyapparel.com"],
+	//domain_action_type: "add",
 	request
 	(
 		{
@@ -970,9 +971,6 @@ function sendList(sender)
 			method: 'POST',
 			json:
 			{
-				//setting_type : "domain_whitelisting",
-				//whitelisted_domains : ["https://petersfancyapparel.com"],
-				//domain_action_type: "add",
 				recipient: { id: sender },
 				message: list,
 			}
@@ -1172,7 +1170,7 @@ app.post
 				}
 				else if(new RegExp(ESHTA_WORDS.join("|")).test(text))
 				{
-					sendTextMessage(sender, "Eshta B)");
+					sendTextMessage(sender, "eshta B)");
 				}
 				else if(new RegExp(Languages.join("|")).test(text))
 				{
@@ -1247,7 +1245,8 @@ app.post
 				}
 				if(event.postback.payload.substring(0, 2) == "sd")
 				{
-					sendTextMessage(sender, "Experimental feature! todo soon!");
+					sendTextMessage(sender, "Experimental feature!");
+					postbackShowDetailedBusiness(sender, event.postback.payload.substring(2));
 				}
 				continue
 			}
@@ -1257,7 +1256,7 @@ app.post
 );
 
 
-function postbackShowActivities(sender,businessName)
+function postbackShowActivities(sender, businessName)
 {
 	//sendTextMessage(sender, event.postback.payload);
 	//var businessName = ;
@@ -1348,6 +1347,161 @@ function postbackShowActivities(sender,businessName)
 			{
 				sendTextMessage(sender, "This Business has no activities to show at the moment </3");
 			}
+		}
+	);
+}
+
+
+function postbackShowDetailedBusiness(sender, businessName)
+{
+	fetch(prepEndPoint('check/' + businessName)).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			var business = json.BusinessesDetails;
+
+			let locations = "";
+			for(let i = 0; i < business.locations.length; ++i)
+			{
+				if(i != 0)
+					locations += ", ";
+				locations += business.locations[i];
+			}
+
+			let contactInfo = business.email;
+			for(let j = 0; j < business.mobile.length; ++j)
+			{
+				contactInfo += ", " + business.mobile[j];
+			}
+
+			/*let rating = "";
+			for*/
+
+
+			let list =
+			{
+				"attachment":
+				{
+			  	"type": "template",
+			    "payload":
+					{
+			    	"template_type": "list",
+			      "elements":
+						[
+			      	{
+				        "title": business.name,
+				        "image_url": prepEndPoint('LOGOS/' + business.logo),
+				        "subtitle": business.description,
+				        "default_action":
+								{
+				        	"type": "web_url",
+				          "url": prepLink('detailedBusiness/' + business.name),
+				          "messenger_extensions": true,
+				          "webview_height_ratio": "tall",
+				          "fallback_url": prepLink('')
+				        },
+			          "buttons":
+								[
+			          	{
+			            	"title": "View",
+			              "type": "web_url",
+			              "url": prepLink('detailedBusiness/' + business.name),
+			              "messenger_extensions": true,
+			              "webview_height_ratio": "tall",
+			              "fallback_url": prepLink('')
+			            }
+			          ]
+			        },
+			        {
+			        	"title": "Location(s)",
+			          //"image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+			          "subtitle": locations,
+			          "default_action":
+								{
+			          	"type": "web_url",
+			            "url": prepLink('detailedBusiness/' + business.name),
+			            "messenger_extensions": true,
+			            "webview_height_ratio": "tall",
+			            "fallback_url": prepLink('')
+			          },
+			          /*"buttons":
+								[
+			          	{
+			            	"title": "Shop Now",
+			              "type": "web_url",
+			              "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+			              "messenger_extensions": true,
+			              "webview_height_ratio": "tall",
+			              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+			            }
+			          ]*/
+			        },
+							{
+								"title": "Contact Info",
+								"subtitle": contactInfo,
+								"default_action":
+								{
+									"type": "web_url",
+									"url": prepLink('detailedBusiness/' + business.name),
+									"messenger_extensions": true,
+									"webview_height_ratio": "tall",
+									"fallback_url": prepLink('')
+								},
+							}
+							/*,{
+								"title": "Rating",
+								"subtitle": rating,
+								"default_action":
+								{
+									"type": "web_url",
+									"url": prepLink('detailedBusiness/' + business.name),
+									"messenger_extensions": true,
+									"webview_height_ratio": "tall",
+									"fallback_url": prepLink('')
+								},*/
+			      ],
+			      "buttons":
+						[
+			      	{
+			        	"title": "View More",
+			          "type": "postback",
+			          "payload": "payload"
+			        }
+			      ]
+			    }
+			  }
+			}
+
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: list,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error from sendList error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from sendList response.body.error', response.body.error)
+					}
+				}
+			);
 		}
 	);
 }
