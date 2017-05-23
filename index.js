@@ -910,7 +910,7 @@ function showTopActivities(sender)
 }
 
 
-function sendList(sender)
+/*function sendList(sender)
 {
 	let list =
 	{
@@ -987,7 +987,7 @@ function sendList(sender)
 			}
 		}
 	);
-}
+}*/
 
 
 app.post
@@ -1029,10 +1029,6 @@ app.post
 				{
 					directToWebsite(sender);
 				}
-				/*else if(text == "list")
-				{
-					sendList(sender);
-				}*/
 				else if(text.indexOf("search ") == 0)
 				{
 					let queryString = event.message.text.slice(7);
@@ -1115,6 +1111,10 @@ app.post
 							);
 						}
 					);
+				},
+				else if(text == "search")
+				{
+					sendTextMessage(sender, "Using search is easier than you think. Just type \"search\" followed by your search keywords. Example: \"search rehab tagammoa sherook\"");
 				}
 				else if(text == "about")
 				{
@@ -1226,7 +1226,7 @@ app.post
 				}
 				else if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
-					sendTextMessage(sender, "...I can't yet reply to arabic, maybe in the near future ^_^");
+					sendTextMessage(sender, "...I can't yet reply to arabic, maybe in the near future ^_^\nAvailable commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search abc sth wtvr,\n About");
 				}
 				else
 				{
