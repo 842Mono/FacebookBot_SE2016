@@ -37,6 +37,7 @@ var Lovee = ["love" , "<3"];
 var SHATAYEM = ["fuck" , "7omar" , "donkey" , "7ywan" , "stupid" , "fck" , "idiot", "zeft"];
 var Complements = ["nice" , "cool" , "awesome" , "great" , "ur good" , "danta dma8" , "danta dma9" , "danta dema8" , "danta dma3'" , "danta dema3'" , "cute" , "awsome" , "lol" , "it is good" , "u r good"];
 
+var DE7K = ["haha" , "hhhh" , "hhh" , "ahaha"];
 var SUGGEST_WORDS = ["suggest" , "music" , "want sth to do" , "dnt know what to do" , "like what" , "sth else" , "something else" , "else"];
 var MUSIC_LIST =
 [
@@ -1218,6 +1219,10 @@ app.post
 				else if(new RegExp(INTRO_KEYWORDS.join("|")).test(text))
 				{
 					sendTextMessage(sender, "I am Bo2loz , a chat bot made by winning eleven team B) Keep chatting to find out more ;)");
+				}
+				else if(new RegExp(DE7K.join("|")).test(text))
+				{
+					sendTextMessage(sender, "Glad U like it xDD");
 				}
 				else if(new RegExp(SUGGEST_WORDS.join("|")).test(text))
 				{
