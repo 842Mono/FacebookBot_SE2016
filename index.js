@@ -1386,7 +1386,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 				contactInfo += ", " + business.mobile[j];
 			}
 
-			let workingHours = business.wHoursStart + " " + business.wHoursEnd;
+			let workingHours = "From " business.wHoursStart + " To " + business.wHoursEnd;
 
 			let list =
 			{
@@ -1509,7 +1509,7 @@ function postbackShowBusinessEvents(sender, businessName)
 					(
 						{
 							"title": business.events[i].title,
-							"subtitle": business.events[i].description + "\nDate: " + business.events[i].eventDate
+							"subtitle": business.events[i].description + "\n\nDate: " + business.events[i].eventDate
 						}
 					);
 				}
