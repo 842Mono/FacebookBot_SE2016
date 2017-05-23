@@ -1077,19 +1077,19 @@ app.post
 				{
 					sendTextMessage(sender, "7byby teslam ^_^");
 				}
-				else if (new RegExp(TestBank.join("|")).test(text))
+				else if(new RegExp(TestBank.join("|")).test(text))
 				{
 					sendTextMessage(sender, "here you go, study well ;P \n https://drive.google.com/file/d/0B0b5sZss-XshVnh1aXZqLXZ5TWc/view");
 				}
-				else if (new RegExp(ESHTA_WORDS.join("|")).test(text))
+				else if(new RegExp(ESHTA_WORDS.join("|")).test(text))
 				{
 					sendTextMessage(sender, "Eshta B)");
 				}
-				else if (new RegExp(Languages.join("|")).test(text))
+				else if(new RegExp(Languages.join("|")).test(text))
 				{
 					sendTextMessage(sender, "I don't speak Arabic just English and basic franko till now :D");
 				}
-				else if (new RegExp(BYE_WORDS.join("|")).test(text))
+				else if(new RegExp(BYE_WORDS.join("|")).test(text))
 				{
 					sendTextMessage(sender, "Bye , Nice to meet u :D");
 				}
@@ -1133,7 +1133,7 @@ app.post
 				{
 					sendTextMessage(sender, "You know.. If you really want to find out you can google it! >:} 😂");
 				}
-				else if (new RegExp(CALLING_KEYWORDS.join("|")).test(text))
+				else if(new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 				{
 					sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 				}
@@ -1143,7 +1143,10 @@ app.post
 					continue
 				}
 				if(/[\u0600-\u06FF]/.test(event.message.text))
+				{
+					console.log("has arabic")
 					sendTextMessage(sender, "...btw I can't yet reply to arabic, maybe in the near future :)");
+				}
 			}
 
 
