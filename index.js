@@ -908,9 +908,6 @@ function showTopActivities(sender)
 function sendList(sender)
 {
 	let list =
-	{
-  	"recipient":{"id":"RECIPIENT_ID"},
-		"message":
 		{
     	"attachment":
 			{
@@ -1021,7 +1018,7 @@ function sendList(sender)
             ]
         }
     }
-}
+
 
 }
 
