@@ -1610,16 +1610,15 @@ function postbackShowDetailedActivity(sender, activityID)
 								"title": "Latest Announcement",
 								"subtitle": activity.announcements
 							}
-			      ]
-						/*,
+			      ],
 			      "buttons":
 						[
-			      	{
-			        	"title": "Check Events",
-			          "type": "postback",
-			          "payload": "ce" + business.name
-			        }
-			      ]*/
+							{
+								"type": "web_url",
+								"url": prepLink('DetailedActivity/' + activity.ID),
+								"title": "Go To Page"
+							}
+			      ]
 			    }
 			  }
 			}
