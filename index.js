@@ -1349,7 +1349,7 @@ app.post
 				}
 				else if(text == "act")
 				{
-					commandButtons2(sender);
+					commandsButtons2(sender);
 				}
 				else if(text == "commands")
 				{
