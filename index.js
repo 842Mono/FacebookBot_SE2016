@@ -989,7 +989,7 @@ function showTopActivities(sender)
 	);
 }*/
 
-function commandsButtons(sender)
+function commandButtons1(sender)
 {
 	let buttons =
 	{
@@ -1009,18 +1009,73 @@ function commandsButtons(sender)
 	        },
 	        {
 	        	"type":"postback",
-	          "title":"Start Chatting",
-	          "payload":"USER_DEFINED_PAYLOAD"
+	          "title":"Show All Businesses",
+	          "payload":"k1"
 	        },
 					{
 	        	"type":"postback",
-	          "title":"Start Chatting",
-	          "payload":"USER_DEFINED_PAYLOAD"
+	          "title":"Show Top Businesses",
+	          "payload":"k2"
+	        }
+	      ]
+	    }
+	  }
+	}
+
+
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: buttons,
+			}
+		},
+		function (error, response, body)
+		{
+			if(error)
+			{
+				console.log('Error from directToWebsite error', error)
+			}
+			if(response.body.error)
+			{
+				console.log('Error from directToWebsite response.body.error', response.body.error)
+			}
+		}
+	);
+}
+
+function commandsButtons2(sender)
+{
+	let buttons =
+	{
+		"attachment":
+		{
+	  	"type":"template",
+	    "payload":
+			{
+	    	"template_type":"button",
+	      "text":"What do you want to do next?",
+	      "buttons":
+				[
+					{
+	        	"type":"postback",
+	          "title":"Show All Activities",
+	          "payload":"k3"
+	        },
+	        {
+	        	"type":"postback",
+	          "title":"Show Top Activities",
+	          "payload":"k4"
 	        },
 					{
 	        	"type":"postback",
-	          "title":"Start Chatting",
-	          "payload":"USER_DEFINED_PAYLOAD"
+	          "title":"About Us",
+	          "payload":"k5"
 	        }
 	      ]
 	    }
@@ -1288,9 +1343,17 @@ app.post
 				{
 					sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 				}
+				else if(text == "bus")
+				{
+					commandButtons1(sender);
+				}
+				else if(text == "act")
+				{
+					commandButtons2(sender);
+				}
 				else if(text == "commands")
 				{
-					commandsButtons(sender);
+					sendTextMessage(sender, "Available commands:\n Bus,\n Act,\n Search abc sth wtvr");
 				}
 				else if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
@@ -1322,6 +1385,28 @@ app.post
 				{
 					postbackShowDetailedActivity(sender, event.postback.payload.substring(2));
 				}
+
+				if(event.postback.payload.substring(0, 2) == "k1")
+				{
+					showBusinesses(sender);
+				}
+				if(event.postback.payload.substring(0, 2) == "k2")
+				{
+					showTopBusinesses(sender);
+				}
+				if(event.postback.payload.substring(0, 2) == "k3")
+				{
+					showAllActivities(sender);
+				}
+				if(event.postback.payload.substring(0, 2) == "k4")
+				{
+					showTopActivities(sender);
+				}
+				if(event.postback.payload.substring(0, 2) == "k5")
+				{
+					directToAboutUs(sender);
+				}
+
 				continue
 			}
 		}
