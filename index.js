@@ -1245,8 +1245,11 @@ app.post
 				}
 				if(event.postback.payload.substring(0, 2) == "sd")
 				{
-					//sendTextMessage(sender, "Experimental feature!");
 					postbackShowDetailedBusiness(sender, event.postback.payload.substring(2));
+				}
+				if(event.postback.payload.substring(0, 2) == "ce")
+				{
+					postbackShowBusinessEvents(sender, event.postback.payload.substring(2));
 				}
 				continue
 			}
@@ -1383,9 +1386,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 				contactInfo += ", " + business.mobile[j];
 			}
 
-			/*let rating = "";
-			for*/
-
+			let workingHours = business.wHoursStart + " " + business.wHoursEnd;
 
 			let list =
 			{
@@ -1421,25 +1422,18 @@ function postbackShowDetailedBusiness(sender, businessName)
 							{
 								"title": "Contact Info",
 								"subtitle": contactInfo
+							},
+							{
+								"title": "Working Hours",
+								"subtitle": workingHours
 							}
-							/*,{
-								"title": "Rating",
-								"subtitle": rating,
-								"default_action":
-								{
-									"type": "web_url",
-									"url": prepLink('detailedBusiness/' + business.name),
-									"messenger_extensions": true,
-									"webview_height_ratio": "tall",
-									"fallback_url": prepLink('')
-								},*/
 			      ],
 			      "buttons":
 						[
 			      	{
-			        	"title": "View More",
+			        	"title": "Check Events",
 			          "type": "postback",
-			          "payload": "payload"
+			          "payload": "cd" + business.name
 			        }
 			      ]
 			    }
@@ -1473,6 +1467,102 @@ function postbackShowDetailedBusiness(sender, businessName)
 		}
 	);
 }
+
+
+function postbackShowBusinessEvents(sender, businessName)
+{
+	fetch(prepEndPoint('Guest/' + businessName)).then
+	(
+		function (res)
+		{
+			return res.json();
+		}
+	).then
+	(
+		function (json)
+		{
+			var business = json.BusinessesDetails;
+
+			let elementsArray = [];
+
+			elementsArray.push
+			(
+				{
+					"title": business.name,
+					"image_url": prepEndPoint('LOGOS/' + business.logo),
+					"subtitle": "Events Card For The Business"
+				}
+			);
+
+			if(business.events.length == 0)
+				elementsArray.push
+				(
+					{
+						"title": "This Business Has No Events To Show At The Moment",
+						"subtitle": "try searching for another.."
+					}
+				);
+			else
+				for(let i = 0; i < business.events.length; ++i)
+				{
+					elementsArray.push
+					(
+						{
+							"title": business.events[i].title,
+							"subtitle": business.events[i].description + "\nDate: " + business.events[i].eventDate
+						}
+					);
+				}
+
+			let list =
+			{
+				"attachment":
+				{
+			  	"type": "template",
+			    "payload":
+					{
+			    	"template_type": "list",
+			      "elements":elementsArray
+			      /*,"buttons":
+						[
+			      	{
+			        	"title": "Check Events",
+			          "type": "postback",
+			          "payload": "cd" + business.name
+			        }
+			      ]*/
+			    }
+			  }
+			}
+
+			request
+			(
+				{
+					url: 'https://graph.facebook.com/v2.6/me/messages',
+					qs: { access_token: token },
+					method: 'POST',
+					json:
+					{
+						recipient: { id: sender },
+						message: list,
+					}
+				},
+				function (error, response, body)
+				{
+					if(error)
+					{
+						console.log('Error from sendList error', error)
+					}
+					if(response.body.error)
+					{
+						console.log('Error from sendList response.body.error', response.body.error)
+					}
+				}
+			);
+		}
+	);
+}
+
 
 
 app.listen(app.get('port'),function(){console.log('running on port', app.get('port'))});
