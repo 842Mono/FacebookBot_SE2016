@@ -989,6 +989,80 @@ function showTopActivities(sender)
 	);
 }*/
 
+function commandsButtons(sender)
+{
+	let buttons =
+	{
+		"attachment":
+		{
+	  	"type":"template",
+	    "payload":
+			{
+	    	"template_type":"button",
+	      "text":"What do you want to do next?",
+	      "buttons":
+				[
+	      	{
+	        	"type":"web_url",
+	          "url":prepLink(''),
+	          "title":"Show Website"
+	        },
+	        {
+	        	"type":"postback",
+	          "title":"Start Chatting",
+	          "payload":"USER_DEFINED_PAYLOAD"
+	        },
+					{
+	        	"type":"postback",
+	          "title":"Start Chatting",
+	          "payload":"USER_DEFINED_PAYLOAD"
+	        },
+					{
+	        	"type":"postback",
+	          "title":"Start Chatting",
+	          "payload":"USER_DEFINED_PAYLOAD"
+	        },
+					{
+	        	"type":"postback",
+	          "title":"Start Chatting",
+	          "payload":"USER_DEFINED_PAYLOAD"
+	        },
+					{
+	        	"type":"postback",
+	          "title":"Start Chatting",
+	          "payload":"USER_DEFINED_PAYLOAD"
+	        }
+	      ]
+	    }
+	  }
+	}
+
+
+	request
+	(
+		{
+			url: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { access_token: token },
+			method: 'POST',
+			json:
+			{
+				recipient: { id: sender },
+				message: buttons,
+			}
+		},
+		function (error, response, body)
+		{
+			if(error)
+			{
+				console.log('Error from directToWebsite error', error)
+			}
+			if(response.body.error)
+			{
+				console.log('Error from directToWebsite response.body.error', response.body.error)
+			}
+		}
+	);
+}
 
 app.post
 (
@@ -1223,6 +1297,10 @@ app.post
 				else if(new RegExp(CALLING_KEYWORDS.join("|")).test(text))
 				{
 					sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
+				}
+				else if(text == "commands")
+				{
+					commandsButtons(sender);
 				}
 				else if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
