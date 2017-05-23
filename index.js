@@ -599,12 +599,17 @@ function sequentialShowBusinesses(sender, businessesIn, next)
 				{
 					"type": "web_url",
 					"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-					"title": "View Details"
+					"title": "See Profile"
 				},
 				{
 					"type": "postback",
-					"title": "Show My Activities",
+					"title": "Available Activities",
 					"payload": "sa" + business.name
+				},
+				{
+					"type": "postback",
+					"title": "More Details",
+					"payload": "db" + business.name
 				}
 			],
 		};
@@ -684,13 +689,13 @@ function sequentialShowActivities(sender, activitiesIn, next)
 							{
 								"type": "web_url",
 								"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-								"title": "View Details"
-							}/*,
+								"title": "View Page"
+							},
 							{
 								"type": "postback",
-								"title": "Show details",
-								"payload":activity.name
-							}*/
+								"title": "More Details",
+								"payload": "da" + activity.ID
+							}
 						],
 					};
 
@@ -772,12 +777,17 @@ function showTopBusinesses(sender)
 						{
 							"type": "web_url",
 							"url": prepLink('detailedBusiness/' + business.name), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
+							"title": "See Profile"
 						},
 						{
 							"type": "postback",
-							"title": "Show My Activities",
+							"title": "Available Activities",
 							"payload": "sa" + business.name
+						},
+						{
+							"type": "postback",
+							"title": "More Details",
+							"payload": "db" + business.name
 						}
 					],
 				};
@@ -855,13 +865,13 @@ function showTopActivities(sender)
 						{
 							"type": "web_url",
 							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
-							"title": "View Details"
-						}/*,
+							"title": "View Page"
+						},
 						{
 							"type": "postback",
-							"title": "Show details",
-							"payload":activity.name
-						}*/
+							"title": "More Details",
+							"payload": "da" + activity.ID
+						}
 					],
 				};
 
