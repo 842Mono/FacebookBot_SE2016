@@ -387,7 +387,7 @@ function showBusinesses(sender)
 						{
 							"type": "postback",
 							"title": "More Details",
-							"payload": "sd" + business.name
+							"payload": "db" + business.name
 						}
 					],
 				};
@@ -463,12 +463,12 @@ function showAllActivities(sender)
 							"type": "web_url",
 							"url": prepLink('DetailedActivity/' + activity.ID), //"https://www.messenger.com",//prepLink('detailedBusiness/' + business.name),
 							"title": "View Details"
-						}/*,
+						},
 						{
 							"type": "postback",
 							"title": "Show details",
-							"payload":activity.name
-						}*/
+							"payload": "da" + activity.ID
+						}
 					],
 				};
 
@@ -1230,7 +1230,6 @@ app.post
 				}
 				if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
-					console.log("has arabic")
 					sendTextMessage(sender, "...btw I can't yet reply to arabic, maybe in the near future ^_^");
 				}
 			}
@@ -1243,13 +1242,17 @@ app.post
 				{
 					postbackShowActivities(sender, event.postback.payload.substring(2));
 				}
-				if(event.postback.payload.substring(0, 2) == "sd")
+				if(event.postback.payload.substring(0, 2) == "db")
 				{
 					postbackShowDetailedBusiness(sender, event.postback.payload.substring(2));
 				}
 				if(event.postback.payload.substring(0, 2) == "ce")
 				{
 					postbackShowBusinessEvents(sender, event.postback.payload.substring(2));
+				}
+				if(event.postback.payload.substring(0, 2) == "da")
+				{
+					postbackShowDetailedActivity(sender, event.postback.payload.substring(2));
 				}
 				continue
 			}
@@ -1564,9 +1567,9 @@ function postbackShowBusinessEvents(sender, businessName)
 }
 
 
-function postbackShowDetailedActivity(sender, businessName)
+function postbackShowDetailedActivity(sender, activityID)
 {
-	fetch(prepEndPoint('Guest/' + businessName)).then
+	fetch(prepEndPoint('showActivity/' + activityID)).then
 	(
 		function (res)
 		{
@@ -1577,102 +1580,9 @@ function postbackShowDetailedActivity(sender, businessName)
 		function (json)
 		{
 			console.log(json);
-			var business = json.BusinessesDetails;
-			console.log(business);
-			console.log(business.locations);
+			var activity = json.activity;
 
-			let locations = "";
-			for(let i = 0; i < business.locations.length; ++i)
-			{
-				if(i != 0)
-					locations += ", ";
-				locations += business.locations[i];
-			}
 
-			let contactInfo = business.email;
-			for(let j = 0; j < business.mobile.length; ++j)
-			{
-				contactInfo += ", " + business.mobile[j];
-			}
-
-			let workingHours = "From " + business.wHoursStart + " To " + business.wHoursEnd;
-
-			let list =
-			{
-				"attachment":
-				{
-			  	"type": "template",
-			    "payload":
-					{
-			    	"template_type": "list",
-			      "elements":
-						[
-			      	{
-				        "title": business.name,
-				        "image_url": prepEndPoint('LOGOS/' + business.logo),
-				        "subtitle": business.description
-			        },
-			        {
-			        	"title": "Location(s)",
-			          //"image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-			          "subtitle": locations
-			          /*"buttons":
-								[
-			          	{
-			            	"title": "Shop Now",
-			              "type": "web_url",
-			              "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-			              "messenger_extensions": true,
-			              "webview_height_ratio": "tall",
-			              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-			            }
-			          ]*/
-			        },
-							{
-								"title": "Contact Info",
-								"subtitle": contactInfo
-							},
-							{
-								"title": "Working Hours",
-								"subtitle": workingHours
-							}
-			      ],
-			      "buttons":
-						[
-			      	{
-			        	"title": "Check Events",
-			          "type": "postback",
-			          "payload": "ce" + business.name
-			        }
-			      ]
-			    }
-			  }
-			}
-
-			request
-			(
-				{
-					url: 'https://graph.facebook.com/v2.6/me/messages',
-					qs: { access_token: token },
-					method: 'POST',
-					json:
-					{
-						recipient: { id: sender },
-						message: list,
-					}
-				},
-				function (error, response, body)
-				{
-					if(error)
-					{
-						console.log('Error from sendList error', error)
-					}
-					if(response.body.error)
-					{
-						console.log('Error from sendList response.body.error', response.body.error)
-					}
-				}
-			);
 		}
 	);
 }
