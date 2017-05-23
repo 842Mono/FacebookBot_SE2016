@@ -1433,7 +1433,7 @@ function postbackShowDetailedBusiness(sender, businessName)
 			      	{
 			        	"title": "Check Events",
 			          "type": "postback",
-			          "payload": "cd" + business.name
+			          "payload": "ce" + business.name
 			        }
 			      ]
 			    }
