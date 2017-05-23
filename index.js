@@ -935,12 +935,10 @@ app.post
 				else if(text == "show businesses" || text.indexOf("businesses") >= 0)
 				{
 					showBusinesses(sender)
-					continue
 				}
 				else if(text == "show activities" || text.indexOf("activities") >= 0)
 				{
 					showAllActivities(sender)
-					continue
 				}
 				else if(text == "show website" || text.indexOf("website") >= 0)
 				{
@@ -1140,7 +1138,6 @@ app.post
 				else
 				{
 					sendTextMessage(sender, "Available commands:\n Show Businesses,\n Show Activities,\n Show Top Businesses,\n Show Top Activities,\n Show Website,\n Search (things),\n About");
-					continue
 				}
 				if(/[\u0600-\u06FF]/.test(event.message.text))
 				{
