@@ -1002,11 +1002,6 @@ function commandButtons1(sender, next)
 	      "text":"Business Commands:",
 	      "buttons":
 				[
-	      	{
-	        	"type":"web_url",
-	          "url":prepLink(''),
-	          "title":"Show Website"
-	        },
 	        {
 	        	"type":"postback",
 	          "title":"Show All Businesses",
@@ -1016,6 +1011,11 @@ function commandButtons1(sender, next)
 	        	"type":"postback",
 	          "title":"Show Top Businesses",
 	          "payload":"k2"
+	        },
+					{
+	        	"type":"web_url",
+	          "url":prepLink(''),
+	          "title":"Show Website"
 	        }
 	      ]
 	    }
