@@ -1364,7 +1364,10 @@ function postbackShowDetailedBusiness(sender, businessName)
 	(
 		function (json)
 		{
+			console.log(json);
 			var business = json.BusinessesDetails;
+			console.log(business);
+			console.log(business.locations);
 
 			let locations = "";
 			for(let i = 0; i < business.locations.length; ++i)
