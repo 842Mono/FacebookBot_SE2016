@@ -989,7 +989,7 @@ function showTopActivities(sender)
 	);
 }*/
 
-function commandButtons1(sender)
+function commandButtons1(sender, next)
 {
 	let buttons =
 	{
@@ -1039,12 +1039,13 @@ function commandButtons1(sender)
 		{
 			if(error)
 			{
-				console.log('Error from directToWebsite error', error)
+				console.log('Error from commandButtons1 error', error)
 			}
 			if(response.body.error)
 			{
-				console.log('Error from directToWebsite response.body.error', response.body.error)
+				console.log('Error from commandButtons1 response.body.error', response.body.error)
 			}
+			next();
 		}
 	);
 }
@@ -1099,11 +1100,11 @@ function commandsButtons2(sender)
 		{
 			if(error)
 			{
-				console.log('Error from directToWebsite error', error)
+				console.log('Error from commandsButtons2 error', error)
 			}
 			if(response.body.error)
 			{
-				console.log('Error from directToWebsite response.body.error', response.body.error)
+				console.log('Error from commandsButtons2 response.body.error', response.body.error)
 			}
 		}
 	);
@@ -1343,9 +1344,9 @@ app.post
 				{
 					sendTextMessage(sender, "yeah i am here , What do you want?? 😂");
 				}
-				else if(text == "bus")
+				else if(text == "command window")
 				{
-					commandButtons1(sender);
+					commandButtons1(sender, function(){commandsButtons2(sender);});
 				}
 				else if(text == "act")
 				{
